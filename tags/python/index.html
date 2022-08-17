@@ -1,157 +1,17 @@
-<!DOCTYPE html>
-<html lang="en" dir="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>python | Godot&#39;s Blog</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="https://iamgodot.com/tags/python/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7cb1aaa4414c482febc7034a427761d087a2cf358f1be8f7beba5afc947b57d0.css" integrity="sha256-fLGqpEFMSC/rxwNKQndh0IeizzWPG&#43;j3vrpa/JR7V9A=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://iamgodot.com/icons/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://iamgodot.com/icons/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://iamgodot.com/icons/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://iamgodot.com/icons/apple-touch-icon.png">
-<link rel="mask-icon" href="https://iamgodot.com/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://iamgodot.com/tags/python/index.xml">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" media="print" onload="this.media='all'">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-        <link rel="preconnect" href="https://plausible.iamgodot.com">
-    
-        
-        <script defer data-domain="iamgodot.com" src="https://plausible.iamgodot.com/js/plausible.js" ></script>
-
-<!-- If you are using Content-Security-Policy, do not forget to add this code to your CSP : 
-  script-src 'unsafe-inline' https://plausible.iamgodot.com
-  connect-src 'unsafe-inline' https://plausible.iamgodot.com
-  or just add the partial 'plausible_csp.html' to those 2 csp directives in your 'index.headers' file
--->
-
-
-
-    
-    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
-    <script>
-         
-         
-         
-    </script>
-
-    
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-157042624-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script><meta property="og:title" content="python" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://iamgodot.com/tags/python/" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="python"/>
-<meta name="twitter:description" content=""/>
-
-</head>
-
-<body class="list dark" id="top">
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://iamgodot.com" accesskey="h" title="Godot&#39;s Blog (Alt + H)">Godot&#39;s Blog</a>
-            <span class="logo-switches">
-            </span>
-        </div>
-        <ul id="menu">
-        </ul>
-    </nav>
-</header>
-<main class="main"> 
-<header class="page-header">
-  <h1>python</h1>
-</header>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2>Bottle 框架源码阅读
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>写这篇文章最开心的一点是终于可以用这张截图了：
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>python | Godot's Blog</title><meta name=keywords content><meta name=description content><meta name=author content><link rel=canonical href=https://iamgodot.com/tags/python/><link crossorigin=anonymous href=/assets/css/stylesheet.min.7cb1aaa4414c482febc7034a427761d087a2cf358f1be8f7beba5afc947b57d0.css integrity="sha256-fLGqpEFMSC/rxwNKQndh0IeizzWPG+j3vrpa/JR7V9A=" rel="preload stylesheet" as=style><link rel=icon href=https://iamgodot.com/icons/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://iamgodot.com/icons/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://iamgodot.com/icons/favicon-32x32.png><link rel=apple-touch-icon href=https://iamgodot.com/icons/apple-touch-icon.png><link rel=mask-icon href=https://iamgodot.com/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate type=application/rss+xml href=https://iamgodot.com/tags/python/index.xml><noscript><style>#theme-toggle,.top-link{display:none}</style></noscript><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=preload as=style href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" media=print onload='this.media="all"'><link rel=preconnect href=https://plausible.iamgodot.com><script defer data-domain=iamgodot.com src=https://plausible.iamgodot.com/js/plausible.js></script>
+<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script><script></script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-157042624-1","auto"),ga("send","pageview"))</script><meta property="og:title" content="python"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:url" content="https://iamgodot.com/tags/python/"><meta name=twitter:card content="summary"><meta name=twitter:title content="python"><meta name=twitter:description content></head><body class="list dark" id=top><header class=header><nav class=nav><div class=logo><a href=https://iamgodot.com accesskey=h title="Godot's Blog (Alt + H)">Godot's Blog</a>
+<span class=logo-switches></span></div><ul id=menu></ul></nav></header><main class=main><header class=page-header><h1>python</h1></header><article class="post-entry tag-entry"><header class=entry-header><h2>Bottle 框架源码阅读</h2></header><section class=entry-content><p>写这篇文章最开心的一点是终于可以用这张截图了：
 相比名声在外的 Django/Flask/FastAPI，Bottle 可以说是非常不起眼了，甚至很多人并不知道它的存在。其实在很多方面，这个框架都极其优秀：
 速度：截止到 2022-04-13，Bottle 在一众 Python Web 框架的测评中名列第二，要知道这可是十年以上的老前辈了。 易用性：Bottle 早在 Flask 之前就使用了装饰器来定义路由，此外还有全局可用的 Request/Response 对象。 文档：不仅将框架本身的使用讲得很清楚，还总结了很多 Web 场景下的解决方案。 代码质量：虽然为了 Python 2 做了不少兼容，但是代码很精炼，而且 Pythonic。 其他：Bottle 坚持单模块以及无第三方库依赖；仓库仍然在积极维护中。 换作几年前，我会一开始就使用并将 Bottle 研究透彻，而不是让自己淹没在 Django 浩瀚如烟的文档中。下面开始梳理 Bottle 源码的阅读理解。因为代码量不大，所以就直接看最新的版本了：0.11.1 - 5a6c620。
 Web 框架的基本元素 参考 The Hitchhiker’s Guide to Python 的说法，一个 Web 框架要满足的基本功能：
 URL Routing Request and Response Objects Template Engine Development Web Server 从后端的角度来讲更重要的是 1、2、4 三项，其中 1 负责转发请求到对应的视图函数，2 是对 HTTP 协议元素的解析处理，而 4 决定了服务的部署方式和基础性能。
-Bottle 在这几方面都做了很好的实现：路由上提供了通配符匹配和装饰器接口；请求和响应对象作为全局对象存在并保证了线程安全；Server 部署除了 Python 自带的 wsgiref 还支持绝大多数的 WSGI Server。...</p>
-  </section>
-  <footer class="entry-footer"><span title='2022-04-22 21:53:29 +0800 CST'>04-22</span>&nbsp;·&nbsp;6 min</footer>
-  <a class="entry-link" aria-label="post link to Bottle 框架源码阅读" href="https://iamgodot.com/posts/source-code-of-bottle/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2>Python 中的 TLS 是如何实现的
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>TLS(Thread Local Storage)，或者说 Threadlocal，可以说是一种并发编程的常用模式，既实现了线程之间的资源隔离，又满足了全局变量的使用。
+Bottle 在这几方面都做了很好的实现：路由上提供了通配符匹配和装饰器接口；请求和响应对象作为全局对象存在并保证了线程安全；Server 部署除了 Python 自带的 wsgiref 还支持绝大多数的 WSGI Server。...</p></section><footer class=entry-footer><span title='2022-04-22 21:53:29 +0800 +0800'>04-22</span>&nbsp;·&nbsp;6 min</footer><a class=entry-link aria-label="post link to Bottle 框架源码阅读" href=https://iamgodot.com/posts/source-code-of-bottle/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2>Python 中的 TLS 是如何实现的</h2></header><section class=entry-content><p>TLS(Thread Local Storage)，或者说 Threadlocal，可以说是一种并发编程的常用模式，既实现了线程之间的资源隔离，又满足了全局变量的使用。
 从 TLS 出发，这篇文章研究了 Python 中的 Threadlocal 是如何实现的，比如自带的 threading.local，再比如 Flask 框架中 Local 对象。
 Why Threadlocal 先思考一下为什么要用 Threadlocal，这就不得不提到线程安全。Race condition 说到底是因为数据共享和非原子操作，这可以体现在函数的两种基本写法：一种是显式地传参（参数对象也可能变化？这也是为什么最好不要传递可变对象），没有共享自然安全；另一种就是全局对象，这么写既简化了函数签名，代码也比较清晰，缺点就是很容易出现线程不安全的问题，所以经常会和锁配合使用。
 而 Threadlocal 就结合了两者的优点，在共享全局变量的同时，保证每个线程操作的都是自己独有的数据对象。
 对比一下 Django 和 Flask 两大框架就会发现，前者总是在视图函数中显式声明 request 参数，而后者的只需要 import 一次就可以到处使用。在 Flask 的文档中，Armin Ronacher 也提及了这一点：
 For example, Flask uses thread-local objects internally so that you don’t have to pass objects around from function to function within a request in order to stay threadsafe.
-不过 Flask 并没有直接使用 Python 内置的 threading....</p>
-  </section>
-  <footer class="entry-footer"><span title='2022-04-11 16:13:49 +0800 CST'>04-11</span>&nbsp;·&nbsp;4 min</footer>
-  <a class="entry-link" aria-label="post link to Python 中的 TLS 是如何实现的" href="https://iamgodot.com/posts/sourcecode-of-python-threadlocal/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2>Python Logging 源码分析
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>阅读了源码之后，我对 Python Logging 模块的几大疑惑都得到了解答：
+不过 Flask 并没有直接使用 Python 内置的 threading....</p></section><footer class=entry-footer><span title='2022-04-11 16:13:49 +0800 +0800'>04-11</span>&nbsp;·&nbsp;4 min</footer><a class=entry-link aria-label="post link to Python 中的 TLS 是如何实现的" href=https://iamgodot.com/posts/sourcecode-of-python-threadlocal/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2>Python Logging 源码分析</h2></header><section class=entry-content><p>阅读了源码之后，我对 Python Logging 模块的几大疑惑都得到了解答：
 为什么 Logger 和 Handler 都有 setLevel 方法？
 Logging 中会出现 Race condition 吗？（感觉都是很直接的 write 操作）
 正式环境中想看日志又没办法动态调整 logLevel，感觉很鸡肋。
@@ -159,104 +19,15 @@ Logging 中会出现 Race condition 吗？（感觉都是很直接的 write 操�
 会有性能问题吗？
 日常使用 首先要了解下 Logging 的用法。
 1. 配置 基本上有三种方式，代码、文件和字典。先看下如何用代码设置：
-import logging # create logger logger = logging.getLogger(&#39;simple_example&#39;) logger.setLevel(logging.DEBUG) # create console handler and set level to debug ch = logging.StreamHandler() ch.setLevel(logging.DEBUG) # create formatter formatter = logging.Formatter(&#39;%(asctime)s - %(name)s - %(levelname)s - %(message)s&#39;) # add formatter to ch ch....</p>
-  </section>
-  <footer class="entry-footer"><span title='2022-04-09 09:52:51 +0800 CST'>04-09</span>&nbsp;·&nbsp;5 min</footer>
-  <a class="entry-link" aria-label="post link to Python Logging 源码分析" href="https://iamgodot.com/posts/sourcecode-of-python-logging/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2>关于 Pager
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 less。
+import logging # create logger logger = logging.getLogger('simple_example') logger.setLevel(logging.DEBUG) # create console handler and set level to debug ch = logging.StreamHandler() ch.setLevel(logging.DEBUG) # create formatter formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s') # add formatter to ch ch....</p></section><footer class=entry-footer><span title='2022-04-09 09:52:51 +0800 +0800'>04-09</span>&nbsp;·&nbsp;5 min</footer><a class=entry-link aria-label="post link to Python Logging 源码分析" href=https://iamgodot.com/posts/sourcecode-of-python-logging/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2>关于 Pager</h2></header><section class=entry-content><p>好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 less。
 Why Pager Pager 在大段文字的展示中很常见，比如 Linux 的 man page，而 $PAGER 就是用来指定默认 Paging 程序的环境变量。Python shell 里面的 help() 会默认翻页显示，IPython 的 ? 则更胜一筹，能够判断当前屏幕的可用空间来决定是否 Paging。
 Less 应该算是最流行的 Pager 了，相比于 more，它同时支持前进和后退翻页，而且因为不需要一次性读取整个文件，它的启动速度在打开大型文件时要远远快于 vi。因此，许多 Pager 都是通过启动系统自带的 less 程序来实现。
 Don’t Reinvent the Wheel 轮子总是有的，而且还很多，这里说几个比较好用的：
 Pydoc 的 pager Click 的 echo_via_pager IPython 的 page Pydoc 是 Python 自带的，已经稳定存在了很多年，轻巧好用；Click 的实现类似，而且支持传入一个 generator；IPython 的 page 更加强大，可以自动判断当前的屏幕大小，再结合一个 screen_lines 参数来计算最终的可用空间。
 再说说这几个轮子的实现，基本思路都是上面提到的调用系统 Pager。因为要兼容五花八门的操作系统，大致上又分为三种处理方式：
-理想情况下是使用 PIPE。因为打开的系统 Pager 必然是子进程，而 PIPE 通过内存中的缓冲区实现了 IPC，这样既不用一次性读取所有数据，后续的 write 操作效率也高。...</p>
-  </section>
-  <footer class="entry-footer"><span title='2022-04-02 14:09:53 +0800 CST'>04-02</span>&nbsp;·&nbsp;2 min</footer>
-  <a class="entry-link" aria-label="post link to 关于 Pager" href="https://iamgodot.com/posts/about-pager/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2>Python 中的闭包
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>def f1(): l = [] def c(): l.append(1) def f2(): a = 1 def c(): print(a) a = 2 类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 BugFeature，理解之后反而觉得这样的设计是合理的。
+理想情况下是使用 PIPE。因为打开的系统 Pager 必然是子进程，而 PIPE 通过内存中的缓冲区实现了 IPC，这样既不用一次性读取所有数据，后续的 write 操作效率也高。...</p></section><footer class=entry-footer><span title='2022-04-02 14:09:53 +0800 +0800'>04-02</span>&nbsp;·&nbsp;2 min</footer><a class=entry-link aria-label="post link to 关于 Pager" href=https://iamgodot.com/posts/about-pager/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2>Python 中的闭包</h2></header><section class=entry-content><p>def f1(): l = [] def c(): l.append(1) def f2(): a = 1 def c(): print(a) a = 2 类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 BugFeature，理解之后反而觉得这样的设计是合理的。
 首先说 Closure，也就是闭包，特指内部的函数及其引用的超出本身作用域的对象，总是在函数嵌套时发生。在 f1 中，c 就是一个闭包函数，同时 l 也算作其中的一部分。因为 c 使用了 l 导致延伸了原有的作用域，所以才有闭包的产生。
 再看 f2，如果我们只对 a 做 read 操作是不会引发问题的，由于 c 中尝试了赋值操作，才导致了 UnboundLocalError. 这是因为 Python 解释器会假定函数中赋值的变量是局部变量，而 c 中本身并没有定义 local 的 a 变量；其次，异常在 print(a) 时就会抛出，不会等到 a = 2 的执行。
 那为什么 f1 没问题呢，是因为列表为可变对象，append 操作只是更新了里面的内容，并不存在赋值。
-def f(): l = [] def c(): l....</p>
-  </section>
-  <footer class="entry-footer"><span title='2022-01-29 17:55:18 +0800 CST'>01-29</span>&nbsp;·&nbsp;1 min</footer>
-  <a class="entry-link" aria-label="post link to Python 中的闭包" href="https://iamgodot.com/posts/closure-in-python/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="next" href="https://iamgodot.com/tags/python/page/2/">Next Page »</a>
-  </nav>
-</footer>
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2020-2022 <a href="https://iamgodot.com">Godot&#39;s Blog</a></span>
-    <span>
-        | <a href="http://beian.miit.gov.cn/" target="_blank">京ICP备20005558号-2</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
-
-<script>
-    let menu = document.getElementById('menu')
-    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-    menu.onscroll = function () {
-        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
-
-</script>
-</body>
-
-</html>
+def f(): l = [] def c(): l....</p></section><footer class=entry-footer><span title='2022-01-29 17:55:18 +0800 +0800'>01-29</span>&nbsp;·&nbsp;1 min</footer><a class=entry-link aria-label="post link to Python 中的闭包" href=https://iamgodot.com/posts/closure-in-python/></a></article><footer class=page-footer><nav class=pagination><a class=next href=https://iamgodot.com/tags/python/page/2/>Next Page »</a></nav></footer></main><footer class=footer><span>&copy; 2020-2022 <a href=https://iamgodot.com>Godot's Blog</a></span>
+<span>| <a href=http://beian.miit.gov.cn/ target=_blank>京ICP备20005558号-2</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)},document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script></body></html>

@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>netflix on Godot&#39;s Blog</title>
-    <link>https://iamgodot.com/tags/netflix/</link>
-    <description>Recent content in netflix on Godot&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 07 Oct 2020 22:25:35 +0800</lastBuildDate><atom:link href="https://iamgodot.com/tags/netflix/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>The Social Dilemma</title>
-      <link>https://iamgodot.com/posts/the-social-dilemma/</link>
-      <pubDate>Wed, 07 Oct 2020 22:25:35 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/the-social-dilemma/</guid>
-      <description>The Social Dilemma 是一部 Netflix 原创纪录片，讲述了社交平台是如何通过大数据算法分析人们的行为偏好，并利用广告推送获利的。这一切高速发展到今天，已经脱离设计者的初衷，把无数用户变成了资本交易的砝码。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>netflix on Godot's Blog</title><link>https://iamgodot.com/tags/netflix/</link><description>Recent content in netflix on Godot's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 07 Oct 2020 22:25:35 +0800</lastBuildDate><atom:link href="https://iamgodot.com/tags/netflix/index.xml" rel="self" type="application/rss+xml"/><item><title>The Social Dilemma</title><link>https://iamgodot.com/posts/the-social-dilemma/</link><pubDate>Wed, 07 Oct 2020 22:25:35 +0800</pubDate><guid>https://iamgodot.com/posts/the-social-dilemma/</guid><description>The Social Dilemma 是一部 Netflix 原创纪录片，讲述了社交平台是如何通过大数据算法分析人们的行为偏好，并利用广告推送获利的。这一切高速发展到今天，已经脱离设计者的初衷，把无数用户变成了资本交易的砝码。
 Threat 影片在采访中穿插了一部短片，描述了一个家庭的孩子们从一开始沉迷社交应用到最终被洗脑的过程。两部分内容交织在一起，更让人感觉到那些负面影响是真实地存在于我们的生活中。
 免费的应用背后隐藏着简单粗暴的商业模式：广告商出钱给科技公司，后者投放广告。听上去很合理，但科技手段却在资本的推动下演变成为高效的洗脑工具。
 If you don&amp;rsquo;t pay for the product, then you are the product.
@@ -23,22 +8,9 @@ It&amp;rsquo;s the gradual, slight, imperceptible change in your own behavior an
 至于人控制人，自古以来都是如此吧，不论手机还是八股。但影片还提到，在大数据的疯狂催化下，科技的巨兽早已脱缰，没有人知道这样发展下去，究竟会对世界造成怎样的影响。所以如果有一天我们迎来终结者或者奥创的剧情，可能也不足为奇。
 Solution 影片后面还给出了一些应对的建议，比如：
 关闭消息推送和应用提醒。 使用其他的搜索引擎（不记录个人数据的那种）。 拒绝类似 Youtube Video 的推荐。 关注不同的消息源，比如 Twitter 上不同立场的帐号。 不要给孩子太多的手机使用和网络社交时间。 删除社交应用帐号。 这些建议看上去有些不太现实，我觉得最重要的是想清楚使用手机和 App 的目的，不要被带着走。经过一番尝试，我做了如下改变：
-卸载不必要的应用。 社交：保留微信（关闭朋友圈）和豆瓣，还有 TG。 阅读：一个 RSS App，外加微信公众号。 音乐：一个简洁版的 QQ 音乐（网易云的广告太多了）。 尽量关闭所有的推送提醒。 捡回 Kindle。 整体效果还不错，明显感觉到时间变多了，最重要的两点要数退出朋友圈和关闭通知。虽然依旧会刷豆瓣，但是有了防范之心，也不算太沉迷。</description>
-    </item>
-    
-    <item>
-      <title>Pandemic</title>
-      <link>https://iamgodot.com/posts/pandemic/</link>
-      <pubDate>Mon, 06 Apr 2020 18:30:18 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/pandemic/</guid>
-      <description>Pandemic: How to Prevent an Outbreak 是 Netflix 出品的一部纪录片，共有六集。这部短剧在 2020 年初播出，正好赶上了新冠的爆发。它告诉人们，疫情并非大自然的偷袭，而是暴风雨按部就班的来临。
+卸载不必要的应用。 社交：保留微信（关闭朋友圈）和豆瓣，还有 TG。 阅读：一个 RSS App，外加微信公众号。 音乐：一个简洁版的 QQ 音乐（网易云的广告太多了）。 尽量关闭所有的推送提醒。 捡回 Kindle。 整体效果还不错，明显感觉到时间变多了，最重要的两点要数退出朋友圈和关闭通知。虽然依旧会刷豆瓣，但是有了防范之心，也不算太沉迷。</description></item><item><title>Pandemic</title><link>https://iamgodot.com/posts/pandemic/</link><pubDate>Mon, 06 Apr 2020 18:30:18 +0800</pubDate><guid>https://iamgodot.com/posts/pandemic/</guid><description>Pandemic: How to Prevent an Outbreak 是 Netflix 出品的一部纪录片，共有六集。这部短剧在 2020 年初播出，正好赶上了新冠的爆发。它告诉人们，疫情并非大自然的偷袭，而是暴风雨按部就班的来临。
 Influenza 这个词源自意大利语，意思就是我们常说的流感（Flu）。虽然普通感冒和流行性感冒都是由于呼吸道感染病毒导致的，但后者的症状严重很多，传染性也更强。
 目前人类感染的流感病毒有甲型、乙型、丙型三种。其中甲型 H1N1 病毒正是 1918 年西班牙流感大流行事件中造成全球 5 亿人感染、1.7 千万至 5 千万人死亡的罪魁祸首。之后的一百年里还出现过多次流感疫情，比如 2003 年起源于国内的 H5N1 禽流感，和 2009 年墨西哥城爆发的甲型 H1N1 流感（也称为猪流感），后者在一年多的时间内导致 7 亿到 14 亿人感染、15 万到 57.5 万人死亡。
 此外还有庞大的冠状病毒家族，包括这次的 COVID-19，之前的非典 SARS-CoV（严重急性呼吸综合症）和 MERS-CoV（中东呼吸综合症）。常见的冠状病毒通常会引起上呼吸道感染，而 SARS 和 MERS 带来的症状更加严重，比如呼吸急促、肺炎甚至导致死亡。
 这些远不是全部，还有更多更致命的病毒散落在全世界的各个地方。比如埃博拉，在苏丹和刚果出现，是一种能引起人类和其他灵长类动物产生埃博拉出血热的烈性传染病病毒。生物安全等级为 4 级，比 SARS 和艾滋病还要高一级。
-常见的传染病分类 呼吸道传染病 流感（Flu） 肺结核（Tuberculosis） 百日咳（Whooping cough） 麻疹（Measles） 非典（SARS） 消化道传染病 细菌性痢疾（Bacillary dysentery） 小儿麻痹症（Polio） 蛔虫病（Ascariasis） 伤寒（Typhoid） 霍乱（Cholera） 血液传染病 乙肝（Hepatitis B） 疟疾（Helopyra） 性传染病 艾滋病（AIDS） 梅毒（Syphilis） 故事线 说回纪录片，整剧分成多条故事线叙述，可能是因为内容太多，在有限的篇幅里稍显凌乱。我尝试梳理了每条支线的梗概：</description>
-    </item>
-    
-  </channel>
-</rss>
+常见的传染病分类 呼吸道传染病 流感（Flu） 肺结核（Tuberculosis） 百日咳（Whooping cough） 麻疹（Measles） 非典（SARS） 消化道传染病 细菌性痢疾（Bacillary dysentery） 小儿麻痹症（Polio） 蛔虫病（Ascariasis） 伤寒（Typhoid） 霍乱（Cholera） 血液传染病 乙肝（Hepatitis B） 疟疾（Helopyra） 性传染病 艾滋病（AIDS） 梅毒（Syphilis） 故事线 说回纪录片，整剧分成多条故事线叙述，可能是因为内容太多，在有限的篇幅里稍显凌乱。我尝试梳理了每条支线的梗概：</description></item></channel></rss>

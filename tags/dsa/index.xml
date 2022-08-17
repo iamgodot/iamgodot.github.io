@@ -1,96 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>dsa on Godot&#39;s Blog</title>
-    <link>https://iamgodot.com/tags/dsa/</link>
-    <description>Recent content in dsa on Godot&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 11 Aug 2022 07:19:04 +0800</lastBuildDate><atom:link href="https://iamgodot.com/tags/dsa/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Amazon OA 2022</title>
-      <link>https://iamgodot.com/posts/amazon-oa-2022/</link>
-      <pubDate>Thu, 11 Aug 2022 07:19:04 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/amazon-oa-2022/</guid>
-      <description>分享一下今年准备 Amazon OA 时整理的题目。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>dsa on Godot's Blog</title><link>https://iamgodot.com/tags/dsa/</link><description>Recent content in dsa on Godot's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 11 Aug 2022 07:19:04 +0800</lastBuildDate><atom:link href="https://iamgodot.com/tags/dsa/index.xml" rel="self" type="application/rss+xml"/><item><title>Amazon OA 2022</title><link>https://iamgodot.com/posts/amazon-oa-2022/</link><pubDate>Thu, 11 Aug 2022 07:19:04 +0800</pubDate><guid>https://iamgodot.com/posts/amazon-oa-2022/</guid><description>分享一下今年准备 Amazon OA 时整理的题目。
 按照低中高的难度简单分了下类，最后的难题能理解思路是最好的，不建议死记硬背。
 Easy 1. Maximum quality sent via a channel 给一个 packets 数组和 k 个 channel，要求每个 channel 里面必须至少有一个数组里面的元素，每个元素只能在一个 channel 里面。其中 packets 中的元素数量是大于等于 k 的。要求算出所有channel中位数之和的最大值。
-def solution(packets: List[int], channels: int) -&amp;gt; int: &amp;#34;&amp;#34;&amp;#34; 将 packets 排序，依次把最大的一个元素分配给各 channel， 剩下的元素放到最后一个 channel。 &amp;#34;&amp;#34;&amp;#34; packets.sort() total = 0 length = len(packets) for i in range(length - channels + 1, length): total += packets[i] rest = length - channels + 1 if rest % 2 == 0: sum = packets[(rest - 1) // 2] + packets[rest // 2] total += sum // 2 if sum % 2 == 0 else sum // 2 + 1 else: total += packets[rest // 2] return total 这是当时做 OA 的第一题，很轻松搞定，结果第二题非常 Hard，下面会提到。</description>
-    </item>
-    
-    <item>
-      <title>Sum of Total Strength of Wizards</title>
-      <link>https://iamgodot.com/posts/sum-of-total-strength-of-wizards/</link>
-      <pubDate>Tue, 26 Jul 2022 10:41:55 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/sum-of-total-strength-of-wizards/</guid>
-      <description>前两天有幸做了一道算法题，虽然没能成功解决，但题目很有意思，充分展现了算法的魅力所在。
+def solution(packets: List[int], channels: int) -&amp;gt; int: &amp;#34;&amp;#34;&amp;#34; 将 packets 排序，依次把最大的一个元素分配给各 channel， 剩下的元素放到最后一个 channel。 &amp;#34;&amp;#34;&amp;#34; packets.sort() total = 0 length = len(packets) for i in range(length - channels + 1, length): total += packets[i] rest = length - channels + 1 if rest % 2 == 0: sum = packets[(rest - 1) // 2] + packets[rest // 2] total += sum // 2 if sum % 2 == 0 else sum // 2 + 1 else: total += packets[rest // 2] return total 这是当时做 OA 的第一题，很轻松搞定，结果第二题非常 Hard，下面会提到。</description></item><item><title>Sum of Total Strength of Wizards</title><link>https://iamgodot.com/posts/sum-of-total-strength-of-wizards/</link><pubDate>Tue, 26 Jul 2022 10:41:55 +0800</pubDate><guid>https://iamgodot.com/posts/sum-of-total-strength-of-wizards/</guid><description>前两天有幸做了一道算法题，虽然没能成功解决，但题目很有意思，充分展现了算法的魅力所在。
 抛开题面的包装不谈，核心内容就是给定一个数组，计算它的所有子数组的最小值与加和的乘积的总和。
 （这里要注意子数组的定义，一定是连续的，如果不连续的话叫做子序列。）
 比如对于 [1, 2, 3] 来说，一共有六种情况：
-[1]: 1 * 1 = 1 [2]: 2 * 2 = 4 [3]: 3 * 3 = 9 [1, 2]: 1 * (1 + 2) = 3 [2, 3]: 2 * (2 + 3) = 10 [1, 2, 3]: 1 * (1 + 2 + 3) = 6 最后答案为 1 + 4 + 9 + 3 + 10 + 6 = 33。</description>
-    </item>
-    
-    <item>
-      <title>Python heapq 源码阅读</title>
-      <link>https://iamgodot.com/posts/sourcecode-of-python-heapq/</link>
-      <pubDate>Mon, 29 Nov 2021 23:26:37 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/sourcecode-of-python-heapq/</guid>
-      <description>Heap 作为一种重要的数据结构，有许多应用场景，比如优先级队列，每次出队的都是最大值或者最小值的元素。很多语言都集成了相关实现，比如 Java 的 PriorityQueue，而 Python 提供了 heapq 模块。
+[1]: 1 * 1 = 1 [2]: 2 * 2 = 4 [3]: 3 * 3 = 9 [1, 2]: 1 * (1 + 2) = 3 [2, 3]: 2 * (2 + 3) = 10 [1, 2, 3]: 1 * (1 + 2 + 3) = 6 最后答案为 1 + 4 + 9 + 3 + 10 + 6 = 33。</description></item><item><title>Python heapq 源码阅读</title><link>https://iamgodot.com/posts/sourcecode-of-python-heapq/</link><pubDate>Mon, 29 Nov 2021 23:26:37 +0800</pubDate><guid>https://iamgodot.com/posts/sourcecode-of-python-heapq/</guid><description>Heap 作为一种重要的数据结构，有许多应用场景，比如优先级队列，每次出队的都是最大值或者最小值的元素。很多语言都集成了相关实现，比如 Java 的 PriorityQueue，而 Python 提供了 heapq 模块。
 因为 Heap 通常用数组而不是链表存储，所以 Python 里面的 Heap 实质上就是一个列表，而 heapq 提供的几个函数也是以列表对象作为参数的：
-from heapq import heappush, heappop, heappify, heapreplace, heappushpop heap = [] heappush(heap, 1) item = heap[0] # 第一个元素代表堆顶元素 heappop(heap) heapify([3, 2, 1, 5, 6, 4]) # 把普通列表转化为堆结构 [1, 2, 3, 4, 5, 6] heapreplace([3, 4, 5], 1) # 直接将堆顶元素 3 替换为 1，最后堆结构为 [1, 4, 5] heappushpop([3, 4, 5], 1) # 先将 1 插入堆中，再 pop 出堆顶元素，最后堆结构为 [3, 4, 5] 为什么 heapq 提供的是最小堆而不是更常见的最大堆呢？这就得从源码中找答案了。</description>
-    </item>
-    
-    <item>
-      <title>Python OrderedDict 实现 LRU 缓存</title>
-      <link>https://iamgodot.com/posts/sourcecode-of-python-ordereddict/</link>
-      <pubDate>Sun, 28 Nov 2021 17:50:51 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/sourcecode-of-python-ordereddict/</guid>
-      <description>LRUCache 是一种经典的缓存机制，它的基本思路是按照最近使用的时间对元素排序，在清理时优先把搁置最久的删除掉。
+from heapq import heappush, heappop, heappify, heapreplace, heappushpop heap = [] heappush(heap, 1) item = heap[0] # 第一个元素代表堆顶元素 heappop(heap) heapify([3, 2, 1, 5, 6, 4]) # 把普通列表转化为堆结构 [1, 2, 3, 4, 5, 6] heapreplace([3, 4, 5], 1) # 直接将堆顶元素 3 替换为 1，最后堆结构为 [1, 4, 5] heappushpop([3, 4, 5], 1) # 先将 1 插入堆中，再 pop 出堆顶元素，最后堆结构为 [3, 4, 5] 为什么 heapq 提供的是最小堆而不是更常见的最大堆呢？这就得从源码中找答案了。</description></item><item><title>Python OrderedDict 实现 LRU 缓存</title><link>https://iamgodot.com/posts/sourcecode-of-python-ordereddict/</link><pubDate>Sun, 28 Nov 2021 17:50:51 +0800</pubDate><guid>https://iamgodot.com/posts/sourcecode-of-python-ordereddict/</guid><description>LRUCache 是一种经典的缓存机制，它的基本思路是按照最近使用的时间对元素排序，在清理时优先把搁置最久的删除掉。
 如果不想给每个缓存元素都记录一个时间戳的话，可以应用哈希链表来简单地实现 LRU 算法。也就是对一个哈希表中的所有元素增加指针，从而串起一个双链表，这样既可以快速 get value，又可以通过把最近使用过的元素放到头部来维护顺序，删除的时候从末尾开始就好了。
 手写双链表并不困难，但是借助 OrderedDict 的话，可以写出非常简短的代码：
 from collections import OrderedDict class LRUCache: def __init__(self, capacity): self.capacity = capacity self.hashtable = OrderedDict() def get(self, key: int) -&amp;gt; int: if key in self.hashtable: self.hashtable.move_to_end(key, last=False) return self.hashtable[key] return -1 def put(self, key: int, value: int) -&amp;gt; None: self.hashtable[key] = value self.hashtable.move_to_end(key, last=False) if len(self.hashtable) &amp;gt; self.capacity: self.hashtable.popitem() 其中最神奇的就是 move_to_end 和 popitem 方法（后者默认是弹出最后面的元素）的使用，这也得益于 OD 可以保证 key-value pair 的顺序。那么
-OD 是如何做到的呢？其实还是双链表，下面是它的 Python 实现：</description>
-    </item>
-    
-    <item>
-      <title>Understand Recursion Better</title>
-      <link>https://iamgodot.com/posts/understand-recursion-better/</link>
-      <pubDate>Mon, 08 Nov 2021 18:18:10 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/understand-recursion-better/</guid>
-      <description>在 Simple Recursion 之后，我一度把递归当作一种算法。但通过比较 Divide and Conquer 和 Dynamic Programming，我才发现之前的理解有点问题。
+OD 是如何做到的呢？其实还是双链表，下面是它的 Python 实现：</description></item><item><title>Understand Recursion Better</title><link>https://iamgodot.com/posts/understand-recursion-better/</link><pubDate>Mon, 08 Nov 2021 18:18:10 +0800</pubDate><guid>https://iamgodot.com/posts/understand-recursion-better/</guid><description>在 Simple Recursion 之后，我一度把递归当作一种算法。但通过比较 Divide and Conquer 和 Dynamic Programming，我才发现之前的理解有点问题。
 一切还是要从 Algorithmic Paradigm 说起：
 An algorithmic paradigm or algorithm design paradigm is a generic model or framework which underlies the design of a class of algorithms. An algorithmic paradigm is an abstraction higher than the notion of an algorithm, just as an algorithm is an abstraction higher than a computer program.
 算法范式，是在算法的层面上抽象出来的一种更泛化的思想，常用的有：
-Brute-force search 暴力解法 Backtracking 回溯算法 Greedy algorithm 贪心算法 Divide and conquer 分治法 Dynamic programming 动态规划 Divide and Conquer 的基本思路是把复杂的问题分解成多个类似的简单问题，解决之后再组合起来得到最终结果。这种算法有很多应用，比如排序中的 Merge Sort，先将数列分解成单个元素，然后再归并，这时子数组都已经排好顺序了，所以过程很快。</description>
-    </item>
-    
-    <item>
-      <title>Look and Say</title>
-      <link>https://iamgodot.com/posts/look-and-say/</link>
-      <pubDate>Sun, 07 Nov 2021 16:59:50 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/look-and-say/</guid>
-      <description>无意中看到一种叫 look-and-say 的数列，很有意思，有点儿 Fibonacci 的感觉。数列如下：
+Brute-force search 暴力解法 Backtracking 回溯算法 Greedy algorithm 贪心算法 Divide and conquer 分治法 Dynamic programming 动态规划 Divide and Conquer 的基本思路是把复杂的问题分解成多个类似的简单问题，解决之后再组合起来得到最终结果。这种算法有很多应用，比如排序中的 Merge Sort，先将数列分解成单个元素，然后再归并，这时子数组都已经排好顺序了，所以过程很快。</description></item><item><title>Look and Say</title><link>https://iamgodot.com/posts/look-and-say/</link><pubDate>Sun, 07 Nov 2021 16:59:50 +0800</pubDate><guid>https://iamgodot.com/posts/look-and-say/</guid><description>无意中看到一种叫 look-and-say 的数列，很有意思，有点儿 Fibonacci 的感觉。数列如下：
 1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211, &amp;hellip;
 从第二位开始，每个数字都是对前一个数的计数结果的描述。比如 11 表示前面的 1 有一个 1，而 21 表示前面的 11 有两个 1，1121 表示 21 有一个 2 和一个 1，依次类推，可以无穷循环出新的结果。（除了 22 这个数字，因为会一直重复 22 本身）
 后来查了查才发现原来 Leetcode 也有这道题，不过名字叫做 count-and-say。基本就是给 n 然后求此数列的第 n 项结果。
 想了想思路并不难，无非是对一个数字的所有位数循环再计数就好了，不过写的时候很犯难，竟然还写出了一个无比冗长的 for 循环加 if 面条代码。这让我意识到了自己对于循环的认识有多么不够深刻。
 之所以犯难，其实是不知道怎样把几种逻辑合并在一起，如果粗暴地列举所有分支大概是这样：
-def find_next(num: str): result = &amp;#39;&amp;#39; cur, count = num[0], 1 size = len(num) for i in range(1, size): if num[i] == cur and i == size - 1: # count 加一 # 更新 result elif num[i] == cur: # count 加一 elif i == size - 1: # 更新 result # 更新 cur&amp;amp;count # 更新 result else: # 更新 result # 更新 cur&amp;amp;count # 还有一种情况就是并没有进入 for 循环 # 那么也需要更新 result 直接按照这些分支把代码填满肯定很难看，所以要挑选合并。看起来只有第二个分支不需要更新 result，于是我决定把它单拎出来：如果 num[i]==cur 那么 count 加一；否则就更新 result 以及 cur&amp;amp;count.</description>
-    </item>
-    
-    <item>
-      <title>Find Median</title>
-      <link>https://iamgodot.com/posts/find-median/</link>
-      <pubDate>Wed, 03 Nov 2021 17:07:04 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/find-median/</guid>
-      <description>祸从天降的一天。
+def find_next(num: str): result = &amp;#39;&amp;#39; cur, count = num[0], 1 size = len(num) for i in range(1, size): if num[i] == cur and i == size - 1: # count 加一 # 更新 result elif num[i] == cur: # count 加一 elif i == size - 1: # 更新 result # 更新 cur&amp;amp;count # 更新 result else: # 更新 result # 更新 cur&amp;amp;count # 还有一种情况就是并没有进入 for 循环 # 那么也需要更新 result 直接按照这些分支把代码填满肯定很难看，所以要挑选合并。看起来只有第二个分支不需要更新 result，于是我决定把它单拎出来：如果 num[i]==cur 那么 count 加一；否则就更新 result 以及 cur&amp;amp;count.</description></item><item><title>Find Median</title><link>https://iamgodot.com/posts/find-median/</link><pubDate>Wed, 03 Nov 2021 17:07:04 +0800</pubDate><guid>https://iamgodot.com/posts/find-median/</guid><description>祸从天降的一天。
 早上起不来，于是刷手机清醒一下，突然看到一个 ACMer 楼主提到自己没有刷过 Leetcode，面试的时候差点儿被打脸了。
 看了一下题目，要求是 O(logn) 的复杂度，默默想了想，没有特别清晰的思路。
 结果翻了翻评论，很多人都在蜻蜓点水般地表示二分查找不断分割就可以了。
@@ -104,16 +35,7 @@ def find_next(num: str): result = &amp;#39;&amp;#39; cur, count = num[0], 1 size
 一直重复这个流程，最后得到的肯定就是一个或两个数，平均下就好了，时间复杂度也是符合要求的 O(logn).
 结果等到看完标答后我才反应过来自己错在哪里了，这是后话。（因为 m 和 n 不一定一样大，所以显然折半的逻辑不对）
 最优的解决方案是可以做到 O(log min(m, n)) 的，核心也是二分法，不过思路要复杂一些：
-首先明确中位数的定义。对于奇数个数字来说是最中间的元素，偶数则是中间两个元素的平均值。 要做的是将两个数组各分一刀，假设划分的下标分别是 i 和 j，那么 nums1 被分成 nums1[0, i], nums1[i:]，而 nums2 分为 nums2[0, j], nums2[j:]. 因为数组中元素的数量是奇是偶不一定，所以规定好是奇数的话多的一个放到左边。如此 i 的位置就是右边部分的第一个，而左半边正好有 i 个元素。 下标 i 和 j 之间是存在一个等式关系的，因为是中位数，所以 i + j 等于元素总数的一半，或者一半多一个（因为说好了左边多一个嘛）。那么就有 i+j=(m+n)/2 | i+j=(m+n)/2+1，合并起来写成 (m+n+1)/2.</description>
-    </item>
-    
-    <item>
-      <title>(Re)Write recursions easily</title>
-      <link>https://iamgodot.com/posts/simple-recursion/</link>
-      <pubDate>Mon, 25 Oct 2021 08:56:54 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/simple-recursion/</guid>
-      <description>近来刷题，觉得递归实在神奇。对于有的题目，用循环实现思路很清晰，改成递归却变得非常抽象；另一些相反，递归的做法既简洁又容易理解，但换成迭代就怎样都不明白了。经过几次痛苦的思考之后，我发现其中还是有迹可循的，按照套路来做，至少思路不会走得太偏。
+首先明确中位数的定义。对于奇数个数字来说是最中间的元素，偶数则是中间两个元素的平均值。 要做的是将两个数组各分一刀，假设划分的下标分别是 i 和 j，那么 nums1 被分成 nums1[0, i], nums1[i:]，而 nums2 分为 nums2[0, j], nums2[j:]. 因为数组中元素的数量是奇是偶不一定，所以规定好是奇数的话多的一个放到左边。如此 i 的位置就是右边部分的第一个，而左半边正好有 i 个元素。 下标 i 和 j 之间是存在一个等式关系的，因为是中位数，所以 i + j 等于元素总数的一半，或者一半多一个（因为说好了左边多一个嘛）。那么就有 i+j=(m+n)/2 | i+j=(m+n)/2+1，合并起来写成 (m+n+1)/2.</description></item><item><title>(Re)Write recursions easily</title><link>https://iamgodot.com/posts/simple-recursion/</link><pubDate>Mon, 25 Oct 2021 08:56:54 +0800</pubDate><guid>https://iamgodot.com/posts/simple-recursion/</guid><description>近来刷题，觉得递归实在神奇。对于有的题目，用循环实现思路很清晰，改成递归却变得非常抽象；另一些相反，递归的做法既简洁又容易理解，但换成迭代就怎样都不明白了。经过几次痛苦的思考之后，我发现其中还是有迹可循的，按照套路来做，至少思路不会走得太偏。
 在维基上面发现的关于递归的笑话：
 To understand recursion, you must understand recursion.
 Write Recursion 审题分析过后，如果选择用递归，需要先明确两个最重要的组成部分：
@@ -122,8 +44,4 @@ def factorial(n): if n &amp;lt;= 2: return n return factorial(n - 1) * n 如果�
 使用全局（outer scope）变量 利用参数进行传递 下面的写法就是利用了参数来保存中间的计算结果：
 def factorial(n, res): if n &amp;lt;= 2: return res * n return factorial(n - 1, res * n) 也就是所谓的尾递归，对于可以优化尾递归的语言确实可以看成这种方式是从上至下的，而常规的递归则是从下到上。但我理解递归都是先下去再上来的，尾递归只是选择了一去不返而已。
 上面的例子比较简单，反转链表的代码就比较难理解一点：
-def reverse_list(head): if not head or not head.next: return head new_head = reverse_list_by_recursion(head.next) head.next.next = head head.</description>
-    </item>
-    
-  </channel>
-</rss>
+def reverse_list(head): if not head or not head.next: return head new_head = reverse_list_by_recursion(head.next) head.next.next = head head.</description></item></channel></rss>

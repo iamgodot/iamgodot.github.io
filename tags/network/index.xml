@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>network on Godot&#39;s Blog</title>
-    <link>https://iamgodot.com/tags/network/</link>
-    <description>Recent content in network on Godot&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 22 Dec 2021 11:36:49 +0800</lastBuildDate><atom:link href="https://iamgodot.com/tags/network/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>关于 SSH 端口转发</title>
-      <link>https://iamgodot.com/posts/ssh-port-forwarding/</link>
-      <pubDate>Wed, 22 Dec 2021 11:36:49 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/ssh-port-forwarding/</guid>
-      <description>SSH 的端口转发很实用，但我总觉得难以理解和记忆，直到最近才有所好转。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>network on Godot's Blog</title><link>https://iamgodot.com/tags/network/</link><description>Recent content in network on Godot's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 22 Dec 2021 11:36:49 +0800</lastBuildDate><atom:link href="https://iamgodot.com/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>关于 SSH 端口转发</title><link>https://iamgodot.com/posts/ssh-port-forwarding/</link><pubDate>Wed, 22 Dec 2021 11:36:49 +0800</pubDate><guid>https://iamgodot.com/posts/ssh-port-forwarding/</guid><description>SSH 的端口转发很实用，但我总觉得难以理解和记忆，直到最近才有所好转。
 因为又派上用场了。以前基本只做做内网穿透，现在更多地拿来绕过防火墙。自己的服务器，大多数端口虽然都是被禁用的（至少禁止入网，这也是正常的安全措施），但是想要连接的话直接本地端口转发就可以了。
 TL;DR 本地端口转发在当前机器上设置，然后从本机出发，通过另一台机器，连接其他的机器。适用于防火墙的绕过、多重 SSH 登录等。
 远程端口转发在当前机器上设置，然后从另外一台机器出发，通过当前机器，连接本机或者其他的机器。适用于 NAT 网络穿透、暴露内部网络服务等。
@@ -21,16 +6,7 @@ TL;DR 本地端口转发在当前机器上设置，然后从本机出发，通�
 Local Port Forwarding 为什么叫做本地呢，我想有两个原因：
 转发的端口在当前（执行 SSH 命令这台）机器上 请求是从当前机器发出的 当前机器就是我的笔记本，另外一台是服务器。比如，在服务器上部署一个应用，开放给 8000 端口，但是被墙掉了，没办法在本地调试，怎么办？防火墙肯定开放了 SSH 登录的端口，比如 22，那么就让请求从本地的端口发送到服务器的 22 端口，再转发到 8000 端口，最后原路返回。我可以设置本地的端口也是 8000，这样直接用 localhost:8000 来访问应用就好了。
 转发的重点在于本地的 8000 端口和服务器的 22 端口之间，因为请求到了服务器之后可以给应用的 8000，也可以给其他的机器，只要服务器能连接到：
-# ssh -L local_port:dest_addr:dest_port server # Local 8000 &amp;lt; -- &amp;gt; Server 22 &amp;lt; -- &amp;gt; Server 8000 # -fNT 让 ssh 不要打开服务器 shell，并且转为后台运行 # server 隐含了使用 22 端口登录，当然也可以在 ssh config 中设置任意登录端口 ssh -fNT -L 8000:localhost:8000 server 注意这里的 dest 对应的 src 是 server，也就是说 localhost 及后面的 8000 都是 server 的 IP 和端口。可以理解为 server 是中介，整条通路是 local -&amp;gt; server -&amp;gt; dest.</description>
-    </item>
-    
-    <item>
-      <title>From BitTorrent to Firewall</title>
-      <link>https://iamgodot.com/posts/from-bittorrent-to-firewall/</link>
-      <pubDate>Mon, 20 Dec 2021 17:00:00 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/from-bittorrent-to-firewall/</guid>
-      <description>服务器能做什么？在 Awesome-Selfhosted 里可以找到上百种答案。如果带宽不算太小的话，那么 BT 下载是个不错的尝试。借着 No Time to Die 的上映我开始重温 007 系列，从皇家赌场到幽灵党，在服务器上的下载体验是很好的。
+# ssh -L local_port:dest_addr:dest_port server # Local 8000 &amp;lt; -- &amp;gt; Server 22 &amp;lt; -- &amp;gt; Server 8000 # -fNT 让 ssh 不要打开服务器 shell，并且转为后台运行 # server 隐含了使用 22 端口登录，当然也可以在 ssh config 中设置任意登录端口 ssh -fNT -L 8000:localhost:8000 server 注意这里的 dest 对应的 src 是 server，也就是说 localhost 及后面的 8000 都是 server 的 IP 和端口。可以理解为 server 是中介，整条通路是 local -&amp;gt; server -&amp;gt; dest.</description></item><item><title>From BitTorrent to Firewall</title><link>https://iamgodot.com/posts/from-bittorrent-to-firewall/</link><pubDate>Mon, 20 Dec 2021 17:00:00 +0800</pubDate><guid>https://iamgodot.com/posts/from-bittorrent-to-firewall/</guid><description>服务器能做什么？在 Awesome-Selfhosted 里可以找到上百种答案。如果带宽不算太小的话，那么 BT 下载是个不错的尝试。借着 No Time to Die 的上映我开始重温 007 系列，从皇家赌场到幽灵党，在服务器上的下载体验是很好的。
 BitTorrent 在此之前，我基本上把 BT、种子、磁力、迅雷下载当成同一种东西。下载电影？先找种子或者磁力链接，打开迅雷下载，然后视速度决定要不要开个会员。
 实际上这完全曲解了 BT 下载。
 首先 BitTorrent 是一种网络协议。还记得计算机网络一开始就提到过除了 C/S 架构之外，还有 P2P(Peer-to-peer)，也就是网络中的各个节点都扮演了同等的角色，既是客户端也是服务器。BT 基于 P2P 实现了去中心化的文件分享，让网络数据的传输不再仅限于服务器的能力，而是共享带宽，每个人下载的同时也在上传，所以越多人参与速度就越快。
@@ -45,8 +21,4 @@ Trackers: 就是 Tracker 服务器的地址，这个服务器不是用来下载�
 下载的过程会以分块为单位进行，每块完成下载后会根据验证码再做校验
 如果这时又有一个人开始下载，那么我和这第一个下载者都会贡献上传
 随着更多用户的参与，（上传）下载的速度就会越来越快
-可以发现，整个过程中 Tracker 是很关键的一步，如果没有有效的 Tracker 提供 Peers，后面的下载都无法开始。所以如果你的 BT 下载没有速度，首先要尝试多添加一些 Tracker 服务器，比如 TrackersList.</description>
-    </item>
-    
-  </channel>
-</rss>
+可以发现，整个过程中 Tracker 是很关键的一步，如果没有有效的 Tracker 提供 Peers，后面的下载都无法开始。所以如果你的 BT 下载没有速度，首先要尝试多添加一些 Tracker 服务器，比如 TrackersList.</description></item></channel></rss>

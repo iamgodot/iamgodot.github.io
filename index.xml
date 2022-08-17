@@ -1,57 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Godot&#39;s Blog</title>
-    <link>https://iamgodot.com/</link>
-    <description>Recent content on Godot&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 11 Aug 2022 07:19:04 +0800</lastBuildDate><atom:link href="https://iamgodot.com/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Amazon OA 2022</title>
-      <link>https://iamgodot.com/posts/amazon-oa-2022/</link>
-      <pubDate>Thu, 11 Aug 2022 07:19:04 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/amazon-oa-2022/</guid>
-      <description>分享一下今年准备 Amazon OA 时整理的题目。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Godot's Blog</title><link>https://iamgodot.com/</link><description>Recent content on Godot's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 11 Aug 2022 07:19:04 +0800</lastBuildDate><atom:link href="https://iamgodot.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Amazon OA 2022</title><link>https://iamgodot.com/posts/amazon-oa-2022/</link><pubDate>Thu, 11 Aug 2022 07:19:04 +0800</pubDate><guid>https://iamgodot.com/posts/amazon-oa-2022/</guid><description>分享一下今年准备 Amazon OA 时整理的题目。
 按照低中高的难度简单分了下类，最后的难题能理解思路是最好的，不建议死记硬背。
 Easy 1. Maximum quality sent via a channel 给一个 packets 数组和 k 个 channel，要求每个 channel 里面必须至少有一个数组里面的元素，每个元素只能在一个 channel 里面。其中 packets 中的元素数量是大于等于 k 的。要求算出所有channel中位数之和的最大值。
-def solution(packets: List[int], channels: int) -&amp;gt; int: &amp;#34;&amp;#34;&amp;#34; 将 packets 排序，依次把最大的一个元素分配给各 channel， 剩下的元素放到最后一个 channel。 &amp;#34;&amp;#34;&amp;#34; packets.sort() total = 0 length = len(packets) for i in range(length - channels + 1, length): total += packets[i] rest = length - channels + 1 if rest % 2 == 0: sum = packets[(rest - 1) // 2] + packets[rest // 2] total += sum // 2 if sum % 2 == 0 else sum // 2 + 1 else: total += packets[rest // 2] return total 这是当时做 OA 的第一题，很轻松搞定，结果第二题非常 Hard，下面会提到。</description>
-    </item>
-    
-    <item>
-      <title>Sum of Total Strength of Wizards</title>
-      <link>https://iamgodot.com/posts/sum-of-total-strength-of-wizards/</link>
-      <pubDate>Tue, 26 Jul 2022 10:41:55 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/sum-of-total-strength-of-wizards/</guid>
-      <description>前两天有幸做了一道算法题，虽然没能成功解决，但题目很有意思，充分展现了算法的魅力所在。
+def solution(packets: List[int], channels: int) -&amp;gt; int: &amp;#34;&amp;#34;&amp;#34; 将 packets 排序，依次把最大的一个元素分配给各 channel， 剩下的元素放到最后一个 channel。 &amp;#34;&amp;#34;&amp;#34; packets.sort() total = 0 length = len(packets) for i in range(length - channels + 1, length): total += packets[i] rest = length - channels + 1 if rest % 2 == 0: sum = packets[(rest - 1) // 2] + packets[rest // 2] total += sum // 2 if sum % 2 == 0 else sum // 2 + 1 else: total += packets[rest // 2] return total 这是当时做 OA 的第一题，很轻松搞定，结果第二题非常 Hard，下面会提到。</description></item><item><title>Sum of Total Strength of Wizards</title><link>https://iamgodot.com/posts/sum-of-total-strength-of-wizards/</link><pubDate>Tue, 26 Jul 2022 10:41:55 +0800</pubDate><guid>https://iamgodot.com/posts/sum-of-total-strength-of-wizards/</guid><description>前两天有幸做了一道算法题，虽然没能成功解决，但题目很有意思，充分展现了算法的魅力所在。
 抛开题面的包装不谈，核心内容就是给定一个数组，计算它的所有子数组的最小值与加和的乘积的总和。
 （这里要注意子数组的定义，一定是连续的，如果不连续的话叫做子序列。）
 比如对于 [1, 2, 3] 来说，一共有六种情况：
-[1]: 1 * 1 = 1 [2]: 2 * 2 = 4 [3]: 3 * 3 = 9 [1, 2]: 1 * (1 + 2) = 3 [2, 3]: 2 * (2 + 3) = 10 [1, 2, 3]: 1 * (1 + 2 + 3) = 6 最后答案为 1 + 4 + 9 + 3 + 10 + 6 = 33。</description>
-    </item>
-    
-    <item>
-      <title>夏日午后</title>
-      <link>https://iamgodot.com/posts/a-peaceful-afternoon/</link>
-      <pubDate>Tue, 21 Jun 2022 14:37:33 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/a-peaceful-afternoon/</guid>
-      <description>这将是一篇很散的散文，仅凭着一些美好的感觉动笔，没有规划，也没有大纲。之所以这么做，是因为有时意境转瞬即逝，如果过去了，就很难再找回来。
+[1]: 1 * 1 = 1 [2]: 2 * 2 = 4 [3]: 3 * 3 = 9 [1, 2]: 1 * (1 + 2) = 3 [2, 3]: 2 * (2 + 3) = 10 [1, 2, 3]: 1 * (1 + 2 + 3) = 6 最后答案为 1 + 4 + 9 + 3 + 10 + 6 = 33。</description></item><item><title>夏日午后</title><link>https://iamgodot.com/posts/a-peaceful-afternoon/</link><pubDate>Tue, 21 Jun 2022 14:37:33 +0800</pubDate><guid>https://iamgodot.com/posts/a-peaceful-afternoon/</guid><description>这将是一篇很散的散文，仅凭着一些美好的感觉动笔，没有规划，也没有大纲。之所以这么做，是因为有时意境转瞬即逝，如果过去了，就很难再找回来。
 一切来自于刚刚的午后散步，不过短短半个小时。这本是一天中最热的时间，现在又是夏季，幸得在绿荫的庇护下，我反而觉得清凉。最近才搬来的这个小区面积广阔，绿植遍布，如花园一般，住的多是老人与孩子，氛围恰到好处。
 我站在路边的台阶上，看着不远处三两棵高木冲着烈日而去，泻出一片阴凉在四周，几只鸽子掠起，隐入了树叶的怀抱。正好奇自己何以将鸟儿的动作看得如此清晰，一阵轻巧的凉风吹过，顿时将我带到舒适的凉意中，于是我放弃了思索，闭眼享受。良久，路过的行人给这份宁静画上了句号，我接着向前走，来到了一处小小的池塘边。水不深，但还算透澈，一条暗色的游鱼捕捉了我的注意，它不动声色地摆动着尾巴，很快消失不见。这让我开始思考矛盾作为运动基础的说法，大概不管是鱼还是人，我们要活动，就永远离不开一左一右、一屈一伸的配合。我沿着池塘边做平衡式的前进，突然想到个很好的解闷法子，那就是闭着眼像现在这般走，加上路线的弧形变化，想必要比直来直去刺激许多。虽然很喜欢自己的点子，我却没有付诸行动，因为心里并不无聊，只感到平和的惬意。
 在归途的一棵树下，忽地又起了风，我自然要享受这难得的凉爽，于是驻足，仰头望去，叶子的形状比刚才看过的又都不同，它们帮我抵挡日晒，我欣赏它们的翠色欲滴。到了家里，耳中突然响起热闹的流行歌曲，我有些疑惑，想了想又觉得释然。音乐有助于改变我们的情绪，而心情又可以影响我们听到的声音。
-只是一次简单的步行，写下来也不过寥寥数语。虽然文字不够生动，可即便换作语音或视频，也不足以向第二个人分享瞬间的微妙感觉。这像是一条鸿沟，造成了人与人之间的隔阂，但它也给予我们安全，让我们觉得自己是独一无二的，更感到无比的自由。</description>
-    </item>
-    
-    <item>
-      <title>读《矛盾论》</title>
-      <link>https://iamgodot.com/posts/on-contradiction/</link>
-      <pubDate>Tue, 14 Jun 2022 21:52:58 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/on-contradiction/</guid>
-      <description>最近读了矛盾论，颇有收获。
+只是一次简单的步行，写下来也不过寥寥数语。虽然文字不够生动，可即便换作语音或视频，也不足以向第二个人分享瞬间的微妙感觉。这像是一条鸿沟，造成了人与人之间的隔阂，但它也给予我们安全，让我们觉得自己是独一无二的，更感到无比的自由。</description></item><item><title>读《矛盾论》</title><link>https://iamgodot.com/posts/on-contradiction/</link><pubDate>Tue, 14 Jun 2022 21:52:58 +0800</pubDate><guid>https://iamgodot.com/posts/on-contradiction/</guid><description>最近读了矛盾论，颇有收获。
 开篇先介绍了两种对立的宇宙观：形而上学与辩证法。什么是形而上学呢？在维基百科中这样定义：
 形而上学是指透过理性的推理和逻辑去研究不能直接透过感知而得到答案的问题。
 同时也有许多种不同的解释：
@@ -78,16 +36,7 @@ He who fights with monsters should look to it that he himself does not become a 
 那么矛盾论到了今天还有价值么？我想这一点是毋庸置疑的，因为在生活中处处都可以应用到它。
 首先，要接受一个事实，就是矛盾永远存在，并且只会伴随着事物生命周期的终结而结束。因此我们追求的不应当是消灭矛盾，而是学会以游刃有余的心态处理不断出现的新的矛盾。
 从个人的角度来讲，本我和超我的对立是永远存在的，这一点经常体现在我们想要一样东西，又觉得这么做不合适的时候。从矛盾的普遍性来看，前者出自本能欲望，后者由社会道德构建，出现冲突是必然的，所以没必要走极端，做一个极度任性或刻板的人。基于斗争性分析，如果是很普通的一件事，又不对他人造成影响，那么完全可以按想要的来，减少内耗；若是原则性的冲突，就需要认真思考再做决定（所以不能过于严肃，给太多事情贴上原则性标签）。这种冲突一旦爆发，那么矛盾解决，我们本身也就会发生一些新的改变，比如更加贴近想象中的自我形象，亦或是打开精神枷锁从而获得心灵的自由解放。
-从人与人的关系来讲，分歧也是一直都会存在的。和朋友相处而不产生争端，是一种不切实际的幻想。寄希望于形势永远保持不变或者一直变好，只会在事态崩坏后更加无所适从。我想，关系的递进也离不开矛盾斗争的解决，通常两个人在争吵又和好之后都会觉得彼此之间更亲密了，这可能就是斗争性中对抗结束后新事物产生的一种证明吧。</description>
-    </item>
-    
-    <item>
-      <title>关于 CORS</title>
-      <link>https://iamgodot.com/posts/about-cors/</link>
-      <pubDate>Tue, 17 May 2022 23:42:11 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/about-cors/</guid>
-      <description>说起 CORS，就不得不先提到 SOP(Same-origin policy)：浏览器打开的网页只可以对该网页的同源网站发起请求。注意，受约束的主要是脚本代码，不包括图片或者 CSS 等资源（字体文件是个例外）。同源的定义包括三部分，即协议、域名和端口都要保持一致。
+从人与人的关系来讲，分歧也是一直都会存在的。和朋友相处而不产生争端，是一种不切实际的幻想。寄希望于形势永远保持不变或者一直变好，只会在事态崩坏后更加无所适从。我想，关系的递进也离不开矛盾斗争的解决，通常两个人在争吵又和好之后都会觉得彼此之间更亲密了，这可能就是斗争性中对抗结束后新事物产生的一种证明吧。</description></item><item><title>关于 CORS</title><link>https://iamgodot.com/posts/about-cors/</link><pubDate>Tue, 17 May 2022 23:42:11 +0800</pubDate><guid>https://iamgodot.com/posts/about-cors/</guid><description>说起 CORS，就不得不先提到 SOP(Same-origin policy)：浏览器打开的网页只可以对该网页的同源网站发起请求。注意，受约束的主要是脚本代码，不包括图片或者 CSS 等资源（字体文件是个例外）。同源的定义包括三部分，即协议、域名和端口都要保持一致。
 为了缓解 SOP 带来的严格限制，有几种主流的解决方案可以选择：
 CORS JSONP：利用 &amp;lt;script&amp;gt; 标签来请求非同源地址的 JSON 响应，同时配合一个预先定义的回调函数来处理响应数据。 WebSocket：WS 连接并不受同源策略的约束，但是在建立连接时服务端也需要判断 headers 中的 Origin 是否可以接受。 其中 CORS 应该是最实用的一种，相比 JSONP 只支持 GET 请求，前者扩展了各种 HTTP 方法的跨域调用。
 CORS(Cross-origin resource sharing)，是一种跨域共享资源的机制，它利用特定的 Headers 来保证跨域请求的安全性，这些请求分为两类：简单请求和非简单请求。
@@ -97,16 +46,7 @@ multipart/form-data
 text/plain
 对于这些请求来说，只需要保证 Access-Control-Allow-Origin 中匹配了当前网页的域名即可，如果是 * 的话表明所有的域名都是允许的。
 非简单请求，比如 Content-Type 为 application/json 的 POST，会增加一次额外的 Preflight 请求，即先发送 OPTIONS 请求给服务器，然后通过响应中的一系列 Headers 决定是否可以进行真正的请求。这些 Headers 包括：
-Access-Control-Allow-Methods：服务器允许的跨域方法，比如 POST。 Access-Control-Allow-Headers：服务器允许的跨域头部，比如 Content-Type。 Access-Control-Max-Age：Preflight 请求结果的缓存时间，默认为 5s。 另外，如果想在 Chrome 中查看 Preflight 请求的话，打开 Network 标签，点击 Other filter 就可以看到了。</description>
-    </item>
-    
-    <item>
-      <title>论独处</title>
-      <link>https://iamgodot.com/posts/on-solitude/</link>
-      <pubDate>Thu, 05 May 2022 18:39:07 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/on-solitude/</guid>
-      <description>最近读完了叔本华的《人生的智慧》，其中关于独处的言论令人印象深刻。作者的观点鲜明，欣赏之余，我也不禁想重新解读下这件事情。
+Access-Control-Allow-Methods：服务器允许的跨域方法，比如 POST。 Access-Control-Allow-Headers：服务器允许的跨域头部，比如 Content-Type。 Access-Control-Max-Age：Preflight 请求结果的缓存时间，默认为 5s。 另外，如果想在 Chrome 中查看 Preflight 请求的话，打开 Network 标签，点击 Other filter 就可以看到了。</description></item><item><title>论独处</title><link>https://iamgodot.com/posts/on-solitude/</link><pubDate>Thu, 05 May 2022 18:39:07 +0800</pubDate><guid>https://iamgodot.com/posts/on-solitude/</guid><description>最近读完了叔本华的《人生的智慧》，其中关于独处的言论令人印象深刻。作者的观点鲜明，欣赏之余，我也不禁想重新解读下这件事情。
 先看看书中的描述：
 拘谨、掣肘不可避免地伴随着社交聚会。社交聚会要求人们做出牺牲，而一个人越具备独特的个性，那他就越难做出这样的牺牲。因此，一个人逃避、忍受抑或喜爱独处是和这一个人自身具备的价值恰成比例。因为在独处的时候，一个可怜虫就会感受到自己的全部可怜之处，而一个具有丰富思想的人只会感受到自己丰富的思想。一言以蔽之：一个人只会感觉到自己的自身。进一步而言，一个人在大自然的级别中所处的位置越高，那他就越孤独，这是根本的，同时也是必然的。
 首先要承认，作为一名孤独患者，读完后充满了优越感，但又感到有些不对劲：人都生活在社会中，到底怎样才算是独处？如果这才是正确的选择，那还有必要社交吗？独处者真的高人一等么？
@@ -128,45 +68,18 @@ Access-Control-Allow-Methods：服务器允许的跨域方法，比如 POST。 A
 至于自身价值，很明显不能单单通过独处能力来判定，就像按照财富或社会地位将人划分为三六九等一样，对号入座可能会让自己心情好些，但并没有道理。饶是如此，如果不能很好地与自己相处，对未来的人生的确会产生不利影响，因为这意味着大部分的时间我们都是无所适从的，尤其到了老年时期。
 遗憾的是，在当今时代，虽然人口和信息都在无限爆炸，但我们与独处更加密不可分了。网络的便利提供足不出户的借口，疫情负责夺走人身自由，孤独感依旧，绝望的情绪却已经悄悄完成了全球化。
 物质是有限的，但精神可以不受约束。也许叔本华想象不到今天的世界，但他的话确实打动了我：
-谁要是不热爱独处，那他也就是不热爱自由，因为只有当一个人独处的时候，他才是自由的。</description>
-    </item>
-    
-    <item>
-      <title>Bottle 框架源码阅读</title>
-      <link>https://iamgodot.com/posts/source-code-of-bottle/</link>
-      <pubDate>Fri, 22 Apr 2022 21:53:29 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/source-code-of-bottle/</guid>
-      <description>写这篇文章最开心的一点是终于可以用这张截图了：
+谁要是不热爱独处，那他也就是不热爱自由，因为只有当一个人独处的时候，他才是自由的。</description></item><item><title>Bottle 框架源码阅读</title><link>https://iamgodot.com/posts/source-code-of-bottle/</link><pubDate>Fri, 22 Apr 2022 21:53:29 +0800</pubDate><guid>https://iamgodot.com/posts/source-code-of-bottle/</guid><description>写这篇文章最开心的一点是终于可以用这张截图了：
 相比名声在外的 Django/Flask/FastAPI，Bottle 可以说是非常不起眼了，甚至很多人并不知道它的存在。其实在很多方面，这个框架都极其优秀：
 速度：截止到 2022-04-13，Bottle 在一众 Python Web 框架的测评中名列第二，要知道这可是十年以上的老前辈了。 易用性：Bottle 早在 Flask 之前就使用了装饰器来定义路由，此外还有全局可用的 Request/Response 对象。 文档：不仅将框架本身的使用讲得很清楚，还总结了很多 Web 场景下的解决方案。 代码质量：虽然为了 Python 2 做了不少兼容，但是代码很精炼，而且 Pythonic。 其他：Bottle 坚持单模块以及无第三方库依赖；仓库仍然在积极维护中。 换作几年前，我会一开始就使用并将 Bottle 研究透彻，而不是让自己淹没在 Django 浩瀚如烟的文档中。下面开始梳理 Bottle 源码的阅读理解。因为代码量不大，所以就直接看最新的版本了：0.11.1 - 5a6c620。
 Web 框架的基本元素 参考 The Hitchhiker&amp;rsquo;s Guide to Python 的说法，一个 Web 框架要满足的基本功能：
 URL Routing Request and Response Objects Template Engine Development Web Server 从后端的角度来讲更重要的是 1、2、4 三项，其中 1 负责转发请求到对应的视图函数，2 是对 HTTP 协议元素的解析处理，而 4 决定了服务的部署方式和基础性能。
-Bottle 在这几方面都做了很好的实现：路由上提供了通配符匹配和装饰器接口；请求和响应对象作为全局对象存在并保证了线程安全；Server 部署除了 Python 自带的 wsgiref 还支持绝大多数的 WSGI Server。</description>
-    </item>
-    
-    <item>
-      <title>Python 中的 TLS 是如何实现的</title>
-      <link>https://iamgodot.com/posts/sourcecode-of-python-threadlocal/</link>
-      <pubDate>Mon, 11 Apr 2022 16:13:49 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/sourcecode-of-python-threadlocal/</guid>
-      <description>TLS(Thread Local Storage)，或者说 Threadlocal，可以说是一种并发编程的常用模式，既实现了线程之间的资源隔离，又满足了全局变量的使用。
+Bottle 在这几方面都做了很好的实现：路由上提供了通配符匹配和装饰器接口；请求和响应对象作为全局对象存在并保证了线程安全；Server 部署除了 Python 自带的 wsgiref 还支持绝大多数的 WSGI Server。</description></item><item><title>Python 中的 TLS 是如何实现的</title><link>https://iamgodot.com/posts/sourcecode-of-python-threadlocal/</link><pubDate>Mon, 11 Apr 2022 16:13:49 +0800</pubDate><guid>https://iamgodot.com/posts/sourcecode-of-python-threadlocal/</guid><description>TLS(Thread Local Storage)，或者说 Threadlocal，可以说是一种并发编程的常用模式，既实现了线程之间的资源隔离，又满足了全局变量的使用。
 从 TLS 出发，这篇文章研究了 Python 中的 Threadlocal 是如何实现的，比如自带的 threading.local，再比如 Flask 框架中 Local 对象。
 Why Threadlocal 先思考一下为什么要用 Threadlocal，这就不得不提到线程安全。Race condition 说到底是因为数据共享和非原子操作，这可以体现在函数的两种基本写法：一种是显式地传参（参数对象也可能变化？这也是为什么最好不要传递可变对象），没有共享自然安全；另一种就是全局对象，这么写既简化了函数签名，代码也比较清晰，缺点就是很容易出现线程不安全的问题，所以经常会和锁配合使用。
 而 Threadlocal 就结合了两者的优点，在共享全局变量的同时，保证每个线程操作的都是自己独有的数据对象。
 对比一下 Django 和 Flask 两大框架就会发现，前者总是在视图函数中显式声明 request 参数，而后者的只需要 import 一次就可以到处使用。在 Flask 的文档中，Armin Ronacher 也提及了这一点：
 For example, Flask uses thread-local objects internally so that you don’t have to pass objects around from function to function within a request in order to stay threadsafe.
-不过 Flask 并没有直接使用 Python 内置的 threading.</description>
-    </item>
-    
-    <item>
-      <title>Python Logging 源码分析</title>
-      <link>https://iamgodot.com/posts/sourcecode-of-python-logging/</link>
-      <pubDate>Sat, 09 Apr 2022 09:52:51 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/sourcecode-of-python-logging/</guid>
-      <description>阅读了源码之后，我对 Python Logging 模块的几大疑惑都得到了解答：
+不过 Flask 并没有直接使用 Python 内置的 threading.</description></item><item><title>Python Logging 源码分析</title><link>https://iamgodot.com/posts/sourcecode-of-python-logging/</link><pubDate>Sat, 09 Apr 2022 09:52:51 +0800</pubDate><guid>https://iamgodot.com/posts/sourcecode-of-python-logging/</guid><description>阅读了源码之后，我对 Python Logging 模块的几大疑惑都得到了解答：
 为什么 Logger 和 Handler 都有 setLevel 方法？
 Logging 中会出现 Race condition 吗？（感觉都是很直接的 write 操作）
 正式环境中想看日志又没办法动态调整 logLevel，感觉很鸡肋。
@@ -174,56 +87,20 @@ Logging 中会出现 Race condition 吗？（感觉都是很直接的 write 操�
 会有性能问题吗？
 日常使用 首先要了解下 Logging 的用法。
 1. 配置 基本上有三种方式，代码、文件和字典。先看下如何用代码设置：
-import logging # create logger logger = logging.getLogger(&amp;#39;simple_example&amp;#39;) logger.setLevel(logging.DEBUG) # create console handler and set level to debug ch = logging.StreamHandler() ch.setLevel(logging.DEBUG) # create formatter formatter = logging.Formatter(&amp;#39;%(asctime)s - %(name)s - %(levelname)s - %(message)s&amp;#39;) # add formatter to ch ch.</description>
-    </item>
-    
-    <item>
-      <title>关于 Pager</title>
-      <link>https://iamgodot.com/posts/about-pager/</link>
-      <pubDate>Sat, 02 Apr 2022 14:09:53 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/about-pager/</guid>
-      <description>好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 less。
+import logging # create logger logger = logging.getLogger(&amp;#39;simple_example&amp;#39;) logger.setLevel(logging.DEBUG) # create console handler and set level to debug ch = logging.StreamHandler() ch.setLevel(logging.DEBUG) # create formatter formatter = logging.Formatter(&amp;#39;%(asctime)s - %(name)s - %(levelname)s - %(message)s&amp;#39;) # add formatter to ch ch.</description></item><item><title>关于 Pager</title><link>https://iamgodot.com/posts/about-pager/</link><pubDate>Sat, 02 Apr 2022 14:09:53 +0800</pubDate><guid>https://iamgodot.com/posts/about-pager/</guid><description>好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 less。
 Why Pager Pager 在大段文字的展示中很常见，比如 Linux 的 man page，而 $PAGER 就是用来指定默认 Paging 程序的环境变量。Python shell 里面的 help() 会默认翻页显示，IPython 的 ? 则更胜一筹，能够判断当前屏幕的可用空间来决定是否 Paging。
 Less 应该算是最流行的 Pager 了，相比于 more，它同时支持前进和后退翻页，而且因为不需要一次性读取整个文件，它的启动速度在打开大型文件时要远远快于 vi。因此，许多 Pager 都是通过启动系统自带的 less 程序来实现。
 Don&amp;rsquo;t Reinvent the Wheel 轮子总是有的，而且还很多，这里说几个比较好用的：
 Pydoc 的 pager Click 的 echo_via_pager IPython 的 page Pydoc 是 Python 自带的，已经稳定存在了很多年，轻巧好用；Click 的实现类似，而且支持传入一个 generator；IPython 的 page 更加强大，可以自动判断当前的屏幕大小，再结合一个 screen_lines 参数来计算最终的可用空间。
 再说说这几个轮子的实现，基本思路都是上面提到的调用系统 Pager。因为要兼容五花八门的操作系统，大致上又分为三种处理方式：
-理想情况下是使用 PIPE。因为打开的系统 Pager 必然是子进程，而 PIPE 通过内存中的缓冲区实现了 IPC，这样既不用一次性读取所有数据，后续的 write 操作效率也高。</description>
-    </item>
-    
-    <item>
-      <title>Python 中的闭包</title>
-      <link>https://iamgodot.com/posts/closure-in-python/</link>
-      <pubDate>Sat, 29 Jan 2022 17:55:18 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/closure-in-python/</guid>
-      <description>def f1(): l = [] def c(): l.append(1) def f2(): a = 1 def c(): print(a) a = 2 类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 BugFeature，理解之后反而觉得这样的设计是合理的。
+理想情况下是使用 PIPE。因为打开的系统 Pager 必然是子进程，而 PIPE 通过内存中的缓冲区实现了 IPC，这样既不用一次性读取所有数据，后续的 write 操作效率也高。</description></item><item><title>Python 中的闭包</title><link>https://iamgodot.com/posts/closure-in-python/</link><pubDate>Sat, 29 Jan 2022 17:55:18 +0800</pubDate><guid>https://iamgodot.com/posts/closure-in-python/</guid><description>def f1(): l = [] def c(): l.append(1) def f2(): a = 1 def c(): print(a) a = 2 类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 BugFeature，理解之后反而觉得这样的设计是合理的。
 首先说 Closure，也就是闭包，特指内部的函数及其引用的超出本身作用域的对象，总是在函数嵌套时发生。在 f1 中，c 就是一个闭包函数，同时 l 也算作其中的一部分。因为 c 使用了 l 导致延伸了原有的作用域，所以才有闭包的产生。
 再看 f2，如果我们只对 a 做 read 操作是不会引发问题的，由于 c 中尝试了赋值操作，才导致了 UnboundLocalError. 这是因为 Python 解释器会假定函数中赋值的变量是局部变量，而 c 中本身并没有定义 local 的 a 变量；其次，异常在 print(a) 时就会抛出，不会等到 a = 2 的执行。
 那为什么 f1 没问题呢，是因为列表为可变对象，append 操作只是更新了里面的内容，并不存在赋值。
-def f(): l = [] def c(): l.</description>
-    </item>
-    
-    <item>
-      <title>关于 HTTP Auth</title>
-      <link>https://iamgodot.com/posts/about-http-auth/</link>
-      <pubDate>Fri, 28 Jan 2022 10:16:19 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/about-http-auth/</guid>
-      <description>Auth 代表了 Authentication 和 Authorization 两个概念，也就是认证与授权。基于 HTTP，两者得以遵循一定的标准，SSL/TLS 之后，又出现了 OAuth 2.0，让授权也简单了许多。
+def f(): l = [] def c(): l.</description></item><item><title>关于 HTTP Auth</title><link>https://iamgodot.com/posts/about-http-auth/</link><pubDate>Fri, 28 Jan 2022 10:16:19 +0800</pubDate><guid>https://iamgodot.com/posts/about-http-auth/</guid><description>Auth 代表了 Authentication 和 Authorization 两个概念，也就是认证与授权。基于 HTTP，两者得以遵循一定的标准，SSL/TLS 之后，又出现了 OAuth 2.0，让授权也简单了许多。
 Authentication 认证相对来说比较直接，核心就是对 Credential(e.g. username/password) 的验证。HTTP 提供了多种认证方案，比如最常见的 Basic auth, Digest access 和 Bearer.
-Basic auth 具体来说就是服务器用 WWW-Authenticate 表示需要认证，比如 WWW-Authenticate: Basic realm=&#39;Accessing to xx site&#39;，客户端则通过 Authorization 提供相关信息：Authorization: Basic Zm9vOmJhcg==，后面的一串编码是对用户名密码明文进行 base64 的结果，即可以直接从中 decode 出原始信息 foo:bar. 没有 HTTPS 的保护，这样很不安全，所以 Apache/Nginx 对 BA 的实现都会使用密码的哈希结果而不是原文，拿后者举例：
-http { server { location / { auth_basic &amp;#34;Accessing to xx site&amp;#34;; auth_basic_user_file /path/to/authfile; } } } 然后需要在 authfile 中保存 username/password pair，比如 sudo htpasswd -c /path/to/authfile user1，htpasswd 是 Apache 提供的专门用来生成 BA 使用的 Credential file 的工具。不用额外安装，我们直接用 openssl 代替：</description>
-    </item>
-    
-    <item>
-      <title>Spicks and Specks</title>
-      <link>https://iamgodot.com/posts/spicks-and-specks/</link>
-      <pubDate>Thu, 20 Jan 2022 15:06:37 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/spicks-and-specks/</guid>
-      <description>Where is the sun
+Basic auth 具体来说就是服务器用 WWW-Authenticate 表示需要认证，比如 WWW-Authenticate: Basic realm='Accessing to xx site'，客户端则通过 Authorization 提供相关信息：Authorization: Basic Zm9vOmJhcg==，后面的一串编码是对用户名密码明文进行 base64 的结果，即可以直接从中 decode 出原始信息 foo:bar. 没有 HTTPS 的保护，这样很不安全，所以 Apache/Nginx 对 BA 的实现都会使用密码的哈希结果而不是原文，拿后者举例：
+http { server { location / { auth_basic &amp;#34;Accessing to xx site&amp;#34;; auth_basic_user_file /path/to/authfile; } } } 然后需要在 authfile 中保存 username/password pair，比如 sudo htpasswd -c /path/to/authfile user1，htpasswd 是 Apache 提供的专门用来生成 BA 使用的 Credential file 的工具。不用额外安装，我们直接用 openssl 代替：</description></item><item><title>Spicks and Specks</title><link>https://iamgodot.com/posts/spicks-and-specks/</link><pubDate>Thu, 20 Jan 2022 15:06:37 +0800</pubDate><guid>https://iamgodot.com/posts/spicks-and-specks/</guid><description>Where is the sun
 That shone on my head
 The sun in my life
 It is dead
@@ -239,16 +116,7 @@ I left far behind
 The spicks and the specks
 Of the girls on my mind
 Where is the sun
-That shone on my head</description>
-    </item>
-    
-    <item>
-      <title>水浒传之英雄本色</title>
-      <link>https://iamgodot.com/posts/all-men-are-brothers/</link>
-      <pubDate>Fri, 14 Jan 2022 17:32:27 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/all-men-are-brothers/</guid>
-      <description>没想到 2021 年的第一篇博客是关于电影的，感觉很奇特。平时看电影最多就是上豆瓣评个分抖两句机灵，这次却想写一整篇，大概对于喜欢的东西废话就会变多吧。
+That shone on my head</description></item><item><title>水浒传之英雄本色</title><link>https://iamgodot.com/posts/all-men-are-brothers/</link><pubDate>Fri, 14 Jan 2022 17:32:27 +0800</pubDate><guid>https://iamgodot.com/posts/all-men-are-brothers/</guid><description>没想到 2021 年的第一篇博客是关于电影的，感觉很奇特。平时看电影最多就是上豆瓣评个分抖两句机灵，这次却想写一整篇，大概对于喜欢的东西废话就会变多吧。
 一个好故事 《水浒传之英雄本色》讲述了林冲上梁山之前，和鲁智深相识结义并与朝廷决裂的故事。剧情流畅，引人入胜。
 1. 起 开头就是一个小片段，林冲从插翅虎手中救回了高衙内，寥寥几笔便刻画出了林冲的武功和衙内的无赖，也为后来两人之间的矛盾升级埋下了伏笔。
 后面又简单描绘了林冲的性格（武痴、不畏权贵）和生活状态（和妻子如胶似漆)，平稳之中让人感觉巨变即将来临。
@@ -266,16 +134,7 @@ That shone on my head</description>
 可以用 yt-dlp 下载到本地。
 原声带比较好找，QQ 音乐和网易云应该都有现成的资源。
 References
-水浒传之英雄本色 - 豆瓣 </description>
-    </item>
-    
-    <item>
-      <title>关于 SSH 端口转发</title>
-      <link>https://iamgodot.com/posts/ssh-port-forwarding/</link>
-      <pubDate>Wed, 22 Dec 2021 11:36:49 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/ssh-port-forwarding/</guid>
-      <description>SSH 的端口转发很实用，但我总觉得难以理解和记忆，直到最近才有所好转。
+水浒传之英雄本色 - 豆瓣</description></item><item><title>关于 SSH 端口转发</title><link>https://iamgodot.com/posts/ssh-port-forwarding/</link><pubDate>Wed, 22 Dec 2021 11:36:49 +0800</pubDate><guid>https://iamgodot.com/posts/ssh-port-forwarding/</guid><description>SSH 的端口转发很实用，但我总觉得难以理解和记忆，直到最近才有所好转。
 因为又派上用场了。以前基本只做做内网穿透，现在更多地拿来绕过防火墙。自己的服务器，大多数端口虽然都是被禁用的（至少禁止入网，这也是正常的安全措施），但是想要连接的话直接本地端口转发就可以了。
 TL;DR 本地端口转发在当前机器上设置，然后从本机出发，通过另一台机器，连接其他的机器。适用于防火墙的绕过、多重 SSH 登录等。
 远程端口转发在当前机器上设置，然后从另外一台机器出发，通过当前机器，连接本机或者其他的机器。适用于 NAT 网络穿透、暴露内部网络服务等。
@@ -283,16 +142,7 @@ TL;DR 本地端口转发在当前机器上设置，然后从本机出发，通�
 Local Port Forwarding 为什么叫做本地呢，我想有两个原因：
 转发的端口在当前（执行 SSH 命令这台）机器上 请求是从当前机器发出的 当前机器就是我的笔记本，另外一台是服务器。比如，在服务器上部署一个应用，开放给 8000 端口，但是被墙掉了，没办法在本地调试，怎么办？防火墙肯定开放了 SSH 登录的端口，比如 22，那么就让请求从本地的端口发送到服务器的 22 端口，再转发到 8000 端口，最后原路返回。我可以设置本地的端口也是 8000，这样直接用 localhost:8000 来访问应用就好了。
 转发的重点在于本地的 8000 端口和服务器的 22 端口之间，因为请求到了服务器之后可以给应用的 8000，也可以给其他的机器，只要服务器能连接到：
-# ssh -L local_port:dest_addr:dest_port server # Local 8000 &amp;lt; -- &amp;gt; Server 22 &amp;lt; -- &amp;gt; Server 8000 # -fNT 让 ssh 不要打开服务器 shell，并且转为后台运行 # server 隐含了使用 22 端口登录，当然也可以在 ssh config 中设置任意登录端口 ssh -fNT -L 8000:localhost:8000 server 注意这里的 dest 对应的 src 是 server，也就是说 localhost 及后面的 8000 都是 server 的 IP 和端口。可以理解为 server 是中介，整条通路是 local -&amp;gt; server -&amp;gt; dest.</description>
-    </item>
-    
-    <item>
-      <title>From BitTorrent to Firewall</title>
-      <link>https://iamgodot.com/posts/from-bittorrent-to-firewall/</link>
-      <pubDate>Mon, 20 Dec 2021 17:00:00 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/from-bittorrent-to-firewall/</guid>
-      <description>服务器能做什么？在 Awesome-Selfhosted 里可以找到上百种答案。如果带宽不算太小的话，那么 BT 下载是个不错的尝试。借着 No Time to Die 的上映我开始重温 007 系列，从皇家赌场到幽灵党，在服务器上的下载体验是很好的。
+# ssh -L local_port:dest_addr:dest_port server # Local 8000 &amp;lt; -- &amp;gt; Server 22 &amp;lt; -- &amp;gt; Server 8000 # -fNT 让 ssh 不要打开服务器 shell，并且转为后台运行 # server 隐含了使用 22 端口登录，当然也可以在 ssh config 中设置任意登录端口 ssh -fNT -L 8000:localhost:8000 server 注意这里的 dest 对应的 src 是 server，也就是说 localhost 及后面的 8000 都是 server 的 IP 和端口。可以理解为 server 是中介，整条通路是 local -&amp;gt; server -&amp;gt; dest.</description></item><item><title>From BitTorrent to Firewall</title><link>https://iamgodot.com/posts/from-bittorrent-to-firewall/</link><pubDate>Mon, 20 Dec 2021 17:00:00 +0800</pubDate><guid>https://iamgodot.com/posts/from-bittorrent-to-firewall/</guid><description>服务器能做什么？在 Awesome-Selfhosted 里可以找到上百种答案。如果带宽不算太小的话，那么 BT 下载是个不错的尝试。借着 No Time to Die 的上映我开始重温 007 系列，从皇家赌场到幽灵党，在服务器上的下载体验是很好的。
 BitTorrent 在此之前，我基本上把 BT、种子、磁力、迅雷下载当成同一种东西。下载电影？先找种子或者磁力链接，打开迅雷下载，然后视速度决定要不要开个会员。
 实际上这完全曲解了 BT 下载。
 首先 BitTorrent 是一种网络协议。还记得计算机网络一开始就提到过除了 C/S 架构之外，还有 P2P(Peer-to-peer)，也就是网络中的各个节点都扮演了同等的角色，既是客户端也是服务器。BT 基于 P2P 实现了去中心化的文件分享，让网络数据的传输不再仅限于服务器的能力，而是共享带宽，每个人下载的同时也在上传，所以越多人参与速度就越快。
@@ -307,16 +157,7 @@ Trackers: 就是 Tracker 服务器的地址，这个服务器不是用来下载�
 下载的过程会以分块为单位进行，每块完成下载后会根据验证码再做校验
 如果这时又有一个人开始下载，那么我和这第一个下载者都会贡献上传
 随着更多用户的参与，（上传）下载的速度就会越来越快
-可以发现，整个过程中 Tracker 是很关键的一步，如果没有有效的 Tracker 提供 Peers，后面的下载都无法开始。所以如果你的 BT 下载没有速度，首先要尝试多添加一些 Tracker 服务器，比如 TrackersList.</description>
-    </item>
-    
-    <item>
-      <title>Even Dead, You&#39;re The Hero</title>
-      <link>https://iamgodot.com/posts/edyth/</link>
-      <pubDate>Tue, 14 Dec 2021 20:43:11 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/edyth/</guid>
-      <description>愿逝者安息。
+可以发现，整个过程中 Tracker 是很关键的一步，如果没有有效的 Tracker 提供 Peers，后面的下载都无法开始。所以如果你的 BT 下载没有速度，首先要尝试多添加一些 Tracker 服务器，比如 TrackersList.</description></item><item><title>Even Dead, You're The Hero</title><link>https://iamgodot.com/posts/edyth/</link><pubDate>Tue, 14 Dec 2021 20:43:11 +0800</pubDate><guid>https://iamgodot.com/posts/edyth/</guid><description>愿逝者安息。
 同龄人，也算是同行，现在几乎不玩游戏了，但从小也在国产武侠 RPG 里泼洒了许多热情。虽然不认识，之前也未曾耳闻，心里却五味杂陈。一切的一切，我都理解的。
 我有一个梦想，将来的某一天，大家都能玩到蕴含着中国上下五千年本土文化的优质游戏大作。
 我有一个梦想，有一天，西游记能出ACT，让老外去体会中国文化西游记中”斗战胜佛”的打击快感，那一定比西方的动作巅峰之作《战神》、《鬼泣》更加深邃。
@@ -324,121 +165,40 @@ Trackers: 就是 Tracker 服务器的地址，这个服务器不是用来下载�
 我有一个梦想，将来的某一天，国产游戏能像中国的其他产业一样，以一个领跑者的姿态，面对全世界，面对全宇宙，器宇轩昂，扬眉吐气。
 &amp;hellip;
 我等着我们的好消息。
-Even Dead, You&amp;rsquo;re The Hero.</description>
-    </item>
-    
-    <item>
-      <title>Python heapq 源码阅读</title>
-      <link>https://iamgodot.com/posts/sourcecode-of-python-heapq/</link>
-      <pubDate>Mon, 29 Nov 2021 23:26:37 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/sourcecode-of-python-heapq/</guid>
-      <description>Heap 作为一种重要的数据结构，有许多应用场景，比如优先级队列，每次出队的都是最大值或者最小值的元素。很多语言都集成了相关实现，比如 Java 的 PriorityQueue，而 Python 提供了 heapq 模块。
+Even Dead, You&amp;rsquo;re The Hero.</description></item><item><title>Python heapq 源码阅读</title><link>https://iamgodot.com/posts/sourcecode-of-python-heapq/</link><pubDate>Mon, 29 Nov 2021 23:26:37 +0800</pubDate><guid>https://iamgodot.com/posts/sourcecode-of-python-heapq/</guid><description>Heap 作为一种重要的数据结构，有许多应用场景，比如优先级队列，每次出队的都是最大值或者最小值的元素。很多语言都集成了相关实现，比如 Java 的 PriorityQueue，而 Python 提供了 heapq 模块。
 因为 Heap 通常用数组而不是链表存储，所以 Python 里面的 Heap 实质上就是一个列表，而 heapq 提供的几个函数也是以列表对象作为参数的：
-from heapq import heappush, heappop, heappify, heapreplace, heappushpop heap = [] heappush(heap, 1) item = heap[0] # 第一个元素代表堆顶元素 heappop(heap) heapify([3, 2, 1, 5, 6, 4]) # 把普通列表转化为堆结构 [1, 2, 3, 4, 5, 6] heapreplace([3, 4, 5], 1) # 直接将堆顶元素 3 替换为 1，最后堆结构为 [1, 4, 5] heappushpop([3, 4, 5], 1) # 先将 1 插入堆中，再 pop 出堆顶元素，最后堆结构为 [3, 4, 5] 为什么 heapq 提供的是最小堆而不是更常见的最大堆呢？这就得从源码中找答案了。</description>
-    </item>
-    
-    <item>
-      <title>Python OrderedDict 实现 LRU 缓存</title>
-      <link>https://iamgodot.com/posts/sourcecode-of-python-ordereddict/</link>
-      <pubDate>Sun, 28 Nov 2021 17:50:51 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/sourcecode-of-python-ordereddict/</guid>
-      <description>LRUCache 是一种经典的缓存机制，它的基本思路是按照最近使用的时间对元素排序，在清理时优先把搁置最久的删除掉。
+from heapq import heappush, heappop, heappify, heapreplace, heappushpop heap = [] heappush(heap, 1) item = heap[0] # 第一个元素代表堆顶元素 heappop(heap) heapify([3, 2, 1, 5, 6, 4]) # 把普通列表转化为堆结构 [1, 2, 3, 4, 5, 6] heapreplace([3, 4, 5], 1) # 直接将堆顶元素 3 替换为 1，最后堆结构为 [1, 4, 5] heappushpop([3, 4, 5], 1) # 先将 1 插入堆中，再 pop 出堆顶元素，最后堆结构为 [3, 4, 5] 为什么 heapq 提供的是最小堆而不是更常见的最大堆呢？这就得从源码中找答案了。</description></item><item><title>Python OrderedDict 实现 LRU 缓存</title><link>https://iamgodot.com/posts/sourcecode-of-python-ordereddict/</link><pubDate>Sun, 28 Nov 2021 17:50:51 +0800</pubDate><guid>https://iamgodot.com/posts/sourcecode-of-python-ordereddict/</guid><description>LRUCache 是一种经典的缓存机制，它的基本思路是按照最近使用的时间对元素排序，在清理时优先把搁置最久的删除掉。
 如果不想给每个缓存元素都记录一个时间戳的话，可以应用哈希链表来简单地实现 LRU 算法。也就是对一个哈希表中的所有元素增加指针，从而串起一个双链表，这样既可以快速 get value，又可以通过把最近使用过的元素放到头部来维护顺序，删除的时候从末尾开始就好了。
 手写双链表并不困难，但是借助 OrderedDict 的话，可以写出非常简短的代码：
 from collections import OrderedDict class LRUCache: def __init__(self, capacity): self.capacity = capacity self.hashtable = OrderedDict() def get(self, key: int) -&amp;gt; int: if key in self.hashtable: self.hashtable.move_to_end(key, last=False) return self.hashtable[key] return -1 def put(self, key: int, value: int) -&amp;gt; None: self.hashtable[key] = value self.hashtable.move_to_end(key, last=False) if len(self.hashtable) &amp;gt; self.capacity: self.hashtable.popitem() 其中最神奇的就是 move_to_end 和 popitem 方法（后者默认是弹出最后面的元素）的使用，这也得益于 OD 可以保证 key-value pair 的顺序。那么
-OD 是如何做到的呢？其实还是双链表，下面是它的 Python 实现：</description>
-    </item>
-    
-    <item>
-      <title>Numeric Strings in Python</title>
-      <link>https://iamgodot.com/posts/numeric-strings-in-python/</link>
-      <pubDate>Sun, 21 Nov 2021 17:44:36 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/numeric-strings-in-python/</guid>
-      <description>Python 的字符串自带了三种判断字符是否为数字的方法，但实际用处却相差很多。
+OD 是如何做到的呢？其实还是双链表，下面是它的 Python 实现：</description></item><item><title>Numeric Strings in Python</title><link>https://iamgodot.com/posts/numeric-strings-in-python/</link><pubDate>Sun, 21 Nov 2021 17:44:36 +0800</pubDate><guid>https://iamgodot.com/posts/numeric-strings-in-python/</guid><description>Python 的字符串自带了三种判断字符是否为数字的方法，但实际用处却相差很多。
 TL;DR 三种方法 isdecimal &amp;lt; isdigit &amp;lt; isnumeric，即包含的范围越来越大 除了 ASCII 字符以外，对于 Unicode 的字符也都覆盖在内 三种方法对于小数点和负号都会返回 False 三种方法对于空字符串都会返回 False 比较简便判断数字字符串的方法：直接使用 float 方法并检测 ValueError Decimal &amp;amp; Digit &amp;amp; Numeric 对于 isdecimal, isdigit 和 isnumeric 三种方法，目的并不是判断字符串是不是一个有效数字，而是针对每一个字符的校验：
 isdecimal: 判断字符串中的字符是否都为 Decimal，也就是在 Unicode 中类别为 Nd 的字符 isdigit: 除了 isdecimal 包含的范围之外，还会判断字符是否都为 Digit，即 Unicode 的 Numeric_Type 为 Digit 或 Decimal isnumeric: 除了 isdigit 包含的范围之外，还会判断字符是否都为 Numeric，即 Numeric_Type 为 Numeric 所以这三种方法覆盖的字符范围，每一个都是前一个的超集。对于超出 ASCII 字符之外的效果，比如：
-&amp;ldquo;０１２３４５６７８９&amp;rdquo; 这种 Full-width 字符串 isdecimal 会判定为 True，后两个方法也一样 &amp;ldquo;⓪①②③④⑤⑥⑦⑧⑨&amp;rdquo; 这种 Circled-digit 字符串 isdecimal 判定 False，但 isdigit 和 isnumeric 为 True &amp;ldquo;一二三四五六七八九十壹貳參肆伍陸柒捌玖拾&amp;rdquo; 这种中文数字字符串只有 isnumeric 才会判定为 True 总之这几种方法有更广泛的用途，根本不是为了简单的 ASCII 数字字符串的判断。即使用来做判断的话，局限性也非常大，因为如果包含小数点和负号，三个方法都会返回 False.</description>
-    </item>
-    
-    <item>
-      <title>From Wireshark to Linux Capabilities</title>
-      <link>https://iamgodot.com/posts/from-wireshark-to-linux-capabilities/</link>
-      <pubDate>Sun, 21 Nov 2021 13:39:25 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/from-wireshark-to-linux-capabilities/</guid>
-      <description>Tcpdump 和 Wireshark 是抓包必备的程序，但是由于需要截取网络数据包，所以在 Linux 下必须以 root 的身份来运行。每次都 sudo 执行不方便也并不安全（对 Wireshark 来说捉包只是一小部分功能），解决方案当然有，在寻找的过程中我了解到了 Capabilities 的冰山一角。
+&amp;ldquo;０１２３４５６７８９&amp;rdquo; 这种 Full-width 字符串 isdecimal 会判定为 True，后两个方法也一样 &amp;ldquo;⓪①②③④⑤⑥⑦⑧⑨&amp;rdquo; 这种 Circled-digit 字符串 isdecimal 判定 False，但 isdigit 和 isnumeric 为 True &amp;ldquo;一二三四五六七八九十壹貳參肆伍陸柒捌玖拾&amp;rdquo; 这种中文数字字符串只有 isnumeric 才会判定为 True 总之这几种方法有更广泛的用途，根本不是为了简单的 ASCII 数字字符串的判断。即使用来做判断的话，局限性也非常大，因为如果包含小数点和负号，三个方法都会返回 False.</description></item><item><title>From Wireshark to Linux Capabilities</title><link>https://iamgodot.com/posts/from-wireshark-to-linux-capabilities/</link><pubDate>Sun, 21 Nov 2021 13:39:25 +0800</pubDate><guid>https://iamgodot.com/posts/from-wireshark-to-linux-capabilities/</guid><description>Tcpdump 和 Wireshark 是抓包必备的程序，但是由于需要截取网络数据包，所以在 Linux 下必须以 root 的身份来运行。每次都 sudo 执行不方便也并不安全（对 Wireshark 来说捉包只是一小部分功能），解决方案当然有，在寻找的过程中我了解到了 Capabilities 的冰山一角。
 TL;DR 可以通过设置 Setuid 以 root 身份执行，但如此以来赋予了过高的权限（也没有必要）。 Linux 下用 Capabilities 把系统权限划分成多个条目，以此实现细粒度地提升程序的执行能力。 Setuid 先盗一张图复习下 Linux File Permission 的基础知识：
 除了 rwx 之外还存在三种特殊类型，即是为了在更高权限下运行程序：
 Setuid: 程序的运行者不再是执行者，而是变成文件的所有者 Setgid: 程序的运行群组变成了文件的所在群组，如果给目录设置，那么其中新建的文件所有群组会变成目录的群组而不是执行者的群组 Sticky bit: 针对目录设置，目录下的文件只有所有者和 root 能够重命名、移动和删除 在 Linux 中 sudo 是 Setuid 最好的例子，而 crontab 和 tmp/ 分别是 Setgid 和 Sticky bit 的典型应用。
 在命令行中测试：
-# Setuid ➜ ~ umask -S u=rwx,g=rx,o=rx ➜ ~ umask # 掩码是 022，所以默认文件的权限是 666-022=644，而目录则是 777-022=755 022 ➜ ~ touch foo.</description>
-    </item>
-    
-    <item>
-      <title>Overflow in Python</title>
-      <link>https://iamgodot.com/posts/overflow-in-python/</link>
-      <pubDate>Fri, 12 Nov 2021 17:20:10 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/overflow-in-python/</guid>
-      <description>犹记得在 Java 中，int 占用 4 bytes 所以大小限制在 -2^32 和 2^32 -1 之间，如果考虑到溢出的情况，就要用 long 类型来转换。
+# Setuid ➜ ~ umask -S u=rwx,g=rx,o=rx ➜ ~ umask # 掩码是 022，所以默认文件的权限是 666-022=644，而目录则是 777-022=755 022 ➜ ~ touch foo.</description></item><item><title>Overflow in Python</title><link>https://iamgodot.com/posts/overflow-in-python/</link><pubDate>Fri, 12 Nov 2021 17:20:10 +0800</pubDate><guid>https://iamgodot.com/posts/overflow-in-python/</guid><description>犹记得在 Java 中，int 占用 4 bytes 所以大小限制在 -2^32 和 2^32 -1 之间，如果考虑到溢出的情况，就要用 long 类型来转换。
 但是在 Python 中似乎从来没有考虑过类似的问题，也不记得 int 是占几个字节，那么是说 Python 的数字永远不会溢出吗？不可能吧。
 答案是对于 int 类型来说，可以认为不会；而 float 类型则需要注意溢出的情况。
 首先说 int 类型，打印 sys.maxsize 可以看到 Python 会根据系统是 32 位还是 64 位来确定一个上限值，这点与 Java 等语言一致。不同的是我们仍然可以使用比这个上限大（得多）的整数，因为 Python 支持的是 Arbitrary-precision arithmetic。也就是说为了突破 CPU 字长带来的运算限制，通过在软件层面模拟计算过程，是可以完成更高位数和精度的运算的。比如在公钥加密的场景下，经常需要对上百位的整数进行运算，这时候就需要在软件层面支持。
 这确实说明我们可以使用任意长度的 int 数字，只要不超出内存限制的话。因为如果给 Python 解释器分配了 2GB 内存，但是 2 * 1024 * 1024 * 1024 * 8 这么多位也不够表达的话，还是会出错的，只是并非 Overflow，而是 MemoryError.
-再说 float. 打印 sys.float_info.max 可以看到 float 的上限值，如果超出之后是会报错的，即 OverflowError.</description>
-    </item>
-    
-    <item>
-      <title>Understand Recursion Better</title>
-      <link>https://iamgodot.com/posts/understand-recursion-better/</link>
-      <pubDate>Mon, 08 Nov 2021 18:18:10 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/understand-recursion-better/</guid>
-      <description>在 Simple Recursion 之后，我一度把递归当作一种算法。但通过比较 Divide and Conquer 和 Dynamic Programming，我才发现之前的理解有点问题。
+再说 float. 打印 sys.float_info.max 可以看到 float 的上限值，如果超出之后是会报错的，即 OverflowError.</description></item><item><title>Understand Recursion Better</title><link>https://iamgodot.com/posts/understand-recursion-better/</link><pubDate>Mon, 08 Nov 2021 18:18:10 +0800</pubDate><guid>https://iamgodot.com/posts/understand-recursion-better/</guid><description>在 Simple Recursion 之后，我一度把递归当作一种算法。但通过比较 Divide and Conquer 和 Dynamic Programming，我才发现之前的理解有点问题。
 一切还是要从 Algorithmic Paradigm 说起：
 An algorithmic paradigm or algorithm design paradigm is a generic model or framework which underlies the design of a class of algorithms. An algorithmic paradigm is an abstraction higher than the notion of an algorithm, just as an algorithm is an abstraction higher than a computer program.
 算法范式，是在算法的层面上抽象出来的一种更泛化的思想，常用的有：
-Brute-force search 暴力解法 Backtracking 回溯算法 Greedy algorithm 贪心算法 Divide and conquer 分治法 Dynamic programming 动态规划 Divide and Conquer 的基本思路是把复杂的问题分解成多个类似的简单问题，解决之后再组合起来得到最终结果。这种算法有很多应用，比如排序中的 Merge Sort，先将数列分解成单个元素，然后再归并，这时子数组都已经排好顺序了，所以过程很快。</description>
-    </item>
-    
-    <item>
-      <title>Record Terminal as GIF</title>
-      <link>https://iamgodot.com/posts/record-terminal/</link>
-      <pubDate>Sun, 07 Nov 2021 21:35:44 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/record-terminal/</guid>
-      <description>这几天在做一个 CLI 项目，因为涉及到命令行操作，所以想录制一段 GIF 放在 README 中展示。
+Brute-force search 暴力解法 Backtracking 回溯算法 Greedy algorithm 贪心算法 Divide and conquer 分治法 Dynamic programming 动态规划 Divide and Conquer 的基本思路是把复杂的问题分解成多个类似的简单问题，解决之后再组合起来得到最终结果。这种算法有很多应用，比如排序中的 Merge Sort，先将数列分解成单个元素，然后再归并，这时子数组都已经排好顺序了，所以过程很快。</description></item><item><title>Record Terminal as GIF</title><link>https://iamgodot.com/posts/record-terminal/</link><pubDate>Sun, 07 Nov 2021 21:35:44 +0800</pubDate><guid>https://iamgodot.com/posts/record-terminal/</guid><description>这几天在做一个 CLI 项目，因为涉及到命令行操作，所以想录制一段 GIF 放在 README 中展示。
 印象里这种工具都是 JS 写的，但搜了搜居然发现有个 Python 的实现：asciinema
 用法很简单，就是安装好之后在命令行执行 asciinema rec 便会启动一个新的 Shell 并开始录制，录制的时候就像正常使用 Terminal 一样即可，完成之后按 Ctrl-D 或者 Exit 退出，asciinema 会把录制好的 cast 文件保存到本地，也可以选择上传到他们的网站：asciinema.org.
 那么 cast 文件是什么，又怎样得到 GIF 呢？其实这是 asciinema 自己定义的一种文件格式：
-A CAST file is a record of a terminal session recorded using asciinema, an open source terminal recording program. It contains a JSON-formatted header and a timestamped record of the text typed and printed during a terminal session.</description>
-    </item>
-    
-    <item>
-      <title>Look and Say</title>
-      <link>https://iamgodot.com/posts/look-and-say/</link>
-      <pubDate>Sun, 07 Nov 2021 16:59:50 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/look-and-say/</guid>
-      <description>无意中看到一种叫 look-and-say 的数列，很有意思，有点儿 Fibonacci 的感觉。数列如下：
+A CAST file is a record of a terminal session recorded using asciinema, an open source terminal recording program. It contains a JSON-formatted header and a timestamped record of the text typed and printed during a terminal session.</description></item><item><title>Look and Say</title><link>https://iamgodot.com/posts/look-and-say/</link><pubDate>Sun, 07 Nov 2021 16:59:50 +0800</pubDate><guid>https://iamgodot.com/posts/look-and-say/</guid><description>无意中看到一种叫 look-and-say 的数列，很有意思，有点儿 Fibonacci 的感觉。数列如下：
 1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211, &amp;hellip;
 从第二位开始，每个数字都是对前一个数的计数结果的描述。比如 11 表示前面的 1 有一个 1，而 21 表示前面的 11 有两个 1，1121 表示 21 有一个 2 和一个 1，依次类推，可以无穷循环出新的结果。（除了 22 这个数字，因为会一直重复 22 本身）
 后来查了查才发现原来 Leetcode 也有这道题，不过名字叫做 count-and-say。基本就是给 n 然后求此数列的第 n 项结果。
 想了想思路并不难，无非是对一个数字的所有位数循环再计数就好了，不过写的时候很犯难，竟然还写出了一个无比冗长的 for 循环加 if 面条代码。这让我意识到了自己对于循环的认识有多么不够深刻。
 之所以犯难，其实是不知道怎样把几种逻辑合并在一起，如果粗暴地列举所有分支大概是这样：
-def find_next(num: str): result = &amp;#39;&amp;#39; cur, count = num[0], 1 size = len(num) for i in range(1, size): if num[i] == cur and i == size - 1: # count 加一 # 更新 result elif num[i] == cur: # count 加一 elif i == size - 1: # 更新 result # 更新 cur&amp;amp;count # 更新 result else: # 更新 result # 更新 cur&amp;amp;count # 还有一种情况就是并没有进入 for 循环 # 那么也需要更新 result 直接按照这些分支把代码填满肯定很难看，所以要挑选合并。看起来只有第二个分支不需要更新 result，于是我决定把它单拎出来：如果 num[i]==cur 那么 count 加一；否则就更新 result 以及 cur&amp;amp;count.</description>
-    </item>
-    
-    <item>
-      <title>Find Median</title>
-      <link>https://iamgodot.com/posts/find-median/</link>
-      <pubDate>Wed, 03 Nov 2021 17:07:04 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/find-median/</guid>
-      <description>祸从天降的一天。
+def find_next(num: str): result = &amp;#39;&amp;#39; cur, count = num[0], 1 size = len(num) for i in range(1, size): if num[i] == cur and i == size - 1: # count 加一 # 更新 result elif num[i] == cur: # count 加一 elif i == size - 1: # 更新 result # 更新 cur&amp;amp;count # 更新 result else: # 更新 result # 更新 cur&amp;amp;count # 还有一种情况就是并没有进入 for 循环 # 那么也需要更新 result 直接按照这些分支把代码填满肯定很难看，所以要挑选合并。看起来只有第二个分支不需要更新 result，于是我决定把它单拎出来：如果 num[i]==cur 那么 count 加一；否则就更新 result 以及 cur&amp;amp;count.</description></item><item><title>Find Median</title><link>https://iamgodot.com/posts/find-median/</link><pubDate>Wed, 03 Nov 2021 17:07:04 +0800</pubDate><guid>https://iamgodot.com/posts/find-median/</guid><description>祸从天降的一天。
 早上起不来，于是刷手机清醒一下，突然看到一个 ACMer 楼主提到自己没有刷过 Leetcode，面试的时候差点儿被打脸了。
 看了一下题目，要求是 O(logn) 的复杂度，默默想了想，没有特别清晰的思路。
 结果翻了翻评论，很多人都在蜻蜓点水般地表示二分查找不断分割就可以了。
@@ -452,16 +212,7 @@ def find_next(num: str): result = &amp;#39;&amp;#39; cur, count = num[0], 1 size
 一直重复这个流程，最后得到的肯定就是一个或两个数，平均下就好了，时间复杂度也是符合要求的 O(logn).
 结果等到看完标答后我才反应过来自己错在哪里了，这是后话。（因为 m 和 n 不一定一样大，所以显然折半的逻辑不对）
 最优的解决方案是可以做到 O(log min(m, n)) 的，核心也是二分法，不过思路要复杂一些：
-首先明确中位数的定义。对于奇数个数字来说是最中间的元素，偶数则是中间两个元素的平均值。 要做的是将两个数组各分一刀，假设划分的下标分别是 i 和 j，那么 nums1 被分成 nums1[0, i], nums1[i:]，而 nums2 分为 nums2[0, j], nums2[j:]. 因为数组中元素的数量是奇是偶不一定，所以规定好是奇数的话多的一个放到左边。如此 i 的位置就是右边部分的第一个，而左半边正好有 i 个元素。 下标 i 和 j 之间是存在一个等式关系的，因为是中位数，所以 i + j 等于元素总数的一半，或者一半多一个（因为说好了左边多一个嘛）。那么就有 i+j=(m+n)/2 | i+j=(m+n)/2+1，合并起来写成 (m+n+1)/2.</description>
-    </item>
-    
-    <item>
-      <title>(Re)Write recursions easily</title>
-      <link>https://iamgodot.com/posts/simple-recursion/</link>
-      <pubDate>Mon, 25 Oct 2021 08:56:54 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/simple-recursion/</guid>
-      <description>近来刷题，觉得递归实在神奇。对于有的题目，用循环实现思路很清晰，改成递归却变得非常抽象；另一些相反，递归的做法既简洁又容易理解，但换成迭代就怎样都不明白了。经过几次痛苦的思考之后，我发现其中还是有迹可循的，按照套路来做，至少思路不会走得太偏。
+首先明确中位数的定义。对于奇数个数字来说是最中间的元素，偶数则是中间两个元素的平均值。 要做的是将两个数组各分一刀，假设划分的下标分别是 i 和 j，那么 nums1 被分成 nums1[0, i], nums1[i:]，而 nums2 分为 nums2[0, j], nums2[j:]. 因为数组中元素的数量是奇是偶不一定，所以规定好是奇数的话多的一个放到左边。如此 i 的位置就是右边部分的第一个，而左半边正好有 i 个元素。 下标 i 和 j 之间是存在一个等式关系的，因为是中位数，所以 i + j 等于元素总数的一半，或者一半多一个（因为说好了左边多一个嘛）。那么就有 i+j=(m+n)/2 | i+j=(m+n)/2+1，合并起来写成 (m+n+1)/2.</description></item><item><title>(Re)Write recursions easily</title><link>https://iamgodot.com/posts/simple-recursion/</link><pubDate>Mon, 25 Oct 2021 08:56:54 +0800</pubDate><guid>https://iamgodot.com/posts/simple-recursion/</guid><description>近来刷题，觉得递归实在神奇。对于有的题目，用循环实现思路很清晰，改成递归却变得非常抽象；另一些相反，递归的做法既简洁又容易理解，但换成迭代就怎样都不明白了。经过几次痛苦的思考之后，我发现其中还是有迹可循的，按照套路来做，至少思路不会走得太偏。
 在维基上面发现的关于递归的笑话：
 To understand recursion, you must understand recursion.
 Write Recursion 审题分析过后，如果选择用递归，需要先明确两个最重要的组成部分：
@@ -470,45 +221,18 @@ def factorial(n): if n &amp;lt;= 2: return n return factorial(n - 1) * n 如果�
 使用全局（outer scope）变量 利用参数进行传递 下面的写法就是利用了参数来保存中间的计算结果：
 def factorial(n, res): if n &amp;lt;= 2: return res * n return factorial(n - 1, res * n) 也就是所谓的尾递归，对于可以优化尾递归的语言确实可以看成这种方式是从上至下的，而常规的递归则是从下到上。但我理解递归都是先下去再上来的，尾递归只是选择了一去不返而已。
 上面的例子比较简单，反转链表的代码就比较难理解一点：
-def reverse_list(head): if not head or not head.next: return head new_head = reverse_list_by_recursion(head.next) head.next.next = head head.</description>
-    </item>
-    
-    <item>
-      <title>Use setxkbmap for Keyboard Mapping</title>
-      <link>https://iamgodot.com/posts/use-setxkbmap-for-keyboard-mapping/</link>
-      <pubDate>Sat, 16 Oct 2021 04:57:10 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/use-setxkbmap-for-keyboard-mapping/</guid>
-      <description>这是一篇使用（过） Linux Xorg without any DE 以及笔记本外接键盘的人才能理解其中辛酸苦痛的抒情科普文。
+def reverse_list(head): if not head or not head.next: return head new_head = reverse_list_by_recursion(head.next) head.next.next = head head.</description></item><item><title>Use setxkbmap for Keyboard Mapping</title><link>https://iamgodot.com/posts/use-setxkbmap-for-keyboard-mapping/</link><pubDate>Sat, 16 Oct 2021 04:57:10 +0800</pubDate><guid>https://iamgodot.com/posts/use-setxkbmap-for-keyboard-mapping/</guid><description>这是一篇使用（过） Linux Xorg without any DE 以及笔记本外接键盘的人才能理解其中辛酸苦痛的抒情科普文。
 TL;DR 外接键盘不要开蓝牙，直接插线，除非你乐意折腾 使用 setxkbmap 而不是 xmodmap 来做 key remapping 不要用 Xorg The Irrational Part 上午十点零一分，端坐到显示器前，深呼吸两次。
 Ok，回滚内核版本之后 Screen Lock 卡死的问题果然消失了，我们继续。
 进入系统，先看一下昨晚的日志吧：
-... 需求目标： 1. 交换 L-Ctrl &amp;amp; Caps-Lock 2. 交换 Win &amp;amp; Alt 当前方案： 使用 xmodmap 自定义配置文件，在 startx 时执行 已知问题： 1. 系统挂起或蓝牙睡眠导致的 keyboard reconnection 会 reset 掉 Win&amp;amp;Alt 的交换 2. 之后重新执行 xmodmap 会导致 L-Ctrl&amp;amp;Caps-Lock 交换回原状，必须执行两次 后续跟进： 1. TTY console switch 快捷键不可用 2. Terminate X 快捷键 CAB(Ctrl-Alt-Backspace) 不可用 3.</description>
-    </item>
-    
-    <item>
-      <title>假如生活欺骗了你</title>
-      <link>https://iamgodot.com/posts/if-by-life-you-were-deceived/</link>
-      <pubDate>Fri, 03 Sep 2021 04:23:57 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/if-by-life-you-were-deceived/</guid>
-      <description>假如生活欺骗了你，
+... 需求目标： 1. 交换 L-Ctrl &amp;amp; Caps-Lock 2. 交换 Win &amp;amp; Alt 当前方案： 使用 xmodmap 自定义配置文件，在 startx 时执行 已知问题： 1. 系统挂起或蓝牙睡眠导致的 keyboard reconnection 会 reset 掉 Win&amp;amp;Alt 的交换 2. 之后重新执行 xmodmap 会导致 L-Ctrl&amp;amp;Caps-Lock 交换回原状，必须执行两次 后续跟进： 1. TTY console switch 快捷键不可用 2. Terminate X 快捷键 CAB(Ctrl-Alt-Backspace) 不可用 3.</description></item><item><title>假如生活欺骗了你</title><link>https://iamgodot.com/posts/if-by-life-you-were-deceived/</link><pubDate>Fri, 03 Sep 2021 04:23:57 +0800</pubDate><guid>https://iamgodot.com/posts/if-by-life-you-were-deceived/</guid><description>假如生活欺骗了你，
 不要悲伤，不要心急！
 忧郁的日子里，必须镇静：
 相信吧，快乐的日子终将会来临。
 心儿永远向着未来；
 现在却常是忧郁。
 一切都是瞬息，一切都将会过去；
-而那过去了的，就会成为亲切的怀恋。</description>
-    </item>
-    
-    <item>
-      <title>游河西走廊</title>
-      <link>https://iamgodot.com/posts/visit-hexi-corridor/</link>
-      <pubDate>Tue, 24 Aug 2021 01:22:26 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/visit-hexi-corridor/</guid>
-      <description>从兰州离开之后，终于踏上了心系已久的河西走廊之旅。自从看了同名纪录片，才真正领略到大西北的厚重，也开始了解，早在汉武帝的统治下，狭长的河西通道就已经被慢慢打开，并一步步开启了中国的历史新篇。
+而那过去了的，就会成为亲切的怀恋。</description></item><item><title>游河西走廊</title><link>https://iamgodot.com/posts/visit-hexi-corridor/</link><pubDate>Tue, 24 Aug 2021 01:22:26 +0800</pubDate><guid>https://iamgodot.com/posts/visit-hexi-corridor/</guid><description>从兰州离开之后，终于踏上了心系已久的河西走廊之旅。自从看了同名纪录片，才真正领略到大西北的厚重，也开始了解，早在汉武帝的统治下，狭长的河西通道就已经被慢慢打开，并一步步开启了中国的历史新篇。
 其实所谓河西走廊指的是一条从中原通往关外的通道，由甘肃的武威、张掖、酒泉和敦煌几座城市相连，从地图上看，形如走廊，又在黄河以西，故此得名。为了更集中精力游览，便决定不在酒泉停留，而是游完敦煌之后，回返嘉峪关机场直接离开。
 盗图，侵删
 武威 武威，即武功军威，古称凉州。本来以为会是个喧闹的小镇模样，到了之后却发现大有不同。不仅是因为道路规划得宽敞通畅，满带科技感的市博物馆更让人耳目一新。雷台汉墓的铜奔马实际上就是在这里出土，（估计）却因为当年本地的条件不够而把大量的文物搬迁到兰州的甘肃省博了，（猜想）这座优秀市博的建立就是不想再重蹈覆辙，毕竟珍贵文物会很大程度影响旅游经济的发展（好像还为了留住西夏塔碑特意建了个西夏博物馆）。
@@ -533,16 +257,7 @@ Ok，回滚内核版本之后 Screen Lock 卡死的问题果然消失了，我�
 雅丹魔鬼城的小猫咪
 雅丹体，千年风沙堆积成的神奇地貌
 遥远的前方就是传说中的罗布泊
-从敦煌到嘉峪关后，这段旅程也告一段落了。那时大约在七月中旬，这篇游记却到八月底才写，因为不知道以怎样的方式来记录才最合适。太多的景色去回味，太密集的感受要消化，这并不是个好借口，但它让我深深感到，行万里路并非一句空话，如同看书，不管内容记住多少，阅读的过程都会成为心灵的积淀。这一点一滴的慰藉，让我们得以回过头来，平静地继续生活。</description>
-    </item>
-    
-    <item>
-      <title>论游记</title>
-      <link>https://iamgodot.com/posts/on-travel-log/</link>
-      <pubDate>Wed, 18 Aug 2021 08:20:55 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/on-travel-log/</guid>
-      <description>通常写东西不会让我很为难，虽然有时也会酝酿许久，但绝没有像游记这样令我如此困惑。
+从敦煌到嘉峪关后，这段旅程也告一段落了。那时大约在七月中旬，这篇游记却到八月底才写，因为不知道以怎样的方式来记录才最合适。太多的景色去回味，太密集的感受要消化，这并不是个好借口，但它让我深深感到，行万里路并非一句空话，如同看书，不管内容记住多少，阅读的过程都会成为心灵的积淀。这一点一滴的慰藉，让我们得以回过头来，平静地继续生活。</description></item><item><title>论游记</title><link>https://iamgodot.com/posts/on-travel-log/</link><pubDate>Wed, 18 Aug 2021 08:20:55 +0800</pubDate><guid>https://iamgodot.com/posts/on-travel-log/</guid><description>通常写东西不会让我很为难，虽然有时也会酝酿许久，但绝没有像游记这样令我如此困惑。
 也许是对这种类型过于陌生，也许读的太少，总是无法想象一篇好游记的模样。不过心中有了尝试的动力，只好硬着头皮思考下去。
 否定一样事物往往是容易的，如今旅游盛行，各类 app 里面的游记比比皆是，反而为我透露出些许端倪。一座城市的简介，一段行程的攻略，甚至一个地区的方志，都有助于对风土人情的了解，但同时也偏离了游记的方向。针对个人的经历，一篇游记应当是主观的，真实地记录旅途中的所见所闻，这也符合百科里的描述：
 一般而言，旅行文学是旅人的旅游记录，所录包括途中见闻、政治、社会、风土、景物云云，亦表达思想感情。
@@ -554,16 +269,7 @@ Ok，回滚内核版本之后 Screen Lock 卡死的问题果然消失了，我�
 现代国家地缘关系，是指以地理位置、综合国力和距离等地缘要素为基础的国家之间的地缘政治、地缘经济、地缘文明等关系。
 简单地理解，就是由于特定的地理环境，一个社会和国家的发展是存在一定的规律的，将范围扩大，也一定程度上决定了人与人、国与国之间的相处和竞争关系。
 这可能离游记本身的概念已经太远，但话说回来，去一个地方并不限于日常生活的吃喝玩乐，站在更高的角度，看到一地之理、历经之史，是一件更有意义的事。当然，说来简单，这种程度作为旅行的终极追求也不为过。
-返朴归真地想想，无论是感官体验，还是心理感受，只要自由地走了走、看了看，都不愧为一次成功的出游，如此，才是一篇好的游记最重要的前提。</description>
-    </item>
-    
-    <item>
-      <title>游兰州</title>
-      <link>https://iamgodot.com/posts/visit-lanzhou/</link>
-      <pubDate>Fri, 02 Jul 2021 09:59:49 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/visit-lanzhou/</guid>
-      <description>离开北京，兰州是我的第一站。作为西北之行的起点，它是最合适的选择。一直以来，我都对这座城市充满了好感，那里是每个牛肉面爱好者都心驰神往的朝圣地。
+返朴归真地想想，无论是感官体验，还是心理感受，只要自由地走了走、看了看，都不愧为一次成功的出游，如此，才是一篇好的游记最重要的前提。</description></item><item><title>游兰州</title><link>https://iamgodot.com/posts/visit-lanzhou/</link><pubDate>Fri, 02 Jul 2021 09:59:49 +0800</pubDate><guid>https://iamgodot.com/posts/visit-lanzhou/</guid><description>离开北京，兰州是我的第一站。作为西北之行的起点，它是最合适的选择。一直以来，我都对这座城市充满了好感，那里是每个牛肉面爱好者都心驰神往的朝圣地。
 在出发之前，我并不了解兰州，知道的也不过拉面、牛羊肉和黄沙漫天几个关键词而已（刻板印象）。其实，同样情况的又何止这一处呢，中国地广城多，去了也难免只是匆匆一瞥，更多的地方都只是道听途说。也许，认识一个城市和交朋友差不多，知己难得，不仅需要时间和耐心，更少不了冥冥中的一抹缘分。
 之所以说缘分，是因为每一座城市都有自己的特色，无论地理、文化还是饮食，而这些是否符合个人的兴趣口味，就不好说了。有时可能令人失望，但一旦出现交集，便会发生神奇的碰撞反应。比如我从小爱吃拉面（牛肉面），所以对兰州饭馆极有亲切感，心里也埋下了有朝一日要去当地品尝正宗口味的种子。顺着这第一动力，来到这里，除了美食之外，也被当地淳朴的风土人情所感染，因此对兰州甚至整个大西北有了更多的留恋。
 来到兰州的第一张
@@ -579,16 +285,7 @@ Ok，回滚内核版本之后 Screen Lock 卡死的问题果然消失了，我�
 兰州还是很宜居的，清凉的河风吹得空气干爽而舒适，一到傍晚便可见到熙熙攘攘的人们在岸旁的公园广场上跳舞和散步。西北的淳朴民风，让作为外地游客的我感觉不到任何拘束，过马路时，司机们常常都会主动让人。正宁路小吃街，南关夜市，加上热闹的烧烤摊和酒馆，给无聊的夜生活点缀了无数欢乐。
 真的很美
 最后一晚在河边漫步时，无意听到旁边的人闲聊，其中一个大叔说起现在的年轻人太贪图享受，即使有工作机会，也没人愿意留在西部，觉得条件艰苦，没有发展。平心而论，相比兰州作为甘肃的省会，却找不出几个互联网职位，我也会觉得去发达的一二线城市才是更好的选择。现实如此，年轻人宁肯在大都市闯荡，头破血流也不愿意回到家乡。这是个时代的难题，人口不断地向中心城市流动，新一代的信仰也在发生迁移。如今资本的巨力大行其道，教唆每个人房子、股票和大厂的工作才是人生的唯一出口，比起上一代的白手起家，我们站得更高，却很难再有一往无前的勇气。
-不知是惭愧还是迷茫，望着滚滚河水，我陷入了沉思。黄河之水天上来，奔流到海不复回。也许它比我更加困惑，也许它至少清楚，只要保持前行，终有一天会和答案相遇。</description>
-    </item>
-    
-    <item>
-      <title>胡同的夏天</title>
-      <link>https://iamgodot.com/posts/hutongs-in-beijing-summer/</link>
-      <pubDate>Sat, 19 Jun 2021 02:02:06 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/hutongs-in-beijing-summer/</guid>
-      <description>在大大小小的胡同间溜达是我在北京生活最享受的事情之一。在六月的夏季，经常能碰上蓝天白云的晴天，阳光没那么毒辣，微风时不时地出现，靠在墙边的树荫下，鸟语5和蝉声能把人勾回到无忧无虑的童年，还是老北京口味儿的。
+不知是惭愧还是迷茫，望着滚滚河水，我陷入了沉思。黄河之水天上来，奔流到海不复回。也许它比我更加困惑，也许它至少清楚，只要保持前行，终有一天会和答案相遇。</description></item><item><title>胡同的夏天</title><link>https://iamgodot.com/posts/hutongs-in-beijing-summer/</link><pubDate>Sat, 19 Jun 2021 02:02:06 +0800</pubDate><guid>https://iamgodot.com/posts/hutongs-in-beijing-summer/</guid><description>在大大小小的胡同间溜达是我在北京生活最享受的事情之一。在六月的夏季，经常能碰上蓝天白云的晴天，阳光没那么毒辣，微风时不时地出现，靠在墙边的树荫下，鸟语5和蝉声能把人勾回到无忧无虑的童年，还是老北京口味儿的。
 对我来说，地安门总是整个行程的起点。之后进护国寺街，买份杏仁豆腐边吃边往里走，到定阜街再多走几步就能看见辅仁大学的校门，不过现在已经挂上了北师大的牌子。继续向前走是恭王府，想绕过的话可以穿过柳荫街去后海（如果感兴趣，南海、中海、北海、前海、后海还有西海，一溜烟儿全是水路）。之后沿着湖面随便走走然后一路向东，穿过烟袋斜街就是鼓楼了。走的时候记得叼根冰棍儿，边嗦边溜达才过瘾，不用担心，一路上公厕比小商店多。
 这次和以往不同的是，除了闲逛，我开始尝试记录下沿途的风景：
 定阜街，到这里就可以开始买冰棍儿了
@@ -602,16 +299,7 @@ Ok，回滚内核版本之后 Screen Lock 卡死的问题果然消失了，我�
 接着说，到了鼓楼街。如果饿了，拐进方砖厂胡同，69号炸酱面在等待。等待的意思是，想吃你得耐心地排网红队。没有耐心也不要紧，对面是个小菜市场，里面有家小付煎饼，糁子面糊（不同于天津煎饼用的是绿豆面）加现磨豆浆，七块钱的煎饼可以带来很高的幸福感。
 再往前有两个选择，一是左转向北，经过北锣鼓巷往外环走；又或者趁着天色渐晚去景山公园转转，既可以远眺北京城，也不至于累得走不动。
 北京一直都在变大，但是真正让我感到留恋的就那么几条街，即使这样，也总是看不够其中的风景。千百年来的人和事，积淀在这片土地上，好像有种魔力，就算记不清历史的来龙去脉，也觉得自己回到了民国、晚清和大明朝。
-夏天的胡同，胡同的夏天，时空是两条长河，相互交错着延伸，汇聚在此，化作美丽的漩涡。心理感受说来奇妙，我亦不信邪，然而每一刻的风情，与任一个往日相比，都有细微差别。虽然不知会飘向何处，但它存在过，就已经完全足够了。</description>
-    </item>
-    
-    <item>
-      <title>Goodbye 20s</title>
-      <link>https://iamgodot.com/posts/goodbye-20/</link>
-      <pubDate>Mon, 14 Jun 2021 13:02:09 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/goodbye-20/</guid>
-      <description>没有人永远二十多岁，但永远有人二十多岁。今天像往常一样度过，但回头看看，对于过去的十年仍然感到不可思议。一方面，自己真的离开了这段生命区间，另一方面，是没想到会以这样的轨迹一路走过来。
+夏天的胡同，胡同的夏天，时空是两条长河，相互交错着延伸，汇聚在此，化作美丽的漩涡。心理感受说来奇妙，我亦不信邪，然而每一刻的风情，与任一个往日相比，都有细微差别。虽然不知会飘向何处，但它存在过，就已经完全足够了。</description></item><item><title>Goodbye 20s</title><link>https://iamgodot.com/posts/goodbye-20/</link><pubDate>Mon, 14 Jun 2021 13:02:09 +0800</pubDate><guid>https://iamgodot.com/posts/goodbye-20/</guid><description>没有人永远二十多岁，但永远有人二十多岁。今天像往常一样度过，但回头看看，对于过去的十年仍然感到不可思议。一方面，自己真的离开了这段生命区间，另一方面，是没想到会以这样的轨迹一路走过来。
 打开记忆的盒子，这段青春岁月过得有慢有快。前半部分在校园，回想起来却满是彷徨挣扎，漫长得支离破碎；工作之后，仿佛才睁开眼睛，开始看清自己和身边的人，反而觉得有趣，日子也变得快了。与这个世界交手多年，你是否光彩依旧，兴致盎然？对我来说，人生越来越接近一场游戏，过去就像开场的热身，而下面正题才刚刚开始。
 每个人都会害怕，有的人害怕孤单，有的人害怕错过。我也一样，甚至比别人更多，因为内心敏感，所以时常会有各种念头冒出来。经历一些事之后，好像切断了部分神经，变得愈加迟钝了。有时周围的人夸我勇敢，他们不知道的是，我的思绪会飘回某个时间点，在那里，自己一无所有，这感受如此真实，于是再做大胆的决定时，我会想，没什么了不起，大不了和从前一样罢了。
 过去的早已过去，珍贵的也不会忘记。认识过很多人，但保持联系的少之又少。有的以为永远不会分开却陌路，有的中间失去联系却成为知己。我不爱交际，所以有朋友全凭好运气，甚至还需要对方迁就，这并非我所愿，希望以后能多做些好事，让这些人开心快乐。
@@ -623,16 +311,7 @@ If I leave here tomorrow
 Would you still remember me?
 For I must be travelling on, now,
 &amp;lsquo;Cause there&amp;rsquo;s too many places I&amp;rsquo;ve got to see.
-&amp;hellip;</description>
-    </item>
-    
-    <item>
-      <title>论独立博客</title>
-      <link>https://iamgodot.com/posts/on-independent-blog/</link>
-      <pubDate>Sat, 20 Mar 2021 23:02:32 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/on-independent-blog/</guid>
-      <description>近来在中文独立博客列表里发现不少同道中人，借这个机会重新思考了独立博客这件事。
+&amp;hellip;</description></item><item><title>论独立博客</title><link>https://iamgodot.com/posts/on-independent-blog/</link><pubDate>Sat, 20 Mar 2021 23:02:32 +0800</pubDate><guid>https://iamgodot.com/posts/on-independent-blog/</guid><description>近来在中文独立博客列表里发现不少同道中人，借这个机会重新思考了独立博客这件事。
 什么是独立博客呢，根据维基百科：
 独立博客一般指在采用独立域名和网络主机的博客，既在空间、域名和内容上相对独立的博客。独立博客相当于一个独立的网站，而且不属于任何其他网站。相对于BSP下的博客，独立博客更自由、灵活，不受限制。
 这里的定义更接近个人网站的概念，但我想，应当对其做进一步的区分。
@@ -644,16 +323,7 @@ For I must be travelling on, now,
 有时会翻看之前的博客，看看还有哪些可以删减的地方。当然，有时为了说清楚某件事，难免为此多添笔墨，因此也需要一定的取舍。
 尝试不同的叙述视角 我认为在表述论点时第一人称是最佳选择，但是其他视角也有各自的适用场景。对于历史事件的描绘，第三人称是必要的；而第二人称可以给读者带来更真切的感受。
 之所以提到这一点，是因为在写作时偶尔会对此感到困惑。有时候会突然想换一种视角，但又怕打乱原有的风格。大概只有多尝试才能找到最适合自己的方式吧。
-如今的独立博客早已不是主流，但依然不断地有人出现并坚持在这条路上。自由独立地表达内心，我想这就是它最大的意义。</description>
-    </item>
-    
-    <item>
-      <title>生命之光</title>
-      <link>https://iamgodot.com/posts/the-silverlining/</link>
-      <pubDate>Mon, 23 Nov 2020 23:01:58 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/the-silverlining/</guid>
-      <description>之前听过这么一段话：
+如今的独立博客早已不是主流，但依然不断地有人出现并坚持在这条路上。自由独立地表达内心，我想这就是它最大的意义。</description></item><item><title>生命之光</title><link>https://iamgodot.com/posts/the-silverlining/</link><pubDate>Mon, 23 Nov 2020 23:01:58 +0800</pubDate><guid>https://iamgodot.com/posts/the-silverlining/</guid><description>之前听过这么一段话：
 当你老了，回顾一生，就会发觉：什么时候出国读书，什么时候决定做第一份职业，何时选定对象而恋爱，什么时候结婚，其实都是命运的巨变。只是当时站在三岔路口，眼见风云千樯，你做出选择的那一天，在日记上，相当沉闷和平凡，当时还以为是生命中普通的一天。
 我想，今天早上在公交车上度过的短暂时光，已可算是我生命中的巨变，自己并非没有察觉，因为这一切来得如同阳光普照，万象更新。
 近几年来，渐渐开始习惯有规划地做事，生活也变得规律简单。看过 The social delimma 那部纪录片之后，关闭了朋友圈，对手机的依赖也愈加减少。初期时常恍惚，甚至不知该做些什么，习惯之后反而觉得轻松，时间好像在不知不觉中变多了。
@@ -665,30 +335,12 @@ For I must be travelling on, now,
 弄清楚我们想做什么是世上最困难的事情之一。不但在青少年时代如此，在我们一生中，这个问题都存在着。除非你亲自弄清楚什么是你真正想做的事，否则你会做一些对你没有太大意义的事，你的生命就会变得十分悲惨，正因为你过得很悲惨，你就必须从戏院、酗酒、阅读数不尽的书籍，做社会改革的工作以及其他事情来让自己分心。你一旦发现真正爱做的事，你就是一个自由的人了，然后你就会有能力、信心和主动创造的力量。但是如果你不知道自己真正爱做的是什么，你只好去做人人羡慕的律师、政客或这个那个，于是你就不会有快乐，因为那份职业会变成毁灭你自己及其他人的工具。
 之所以受了巨大震动，是因为我迷惘在这个问题上太久了。同样，我未想清楚自己是谁，也困惑于奋斗的意义。如果没有弄清楚这些，可能越努力，就会越痛苦吧。
 回看高晓松的播客，让我意识到人类的发展史就像自己的困兽之斗，经历了许多，却仍旧徘徊在内心之外；再联系到孟岩的文章，如果没有切身的痛苦挣扎，即使看到那段话，我也不会有所感悟。
-因为今天，我已和过去不一样，感谢一切的点点滴滴，感谢生命之光。</description>
-    </item>
-    
-    <item>
-      <title>Use emoji in MySQL</title>
-      <link>https://iamgodot.com/posts/use-emoji-in-mysql/</link>
-      <pubDate>Sat, 21 Nov 2020 17:22:18 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/use-emoji-in-mysql/</guid>
-      <description>最近碰到一个服务器报错，排查后发现是参数中包含了 emoji，导致数据库插入记录失败了。
+因为今天，我已和过去不一样，感谢一切的点点滴滴，感谢生命之光。</description></item><item><title>Use emoji in MySQL</title><link>https://iamgodot.com/posts/use-emoji-in-mysql/</link><pubDate>Sat, 21 Nov 2020 17:22:18 +0800</pubDate><guid>https://iamgodot.com/posts/use-emoji-in-mysql/</guid><description>最近碰到一个服务器报错，排查后发现是参数中包含了 emoji，导致数据库插入记录失败了。
 虽然业务上不要求支持，但好奇之下，我还是基于 MySQL 做了个实验。
 What&amp;rsquo;s emoji 🧐 关于 emoji 比较官方的解释：
 Emoji are pictographs (pictorial symbols) that are typically presented in a colorful form and used inline in text. They represent things such as faces, weather, vehicles and buildings, food and drink, animals and plants, or icons that represent emotions, feelings, or activities.
 那么 emoji 是怎么来的呢：
-Emoji are &amp;ldquo;picture characters&amp;rdquo; originally associated with cellular telephone usage in Japan, but now popular worldwide.</description>
-    </item>
-    
-    <item>
-      <title>The Art of Readable Code</title>
-      <link>https://iamgodot.com/posts/the-art-of-readable-code/</link>
-      <pubDate>Sat, 31 Oct 2020 15:54:05 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/the-art-of-readable-code/</guid>
-      <description>最近读了《编写可读代码的艺术》这本书，收获良多。
+Emoji are &amp;ldquo;picture characters&amp;rdquo; originally associated with cellular telephone usage in Japan, but now popular worldwide.</description></item><item><title>The Art of Readable Code</title><link>https://iamgodot.com/posts/the-art-of-readable-code/</link><pubDate>Sat, 31 Oct 2020 15:54:05 +0800</pubDate><guid>https://iamgodot.com/posts/the-art-of-readable-code/</guid><description>最近读了《编写可读代码的艺术》这本书，收获良多。
 整本书的核心都在于一个原则：代码应当易于理解。作者在开篇就提出了可读性的概念：
 代码的写法应当使别人理解它所需要的时间最小化。
 上述的别人更有可能是未来的自己，所以保证可读性非常有助于节省自己的时间。
@@ -704,16 +356,7 @@ Less is more。不考虑可读性的话，代码越少，带来的麻烦反而�
 Writing 书里还说把想法变成代码，关键在于是否能把程序要做的事情用自然语言解释清楚。
 这和写文章何其相似：命题，描述中心思想，行文通顺，言之有物。如果是写一个函数，那就变成：抽象接口，梳理逻辑，解耦并拆分子任务。
 随着时间发展，还要给内容做适当的减法。比如抽取重复的代码逻辑，OOP，用第三方库代替现有功能。对于文章来说则是，删除废话，同样的描述语只保留一个，使用更精简的词汇表达等等。
-把编码当成写作，是这件事最吸引我的地方。前者不只是枯燥的堆砌，后者也并非涂鸦般简单，在 Art of readability 这一点上，它们是相通的。</description>
-    </item>
-    
-    <item>
-      <title>The Social Dilemma</title>
-      <link>https://iamgodot.com/posts/the-social-dilemma/</link>
-      <pubDate>Wed, 07 Oct 2020 22:25:35 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/the-social-dilemma/</guid>
-      <description>The Social Dilemma 是一部 Netflix 原创纪录片，讲述了社交平台是如何通过大数据算法分析人们的行为偏好，并利用广告推送获利的。这一切高速发展到今天，已经脱离设计者的初衷，把无数用户变成了资本交易的砝码。
+把编码当成写作，是这件事最吸引我的地方。前者不只是枯燥的堆砌，后者也并非涂鸦般简单，在 Art of readability 这一点上，它们是相通的。</description></item><item><title>The Social Dilemma</title><link>https://iamgodot.com/posts/the-social-dilemma/</link><pubDate>Wed, 07 Oct 2020 22:25:35 +0800</pubDate><guid>https://iamgodot.com/posts/the-social-dilemma/</guid><description>The Social Dilemma 是一部 Netflix 原创纪录片，讲述了社交平台是如何通过大数据算法分析人们的行为偏好，并利用广告推送获利的。这一切高速发展到今天，已经脱离设计者的初衷，把无数用户变成了资本交易的砝码。
 Threat 影片在采访中穿插了一部短片，描述了一个家庭的孩子们从一开始沉迷社交应用到最终被洗脑的过程。两部分内容交织在一起，更让人感觉到那些负面影响是真实地存在于我们的生活中。
 免费的应用背后隐藏着简单粗暴的商业模式：广告商出钱给科技公司，后者投放广告。听上去很合理，但科技手段却在资本的推动下演变成为高效的洗脑工具。
 If you don&amp;rsquo;t pay for the product, then you are the product.
@@ -723,30 +366,12 @@ It&amp;rsquo;s the gradual, slight, imperceptible change in your own behavior an
 至于人控制人，自古以来都是如此吧，不论手机还是八股。但影片还提到，在大数据的疯狂催化下，科技的巨兽早已脱缰，没有人知道这样发展下去，究竟会对世界造成怎样的影响。所以如果有一天我们迎来终结者或者奥创的剧情，可能也不足为奇。
 Solution 影片后面还给出了一些应对的建议，比如：
 关闭消息推送和应用提醒。 使用其他的搜索引擎（不记录个人数据的那种）。 拒绝类似 Youtube Video 的推荐。 关注不同的消息源，比如 Twitter 上不同立场的帐号。 不要给孩子太多的手机使用和网络社交时间。 删除社交应用帐号。 这些建议看上去有些不太现实，我觉得最重要的是想清楚使用手机和 App 的目的，不要被带着走。经过一番尝试，我做了如下改变：
-卸载不必要的应用。 社交：保留微信（关闭朋友圈）和豆瓣，还有 TG。 阅读：一个 RSS App，外加微信公众号。 音乐：一个简洁版的 QQ 音乐（网易云的广告太多了）。 尽量关闭所有的推送提醒。 捡回 Kindle。 整体效果还不错，明显感觉到时间变多了，最重要的两点要数退出朋友圈和关闭通知。虽然依旧会刷豆瓣，但是有了防范之心，也不算太沉迷。</description>
-    </item>
-    
-    <item>
-      <title>Pandemic</title>
-      <link>https://iamgodot.com/posts/pandemic/</link>
-      <pubDate>Mon, 06 Apr 2020 18:30:18 +0800</pubDate>
-      
-      <guid>https://iamgodot.com/posts/pandemic/</guid>
-      <description>Pandemic: How to Prevent an Outbreak 是 Netflix 出品的一部纪录片，共有六集。这部短剧在 2020 年初播出，正好赶上了新冠的爆发。它告诉人们，疫情并非大自然的偷袭，而是暴风雨按部就班的来临。
+卸载不必要的应用。 社交：保留微信（关闭朋友圈）和豆瓣，还有 TG。 阅读：一个 RSS App，外加微信公众号。 音乐：一个简洁版的 QQ 音乐（网易云的广告太多了）。 尽量关闭所有的推送提醒。 捡回 Kindle。 整体效果还不错，明显感觉到时间变多了，最重要的两点要数退出朋友圈和关闭通知。虽然依旧会刷豆瓣，但是有了防范之心，也不算太沉迷。</description></item><item><title>Pandemic</title><link>https://iamgodot.com/posts/pandemic/</link><pubDate>Mon, 06 Apr 2020 18:30:18 +0800</pubDate><guid>https://iamgodot.com/posts/pandemic/</guid><description>Pandemic: How to Prevent an Outbreak 是 Netflix 出品的一部纪录片，共有六集。这部短剧在 2020 年初播出，正好赶上了新冠的爆发。它告诉人们，疫情并非大自然的偷袭，而是暴风雨按部就班的来临。
 Influenza 这个词源自意大利语，意思就是我们常说的流感（Flu）。虽然普通感冒和流行性感冒都是由于呼吸道感染病毒导致的，但后者的症状严重很多，传染性也更强。
 目前人类感染的流感病毒有甲型、乙型、丙型三种。其中甲型 H1N1 病毒正是 1918 年西班牙流感大流行事件中造成全球 5 亿人感染、1.7 千万至 5 千万人死亡的罪魁祸首。之后的一百年里还出现过多次流感疫情，比如 2003 年起源于国内的 H5N1 禽流感，和 2009 年墨西哥城爆发的甲型 H1N1 流感（也称为猪流感），后者在一年多的时间内导致 7 亿到 14 亿人感染、15 万到 57.5 万人死亡。
 此外还有庞大的冠状病毒家族，包括这次的 COVID-19，之前的非典 SARS-CoV（严重急性呼吸综合症）和 MERS-CoV（中东呼吸综合症）。常见的冠状病毒通常会引起上呼吸道感染，而 SARS 和 MERS 带来的症状更加严重，比如呼吸急促、肺炎甚至导致死亡。
 这些远不是全部，还有更多更致命的病毒散落在全世界的各个地方。比如埃博拉，在苏丹和刚果出现，是一种能引起人类和其他灵长类动物产生埃博拉出血热的烈性传染病病毒。生物安全等级为 4 级，比 SARS 和艾滋病还要高一级。
-常见的传染病分类 呼吸道传染病 流感（Flu） 肺结核（Tuberculosis） 百日咳（Whooping cough） 麻疹（Measles） 非典（SARS） 消化道传染病 细菌性痢疾（Bacillary dysentery） 小儿麻痹症（Polio） 蛔虫病（Ascariasis） 伤寒（Typhoid） 霍乱（Cholera） 血液传染病 乙肝（Hepatitis B） 疟疾（Helopyra） 性传染病 艾滋病（AIDS） 梅毒（Syphilis） 故事线 说回纪录片，整剧分成多条故事线叙述，可能是因为内容太多，在有限的篇幅里稍显凌乱。我尝试梳理了每条支线的梗概：</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://iamgodot.com/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://iamgodot.com/about/</guid>
-      <description>朋友们 莫愁前路无知已，天下谁人不识君。
+常见的传染病分类 呼吸道传染病 流感（Flu） 肺结核（Tuberculosis） 百日咳（Whooping cough） 麻疹（Measles） 非典（SARS） 消化道传染病 细菌性痢疾（Bacillary dysentery） 小儿麻痹症（Polio） 蛔虫病（Ascariasis） 伤寒（Typhoid） 霍乱（Cholera） 血液传染病 乙肝（Hepatitis B） 疟疾（Helopyra） 性传染病 艾滋病（AIDS） 梅毒（Syphilis） 故事线 说回纪录片，整剧分成多条故事线叙述，可能是因为内容太多，在有限的篇幅里稍显凌乱。我尝试梳理了每条支线的梗概：</description></item><item><title/><link>https://iamgodot.com/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iamgodot.com/about/</guid><description>朋友们 莫愁前路无知已，天下谁人不识君。
 胡涂说 Airing 的小屋 Sulv&amp;rsquo;s Blog 关于我 名 Godot，Python 开发者，北漂多年，现已南下。
 爱好写东西，包括代码。博客虽然小众，却是精神家园。
 喜欢看书，少时钟情武侠，如今乐于哲学。记忆里的书单已有些破碎：
@@ -755,10 +380,4 @@ Influenza 这个词源自意大利语，意思就是我们常说的流感（Flu�
 喜欢游戏谈不上，只是很享受在其中探索的感觉，比如刺客信条：奥德赛。
 喜欢的工具：
 Arch Linux Neovim 日常开发 Typora 博客写作 Picgo 配合博客图片上传 Obsidian 知识库，配合 Dropbox 同步 Taskito 任务清单 App Google Keep 手机记录专用 关于博客 写过框架，也曾尝试 Hexo、WordPress、Ghost，目前在用 Hugo，感觉尚可：
-没有导入导出的格式要求，只需维护 Markdown 文件。 Typora 配合 Picgo 可以轻松上传图片。 用 shortcodes 渲染 Youtube 或 Mermaid。 推荐集成 giscus 作为评论系统。 仓库在 GitHub 维护，提交推送之后会自动触发部署更新，很方便。 </description>
-    </item>
-    
-    
-    
-  </channel>
-</rss>
+没有导入导出的格式要求，只需维护 Markdown 文件。 Typora 配合 Picgo 可以轻松上传图片。 用 shortcodes 渲染 Youtube 或 Mermaid。 推荐集成 giscus 作为评论系统。 仓库在 GitHub 维护，提交推送之后会自动触发部署更新，很方便。</description></item></channel></rss>
