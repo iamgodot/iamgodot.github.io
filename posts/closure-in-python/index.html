@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Python 中的闭包 | Godot&#39;s Blog</title>
+<meta name="keywords" content="Python 闭包, Python 的 Closure 是什么, Python Closure">
+<meta name="description" content="def f1(): l = [] def c(): l.append(1) def f2(): a = 1 def c(): print(a) a = 2 类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 BugFeature，理解之后反而觉得这样的设计是合理的。
+首先说 Closure，也就是闭包，特指内部的函数及其引用的超出本身作用域的对象，总是在函数嵌套时发生。在 f1 中，c 就是一个闭包函数，同时 l 也算作其中的一部分。因为 c 使用了 l 导致延伸了原有的作用域，所以才有闭包的产生。
+再看 f2，如果我们只对 a 做 read 操作是不会引发问题的，由于 c 中尝试了赋值操作，才导致了 UnboundLocalError. 这是因为 Python 解释器会假定函数中赋值的变量是局部变量，而 c 中本身并没有定义 local 的 a 变量；其次，异常在 print(a) 时就会抛出，不会等到 a = 2 的执行。
+那为什么 f1 没问题呢，是因为列表为可变对象，append 操作只是更新了里面的内容，并不存在赋值。
+def f(): l = [] def c(): l.">
+<meta name="author" content="">
+<link rel="canonical" href="https://iamgodot.com/posts/closure-in-python/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7cb1aaa4414c482febc7034a427761d087a2cf358f1be8f7beba5afc947b57d0.css" integrity="sha256-fLGqpEFMSC/rxwNKQndh0IeizzWPG&#43;j3vrpa/JR7V9A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.e85ad0406048e8176e1c7661b25d5c69297ddfe41dc4124cf75ecb99a4f7b3d1.js" integrity="sha256-6FrQQGBI6BduHHZhsl1caSl93&#43;QdxBJM917LmaT3s9E="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://iamgodot.com/icons/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://iamgodot.com/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://iamgodot.com/icons/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://iamgodot.com/icons/apple-touch-icon.png">
+<link rel="mask-icon" href="https://iamgodot.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" media="print" onload="this.media='all'">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="preconnect" href="https://plausible.iamgodot.com">
+    
+        
+        <script defer data-domain="iamgodot.com" src="https://plausible.iamgodot.com/js/plausible.js" ></script>
+
+<!-- If you are using Content-Security-Policy, do not forget to add this code to your CSP : 
+  script-src 'unsafe-inline' https://plausible.iamgodot.com
+  connect-src 'unsafe-inline' https://plausible.iamgodot.com
+  or just add the partial 'plausible_csp.html' to those 2 csp directives in your 'index.headers' file
+-->
+
+
+
+    
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+    <script>
+         
+         
+         
+    </script>
+
+    
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-157042624-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script><meta property="og:title" content="Python 中的闭包" />
+<meta property="og:description" content="def f1(): l = [] def c(): l.append(1) def f2(): a = 1 def c(): print(a) a = 2 类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 BugFeature，理解之后反而觉得这样的设计是合理的。
+首先说 Closure，也就是闭包，特指内部的函数及其引用的超出本身作用域的对象，总是在函数嵌套时发生。在 f1 中，c 就是一个闭包函数，同时 l 也算作其中的一部分。因为 c 使用了 l 导致延伸了原有的作用域，所以才有闭包的产生。
+再看 f2，如果我们只对 a 做 read 操作是不会引发问题的，由于 c 中尝试了赋值操作，才导致了 UnboundLocalError. 这是因为 Python 解释器会假定函数中赋值的变量是局部变量，而 c 中本身并没有定义 local 的 a 变量；其次，异常在 print(a) 时就会抛出，不会等到 a = 2 的执行。
+那为什么 f1 没问题呢，是因为列表为可变对象，append 操作只是更新了里面的内容，并不存在赋值。
+def f(): l = [] def c(): l." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://iamgodot.com/posts/closure-in-python/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T17:55:18&#43;08:00" />
+<meta property="article:modified_time" content="2022-01-29T17:55:18&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python 中的闭包"/>
+<meta name="twitter:description" content="def f1(): l = [] def c(): l.append(1) def f2(): a = 1 def c(): print(a) a = 2 类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 BugFeature，理解之后反而觉得这样的设计是合理的。
+首先说 Closure，也就是闭包，特指内部的函数及其引用的超出本身作用域的对象，总是在函数嵌套时发生。在 f1 中，c 就是一个闭包函数，同时 l 也算作其中的一部分。因为 c 使用了 l 导致延伸了原有的作用域，所以才有闭包的产生。
+再看 f2，如果我们只对 a 做 read 操作是不会引发问题的，由于 c 中尝试了赋值操作，才导致了 UnboundLocalError. 这是因为 Python 解释器会假定函数中赋值的变量是局部变量，而 c 中本身并没有定义 local 的 a 变量；其次，异常在 print(a) 时就会抛出，不会等到 a = 2 的执行。
+那为什么 f1 没问题呢，是因为列表为可变对象，append 操作只是更新了里面的内容，并不存在赋值。
+def f(): l = [] def c(): l."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://iamgodot.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Python 中的闭包",
+      "item": "https://iamgodot.com/posts/closure-in-python/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Python 中的闭包",
+  "name": "Python 中的闭包",
+  "description": "def f1(): l = [] def c(): l.append(1) def f2(): a = 1 def c(): print(a) a = 2 类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 BugFeature，理解之后反而觉得这样的设计是合理的。\n首先说 Closure，也就是闭包，特指内部的函数及其引用的超出本身作用域的对象，总是在函数嵌套时发生。在 f1 中，c 就是一个闭包函数，同时 l 也算作其中的一部分。因为 c 使用了 l 导致延伸了原有的作用域，所以才有闭包的产生。\n再看 f2，如果我们只对 a 做 read 操作是不会引发问题的，由于 c 中尝试了赋值操作，才导致了 UnboundLocalError. 这是因为 Python 解释器会假定函数中赋值的变量是局部变量，而 c 中本身并没有定义 local 的 a 变量；其次，异常在 print(a) 时就会抛出，不会等到 a = 2 的执行。\n那为什么 f1 没问题呢，是因为列表为可变对象，append 操作只是更新了里面的内容，并不存在赋值。\ndef f(): l = [] def c(): l.",
+  "keywords": [
+    "Python 闭包", "Python 的 Closure 是什么", "Python Closure"
+  ],
+  "articleBody": "def f1(): l = [] def c(): l.append(1) def f2(): a = 1 def c(): print(a) a = 2 类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 BugFeature，理解之后反而觉得这样的设计是合理的。\n首先说 Closure，也就是闭包，特指内部的函数及其引用的超出本身作用域的对象，总是在函数嵌套时发生。在 f1 中，c 就是一个闭包函数，同时 l 也算作其中的一部分。因为 c 使用了 l 导致延伸了原有的作用域，所以才有闭包的产生。\n再看 f2，如果我们只对 a 做 read 操作是不会引发问题的，由于 c 中尝试了赋值操作，才导致了 UnboundLocalError. 这是因为 Python 解释器会假定函数中赋值的变量是局部变量，而 c 中本身并没有定义 local 的 a 变量；其次，异常在 print(a) 时就会抛出，不会等到 a = 2 的执行。\n那为什么 f1 没问题呢，是因为列表为可变对象，append 操作只是更新了里面的内容，并不存在赋值。\ndef f(): l = [] def c(): l.append(1) return c 像上面这样，我们可以通过执行 f 得到闭包函数 c. 此时 f 已经执行完毕，它的作用域也随之消失，l 则作为自由变量绑定到了 c 上。和 c 关联的所有自由变量名称都可以在 c.__code__.co_freevars 中看到，而真正的对象则保存在 c.__closure__ 里面。\n怎样才能给这些自由变量赋值呢？Python 提供了 nonlocal 关键字，顾名思义，它表示一个变量来自外层函数，此时再进行赋值就不会出现前面的问题了：\ndef f(): a = 1 def c(): nonlocal a print(a) a = 2 其实除了 nonlocal 之外还有个 global 关键字，目的是指定使用 Global 命名空间的变量，也就是一个模块（文件）的作用域下。\n作用域可以简单理解成变量的作用范围，a = [] 这样的赋值语句把变量 a 和列表对象做了绑定，之后 a 这个名称可以使用的范围就是它的作用域。而同一层作用域的所有绑定了的变量名和对象都存放在一个数据结构内，即命名空间，Python 的命名空间就是 Dict 来实现的。\n包括 Global，Python 一共有 LEGB 四大命名空间，一圈圈扩大，但是不相互覆盖：\nLocal: 函数内部 Enclosing: 闭包内部 Global: 模块内部 Builtin: 内建的函数和其他对象 还有一点要注意的是，和函数不同，在类的内部是无法使用闭包的，必须要以 self.a 或者 cls.a 的方式来引用类变量。\nReferences\nFluent Python ",
+  "wordCount" : "148",
+  "inLanguage": "en",
+  "datePublished": "2022-01-29T17:55:18+08:00",
+  "dateModified": "2022-01-29T17:55:18+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://iamgodot.com/posts/closure-in-python/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Godot's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://iamgodot.com/icons/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://iamgodot.com" accesskey="h" title="Godot&#39;s Blog (Alt + H)">Godot&#39;s Blog</a>
+            <span class="logo-switches">
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Python 中的闭包
+    </h1>
+    <div class="post-meta"><span title='2022-01-29 17:55:18 +0800 CST'>01-29</span>&nbsp;·&nbsp;1 min
+
+</div>
+  </header> 
+
+  <div class="post-content"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f1</span>():
+</span></span><span style="display:flex;"><span>    l <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">c</span>():
+</span></span><span style="display:flex;"><span>        l<span style="color:#f92672">.</span>append(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f2</span>():
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">c</span>():
+</span></span><span style="display:flex;"><span>        print(a)
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><p>类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 <del>Bug</del>Feature，理解之后反而觉得这样的设计是合理的。</p>
+<p>首先说 Closure，也就是闭包，特指内部的函数及其引用的超出本身作用域的对象，总是在函数嵌套时发生。在 f1 中，c 就是一个闭包函数，同时 l 也算作其中的一部分。因为 c 使用了 l 导致延伸了原有的作用域，所以才有闭包的产生。</p>
+<p>再看 f2，如果我们只对 a 做 read 操作是不会引发问题的，由于 c 中尝试了赋值操作，才导致了 <code>UnboundLocalError</code>. 这是因为 Python 解释器会假定函数中赋值的变量是局部变量，而 c 中本身并没有定义 local 的 a 变量；其次，异常在 <code>print(a)</code> 时就会抛出，不会等到 <code>a = 2</code> 的执行。</p>
+<p>那为什么 f1 没问题呢，是因为列表为可变对象，append 操作只是更新了里面的内容，并不存在赋值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>():
+</span></span><span style="display:flex;"><span>    l <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">c</span>():
+</span></span><span style="display:flex;"><span>        l<span style="color:#f92672">.</span>append(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> c
+</span></span></code></pre></div><p>像上面这样，我们可以通过执行 f 得到闭包函数 c. 此时 f 已经执行完毕，它的作用域也随之消失，l 则作为自由变量绑定到了 c 上。和 c 关联的所有自由变量名称都可以在 <code>c.__code__.co_freevars</code> 中看到，而真正的对象则保存在 <code>c.__closure__</code> 里面。</p>
+<p>怎样才能给这些自由变量赋值呢？Python 提供了 <code>nonlocal</code> 关键字，顾名思义，它表示一个变量来自外层函数，此时再进行赋值就不会出现前面的问题了：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>():
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">c</span>():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">nonlocal</span> a
+</span></span><span style="display:flex;"><span>        print(a)
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><p>其实除了 <code>nonlocal</code> 之外还有个 <code>global</code> 关键字，目的是指定使用 Global 命名空间的变量，也就是一个模块（文件）的作用域下。</p>
+<p>作用域可以简单理解成变量的作用范围，<code>a = []</code> 这样的赋值语句把变量 a 和列表对象做了绑定，之后 a 这个名称可以使用的范围就是它的作用域。而同一层作用域的所有绑定了的变量名和对象都存放在一个数据结构内，即命名空间，Python 的命名空间就是 Dict 来实现的。</p>
+<p>包括 Global，Python 一共有 LEGB 四大命名空间，一圈圈扩大，但是不相互覆盖：</p>
+<ul>
+<li>Local: 函数内部</li>
+<li>Enclosing: 闭包内部</li>
+<li>Global: 模块内部</li>
+<li>Builtin: 内建的函数和其他对象</li>
+</ul>
+<p>还有一点要注意的是，和函数不同，在类的内部是无法使用闭包的，必须要以 <code>self.a</code> 或者 <code>cls.a</code> 的方式来引用类变量。</p>
+<hr>
+<p><em>References</em></p>
+<ul>
+<li>Fluent Python</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://iamgodot.com/tags/python/">python</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://iamgodot.com/posts/about-pager/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>关于 Pager</span>
+  </a>
+  <a class="next" href="https://iamgodot.com/posts/about-http-auth/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>关于 HTTP Auth</span>
+  </a>
+</nav>
+
+  </footer>
+<script src="https://giscus.app/client.js"
+        data-repo="iamgodot/godot-blog-comments"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkzOTk0Nzk0MTY="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOF8-SeM4CO3OX"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark_dimmed"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2020-2022 <a href="https://iamgodot.com">Godot&#39;s Blog</a></span>
+    <span>
+        | <a href="http://beian.miit.gov.cn/" target="_blank">京ICP备20005558号-2</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

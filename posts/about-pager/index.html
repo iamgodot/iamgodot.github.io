@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>关于 Pager | Godot&#39;s Blog</title>
+<meta name="keywords" content="Python pager, Python help pager, Pydoc pager">
+<meta name="description" content="好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 less。
+Why Pager Pager 在大段文字的展示中很常见，比如 Linux 的 man page，而 $PAGER 就是用来指定默认 Paging 程序的环境变量。Python shell 里面的 help() 会默认翻页显示，IPython 的 ? 则更胜一筹，能够判断当前屏幕的可用空间来决定是否 Paging。
+Less 应该算是最流行的 Pager 了，相比于 more，它同时支持前进和后退翻页，而且因为不需要一次性读取整个文件，它的启动速度在打开大型文件时要远远快于 vi。因此，许多 Pager 都是通过启动系统自带的 less 程序来实现。
+Don&rsquo;t Reinvent the Wheel 轮子总是有的，而且还很多，这里说几个比较好用的：
+Pydoc 的 pager Click 的 echo_via_pager IPython 的 page Pydoc 是 Python 自带的，已经稳定存在了很多年，轻巧好用；Click 的实现类似，而且支持传入一个 generator；IPython 的 page 更加强大，可以自动判断当前的屏幕大小，再结合一个 screen_lines 参数来计算最终的可用空间。
+再说说这几个轮子的实现，基本思路都是上面提到的调用系统 Pager。因为要兼容五花八门的操作系统，大致上又分为三种处理方式：
+理想情况下是使用 PIPE。因为打开的系统 Pager 必然是子进程，而 PIPE 通过内存中的缓冲区实现了 IPC，这样既不用一次性读取所有数据，后续的 write 操作效率也高。">
+<meta name="author" content="">
+<link rel="canonical" href="https://iamgodot.com/posts/about-pager/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7cb1aaa4414c482febc7034a427761d087a2cf358f1be8f7beba5afc947b57d0.css" integrity="sha256-fLGqpEFMSC/rxwNKQndh0IeizzWPG&#43;j3vrpa/JR7V9A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.e85ad0406048e8176e1c7661b25d5c69297ddfe41dc4124cf75ecb99a4f7b3d1.js" integrity="sha256-6FrQQGBI6BduHHZhsl1caSl93&#43;QdxBJM917LmaT3s9E="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://iamgodot.com/icons/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://iamgodot.com/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://iamgodot.com/icons/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://iamgodot.com/icons/apple-touch-icon.png">
+<link rel="mask-icon" href="https://iamgodot.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" media="print" onload="this.media='all'">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="preconnect" href="https://plausible.iamgodot.com">
+    
+        
+        <script defer data-domain="iamgodot.com" src="https://plausible.iamgodot.com/js/plausible.js" ></script>
+
+<!-- If you are using Content-Security-Policy, do not forget to add this code to your CSP : 
+  script-src 'unsafe-inline' https://plausible.iamgodot.com
+  connect-src 'unsafe-inline' https://plausible.iamgodot.com
+  or just add the partial 'plausible_csp.html' to those 2 csp directives in your 'index.headers' file
+-->
+
+
+
+    
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+    <script>
+         
+         
+         
+    </script>
+
+    
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-157042624-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script><meta property="og:title" content="关于 Pager" />
+<meta property="og:description" content="好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 less。
+Why Pager Pager 在大段文字的展示中很常见，比如 Linux 的 man page，而 $PAGER 就是用来指定默认 Paging 程序的环境变量。Python shell 里面的 help() 会默认翻页显示，IPython 的 ? 则更胜一筹，能够判断当前屏幕的可用空间来决定是否 Paging。
+Less 应该算是最流行的 Pager 了，相比于 more，它同时支持前进和后退翻页，而且因为不需要一次性读取整个文件，它的启动速度在打开大型文件时要远远快于 vi。因此，许多 Pager 都是通过启动系统自带的 less 程序来实现。
+Don&rsquo;t Reinvent the Wheel 轮子总是有的，而且还很多，这里说几个比较好用的：
+Pydoc 的 pager Click 的 echo_via_pager IPython 的 page Pydoc 是 Python 自带的，已经稳定存在了很多年，轻巧好用；Click 的实现类似，而且支持传入一个 generator；IPython 的 page 更加强大，可以自动判断当前的屏幕大小，再结合一个 screen_lines 参数来计算最终的可用空间。
+再说说这几个轮子的实现，基本思路都是上面提到的调用系统 Pager。因为要兼容五花八门的操作系统，大致上又分为三种处理方式：
+理想情况下是使用 PIPE。因为打开的系统 Pager 必然是子进程，而 PIPE 通过内存中的缓冲区实现了 IPC，这样既不用一次性读取所有数据，后续的 write 操作效率也高。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://iamgodot.com/posts/about-pager/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-02T14:09:53&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-02T14:09:53&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="关于 Pager"/>
+<meta name="twitter:description" content="好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 less。
+Why Pager Pager 在大段文字的展示中很常见，比如 Linux 的 man page，而 $PAGER 就是用来指定默认 Paging 程序的环境变量。Python shell 里面的 help() 会默认翻页显示，IPython 的 ? 则更胜一筹，能够判断当前屏幕的可用空间来决定是否 Paging。
+Less 应该算是最流行的 Pager 了，相比于 more，它同时支持前进和后退翻页，而且因为不需要一次性读取整个文件，它的启动速度在打开大型文件时要远远快于 vi。因此，许多 Pager 都是通过启动系统自带的 less 程序来实现。
+Don&rsquo;t Reinvent the Wheel 轮子总是有的，而且还很多，这里说几个比较好用的：
+Pydoc 的 pager Click 的 echo_via_pager IPython 的 page Pydoc 是 Python 自带的，已经稳定存在了很多年，轻巧好用；Click 的实现类似，而且支持传入一个 generator；IPython 的 page 更加强大，可以自动判断当前的屏幕大小，再结合一个 screen_lines 参数来计算最终的可用空间。
+再说说这几个轮子的实现，基本思路都是上面提到的调用系统 Pager。因为要兼容五花八门的操作系统，大致上又分为三种处理方式：
+理想情况下是使用 PIPE。因为打开的系统 Pager 必然是子进程，而 PIPE 通过内存中的缓冲区实现了 IPC，这样既不用一次性读取所有数据，后续的 write 操作效率也高。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://iamgodot.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "关于 Pager",
+      "item": "https://iamgodot.com/posts/about-pager/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "关于 Pager",
+  "name": "关于 Pager",
+  "description": "好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 less。\nWhy Pager Pager 在大段文字的展示中很常见，比如 Linux 的 man page，而 $PAGER 就是用来指定默认 Paging 程序的环境变量。Python shell 里面的 help() 会默认翻页显示，IPython 的 ? 则更胜一筹，能够判断当前屏幕的可用空间来决定是否 Paging。\nLess 应该算是最流行的 Pager 了，相比于 more，它同时支持前进和后退翻页，而且因为不需要一次性读取整个文件，它的启动速度在打开大型文件时要远远快于 vi。因此，许多 Pager 都是通过启动系统自带的 less 程序来实现。\nDon\u0026rsquo;t Reinvent the Wheel 轮子总是有的，而且还很多，这里说几个比较好用的：\nPydoc 的 pager Click 的 echo_via_pager IPython 的 page Pydoc 是 Python 自带的，已经稳定存在了很多年，轻巧好用；Click 的实现类似，而且支持传入一个 generator；IPython 的 page 更加强大，可以自动判断当前的屏幕大小，再结合一个 screen_lines 参数来计算最终的可用空间。\n再说说这几个轮子的实现，基本思路都是上面提到的调用系统 Pager。因为要兼容五花八门的操作系统，大致上又分为三种处理方式：\n理想情况下是使用 PIPE。因为打开的系统 Pager 必然是子进程，而 PIPE 通过内存中的缓冲区实现了 IPC，这样既不用一次性读取所有数据，后续的 write 操作效率也高。",
+  "keywords": [
+    "Python pager", "Python help pager", "Pydoc pager"
+  ],
+  "articleBody": "好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 less。\nWhy Pager Pager 在大段文字的展示中很常见，比如 Linux 的 man page，而 $PAGER 就是用来指定默认 Paging 程序的环境变量。Python shell 里面的 help() 会默认翻页显示，IPython 的 ? 则更胜一筹，能够判断当前屏幕的可用空间来决定是否 Paging。\nLess 应该算是最流行的 Pager 了，相比于 more，它同时支持前进和后退翻页，而且因为不需要一次性读取整个文件，它的启动速度在打开大型文件时要远远快于 vi。因此，许多 Pager 都是通过启动系统自带的 less 程序来实现。\nDon’t Reinvent the Wheel 轮子总是有的，而且还很多，这里说几个比较好用的：\nPydoc 的 pager Click 的 echo_via_pager IPython 的 page Pydoc 是 Python 自带的，已经稳定存在了很多年，轻巧好用；Click 的实现类似，而且支持传入一个 generator；IPython 的 page 更加强大，可以自动判断当前的屏幕大小，再结合一个 screen_lines 参数来计算最终的可用空间。\n再说说这几个轮子的实现，基本思路都是上面提到的调用系统 Pager。因为要兼容五花八门的操作系统，大致上又分为三种处理方式：\n理想情况下是使用 PIPE。因为打开的系统 Pager 必然是子进程，而 PIPE 通过内存中的缓冲区实现了 IPC，这样既不用一次性读取所有数据，后续的 write 操作效率也高。\n如果 PIPE 不可用，那就需要先建立临时文件，把数据写入，最后再启动 Pager 直接打开文件。\n保底的方案是直接向标准输出写入文本数据，这种做法一般只会出现在非 tty 的设备上。\n另外 IPython 内部使用了 curses 库来检测屏幕大小，如果传入的 screen_lines 小于等于 0，就会加上检测结果的值作为最终的可用行数。从官方文档上看 Windows 的 Python 没有 curses，但提供了 ported version 的 UniCurses，不知道 IPython 的屏幕检测在 Windows 的表现如何。\nClick 虽然没有直接使用 Pydoc，但实现基本和后者相同；而 IPython 的轮子是从头造起，质量很高，值得一看。\nDo it Yourself 抛开那些杂乱的系统判断的部分，直接实现一个调用 less 的 Pager 还是很简单的。大致代码如下：\nfrom subprocess import PIPE, Popen def pager(text: str): proc = Popen( 'less', shell=True, stdin=PIPE, text=True, ) proc.communicate(text) 这样会一次性把文本写入到 PIPE 中，对于一个生成器来说，不断迭代出新内容并写入会更高效：\nfrom subprocess import PIPE, Popen def pager(generator): proc = Popen( 'less', shell=True, stdin=PIPE, text=True, ) try: for text in generator: proc.stdin.write(text) except (OSError, KeyboardInterrupt): pass else: proc.stdin.close() proc.wait() 虽然代码不麻烦，但在使用 subprocess 这个库的过程中踩了许多坑，需要对着文档来回确认。比如上面的 Popen 中的 text 参数是为了控制文本模式打开文件，但如果不传而是直接指定 encoding 或 errors 的话也会默认使用文本打开。。\n下面再啰嗦几句 subprocess，如果没兴趣可以跳过：\n现在的 Higher API 只关注 run() 就好了，以前的 call/check_call/check_output 都可以忽略，run() 中都提供对应参数 需要和子进程交互的话用 Popen() 对于不指定 shell 的 Popen() 字符串作为命令：命令中无法携带参数，只可以这样 Popen('echo', ...) 列表作为命令：所有元素会合在一起，所以可以 Popen(['echo', 'foo', 'bar']) 如果命令出错或不存在会直接触发 FileNotFound 异常 对于 shell=True 的 Popen() 官方文档直接推荐使用字符串，原因见下一行 如果使用列表的话，只有第一个元素作为命令内容，其他的都会读取为 shell 的参数 不会引发 FileNotFound 异常而是输出到 stderr 槽点满满，一开始用起来痛不欲生，不过也可能是这个库的历史包袱太重了吧。\n小小的 Pager 并不难，但兼容各种 OS 和 Terminal 真的也需要勇气，更不用说有时候 I/O 操作也表现不一。生活不易，对于这种底层功能，真的不如拿来主义呀。\n",
+  "wordCount" : "226",
+  "inLanguage": "en",
+  "datePublished": "2022-04-02T14:09:53+08:00",
+  "dateModified": "2022-04-02T14:09:53+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://iamgodot.com/posts/about-pager/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Godot's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://iamgodot.com/icons/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://iamgodot.com" accesskey="h" title="Godot&#39;s Blog (Alt + H)">Godot&#39;s Blog</a>
+            <span class="logo-switches">
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      关于 Pager
+    </h1>
+    <div class="post-meta"><span title='2022-04-02 14:09:53 +0800 CST'>04-02</span>&nbsp;·&nbsp;2 min
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#why-pager" aria-label="Why Pager">Why Pager</a></li>
+                <li>
+                    <a href="#dont-reinvent-the-wheel" aria-label="Don&amp;rsquo;t Reinvent the Wheel">Don&rsquo;t Reinvent the Wheel</a></li>
+                <li>
+                    <a href="#do-it-yourself" aria-label="Do it Yourself">Do it Yourself</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 <code>less</code>。</p>
+<h1 id="why-pager">Why Pager<a hidden class="anchor" aria-hidden="true" href="#why-pager">#</a></h1>
+<p>Pager 在大段文字的展示中很常见，比如 Linux 的 <code>man page</code>，而 <code>$PAGER</code> 就是用来指定默认 Paging 程序的环境变量。Python shell 里面的 <code>help()</code> 会默认翻页显示，IPython 的 <code>?</code> 则更胜一筹，能够判断当前屏幕的可用空间来决定是否 Paging。</p>
+<p><code>Less</code> 应该算是最流行的 Pager 了，相比于 <code>more</code>，它同时支持前进和后退翻页，而且因为不需要一次性读取整个文件，它的启动速度在打开大型文件时要远远快于 <code>vi</code>。因此，许多 Pager 都是通过启动系统自带的 <code>less</code> 程序来实现。</p>
+<h1 id="dont-reinvent-the-wheel">Don&rsquo;t Reinvent the Wheel<a hidden class="anchor" aria-hidden="true" href="#dont-reinvent-the-wheel">#</a></h1>
+<p>轮子总是有的，而且还很多，这里说几个比较好用的：</p>
+<ul>
+<li><code>Pydoc</code> 的 <code>pager</code></li>
+<li><code>Click</code> 的 <code>echo_via_pager</code></li>
+<li><code>IPython</code> 的 <code>page</code></li>
+</ul>
+<p><code>Pydoc</code> 是 Python 自带的，已经稳定存在了很多年，轻巧好用；<code>Click</code> 的实现类似，而且支持传入一个 <code>generator</code>；<code>IPython</code> 的 <code>page</code> 更加强大，可以自动判断当前的屏幕大小，再结合一个 <code>screen_lines</code> 参数来计算最终的可用空间。</p>
+<p>再说说这几个轮子的实现，基本思路都是上面提到的调用系统 Pager。因为要兼容五花八门的操作系统，大致上又分为三种处理方式：</p>
+<ul>
+<li>
+<p>理想情况下是使用 <code>PIPE</code>。因为打开的系统 Pager 必然是子进程，而 <code>PIPE</code> 通过内存中的缓冲区实现了 <code>IPC</code>，这样既不用一次性读取所有数据，后续的 <code>write</code> 操作效率也高。</p>
+</li>
+<li>
+<p>如果 <code>PIPE</code> 不可用，那就需要先建立临时文件，把数据写入，最后再启动 Pager 直接打开文件。</p>
+</li>
+<li>
+<p>保底的方案是直接向标准输出写入文本数据，这种做法一般只会出现在非 <code>tty</code> 的设备上。</p>
+</li>
+</ul>
+<p>另外 <code>IPython</code> 内部使用了 <code>curses</code> 库来检测屏幕大小，如果传入的 <code>screen_lines</code> 小于等于 0，就会加上检测结果的值作为最终的可用行数。从<a href="https://docs.python.org/3/howto/curses.html">官方文档</a>上看 Windows 的 Python 没有 <code>curses</code>，但提供了 ported version 的 <code>UniCurses</code>，不知道 <code>IPython</code> 的屏幕检测在 Windows 的表现如何。</p>
+<p><code>Click</code> 虽然没有直接使用 <code>Pydoc</code>，但实现基本和后者相同；而 <code>IPython</code> 的轮子是从头造起，质量很高，值得一看。</p>
+<h1 id="do-it-yourself">Do it Yourself<a hidden class="anchor" aria-hidden="true" href="#do-it-yourself">#</a></h1>
+<p>抛开那些杂乱的系统判断的部分，直接实现一个调用 <code>less</code> 的 Pager 还是很简单的。大致代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> subprocess <span style="color:#f92672">import</span> PIPE, Popen
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pager</span>(text: str):
+</span></span><span style="display:flex;"><span>    proc <span style="color:#f92672">=</span> Popen(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;less&#39;</span>,
+</span></span><span style="display:flex;"><span>        shell<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>        stdin<span style="color:#f92672">=</span>PIPE,
+</span></span><span style="display:flex;"><span>        text<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>	proc<span style="color:#f92672">.</span>communicate(text)
+</span></span></code></pre></div><p>这样会一次性把文本写入到 <code>PIPE</code> 中，对于一个生成器来说，不断迭代出新内容并写入会更高效：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> subprocess <span style="color:#f92672">import</span> PIPE, Popen
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pager</span>(generator):
+</span></span><span style="display:flex;"><span>    proc <span style="color:#f92672">=</span> Popen(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;less&#39;</span>,
+</span></span><span style="display:flex;"><span>        shell<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>        stdin<span style="color:#f92672">=</span>PIPE,
+</span></span><span style="display:flex;"><span>        text<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> text <span style="color:#f92672">in</span> generator:
+</span></span><span style="display:flex;"><span>            proc<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>write(text)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> (<span style="color:#a6e22e">OSError</span>, <span style="color:#a6e22e">KeyboardInterrupt</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        proc<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>    proc<span style="color:#f92672">.</span>wait()
+</span></span></code></pre></div><p>虽然代码不麻烦，但在使用 <code>subprocess</code> 这个库的过程中踩了许多坑，需要对着文档来回确认。比如上面的 <code>Popen</code> 中的 <code>text</code> 参数是为了控制文本模式打开文件，但如果不传而是直接指定 <code>encoding</code> 或 <code>errors</code> 的话也会默认使用文本打开。。</p>
+<p>下面再啰嗦几句 <code>subprocess</code>，如果没兴趣可以跳过：</p>
+<ul>
+<li>现在的 Higher API 只关注 <code>run()</code> 就好了，以前的 <code>call/check_call/check_output</code> 都可以忽略，<code>run()</code> 中都提供对应参数</li>
+<li>需要和子进程交互的话用 <code>Popen()</code></li>
+<li>对于不指定 <code>shell</code> 的 <code>Popen()</code>
+<ul>
+<li>字符串作为命令：命令中无法携带参数，只可以这样 <code>Popen('echo', ...)</code></li>
+<li>列表作为命令：所有元素会合在一起，所以可以 <code>Popen(['echo', 'foo', 'bar'])</code></li>
+<li>如果命令出错或不存在会直接触发 <code>FileNotFound</code> 异常</li>
+</ul>
+</li>
+<li>对于 <code>shell=True</code> 的 <code>Popen()</code>
+<ul>
+<li>官方文档直接推荐使用字符串，原因见下一行</li>
+<li>如果使用列表的话，只有第一个元素作为命令内容，其他的都会读取为 shell 的参数</li>
+<li>不会引发 <code>FileNotFound</code> 异常而是输出到 <code>stderr</code></li>
+</ul>
+</li>
+</ul>
+<p>槽点满满，一开始用起来痛不欲生，不过也可能是这个库的历史包袱太重了吧。</p>
+<hr>
+<p>小小的 Pager 并不难，但兼容各种 <code>OS</code> 和 <code>Terminal</code> 真的也需要勇气，更不用说有时候 <code>I/O</code> 操作也表现不一。生活不易，对于这种底层功能，真的不如拿来主义呀。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://iamgodot.com/tags/python/">python</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://iamgodot.com/posts/sourcecode-of-python-logging/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>Python Logging 源码分析</span>
+  </a>
+  <a class="next" href="https://iamgodot.com/posts/closure-in-python/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Python 中的闭包</span>
+  </a>
+</nav>
+
+  </footer>
+<script src="https://giscus.app/client.js"
+        data-repo="iamgodot/godot-blog-comments"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkzOTk0Nzk0MTY="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOF8-SeM4CO3OX"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark_dimmed"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2020-2022 <a href="https://iamgodot.com">Godot&#39;s Blog</a></span>
+    <span>
+        | <a href="http://beian.miit.gov.cn/" target="_blank">京ICP备20005558号-2</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Look and Say | Godot&#39;s Blog</title>
+<meta name="keywords" content="dsa">
+<meta name="description" content="无意中看到一种叫 look-and-say 的数列，很有意思，有点儿 Fibonacci 的感觉。数列如下：
+1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211, &hellip;
+从第二位开始，每个数字都是对前一个数的计数结果的描述。比如 11 表示前面的 1 有一个 1，而 21 表示前面的 11 有两个 1，1121 表示 21 有一个 2 和一个 1，依次类推，可以无穷循环出新的结果。（除了 22 这个数字，因为会一直重复 22 本身）
+后来查了查才发现原来 Leetcode 也有这道题，不过名字叫做 count-and-say。基本就是给 n 然后求此数列的第 n 项结果。
+想了想思路并不难，无非是对一个数字的所有位数循环再计数就好了，不过写的时候很犯难，竟然还写出了一个无比冗长的 for 循环加 if 面条代码。这让我意识到了自己对于循环的认识有多么不够深刻。
+之所以犯难，其实是不知道怎样把几种逻辑合并在一起，如果粗暴地列举所有分支大概是这样：
+def find_next(num: str): result = &#39;&#39; cur, count = num[0], 1 size = len(num) for i in range(1, size): if num[i] == cur and i == size - 1: # count 加一 # 更新 result elif num[i] == cur: # count 加一 elif i == size - 1: # 更新 result # 更新 cur&amp;count # 更新 result else: # 更新 result # 更新 cur&amp;count # 还有一种情况就是并没有进入 for 循环 # 那么也需要更新 result 直接按照这些分支把代码填满肯定很难看，所以要挑选合并。看起来只有第二个分支不需要更新 result，于是我决定把它单拎出来：如果 num[i]==cur 那么 count 加一；否则就更新 result 以及 cur&amp;count.">
+<meta name="author" content="">
+<link rel="canonical" href="https://iamgodot.com/posts/look-and-say/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7cb1aaa4414c482febc7034a427761d087a2cf358f1be8f7beba5afc947b57d0.css" integrity="sha256-fLGqpEFMSC/rxwNKQndh0IeizzWPG&#43;j3vrpa/JR7V9A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.e85ad0406048e8176e1c7661b25d5c69297ddfe41dc4124cf75ecb99a4f7b3d1.js" integrity="sha256-6FrQQGBI6BduHHZhsl1caSl93&#43;QdxBJM917LmaT3s9E="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://iamgodot.com/icons/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://iamgodot.com/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://iamgodot.com/icons/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://iamgodot.com/icons/apple-touch-icon.png">
+<link rel="mask-icon" href="https://iamgodot.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" media="print" onload="this.media='all'">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="preconnect" href="https://plausible.iamgodot.com">
+    
+        
+        <script defer data-domain="iamgodot.com" src="https://plausible.iamgodot.com/js/plausible.js" ></script>
+
+<!-- If you are using Content-Security-Policy, do not forget to add this code to your CSP : 
+  script-src 'unsafe-inline' https://plausible.iamgodot.com
+  connect-src 'unsafe-inline' https://plausible.iamgodot.com
+  or just add the partial 'plausible_csp.html' to those 2 csp directives in your 'index.headers' file
+-->
+
+
+
+    
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+    <script>
+         
+         
+         
+    </script>
+
+    
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-157042624-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script><meta property="og:title" content="Look and Say" />
+<meta property="og:description" content="无意中看到一种叫 look-and-say 的数列，很有意思，有点儿 Fibonacci 的感觉。数列如下：
+1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211, &hellip;
+从第二位开始，每个数字都是对前一个数的计数结果的描述。比如 11 表示前面的 1 有一个 1，而 21 表示前面的 11 有两个 1，1121 表示 21 有一个 2 和一个 1，依次类推，可以无穷循环出新的结果。（除了 22 这个数字，因为会一直重复 22 本身）
+后来查了查才发现原来 Leetcode 也有这道题，不过名字叫做 count-and-say。基本就是给 n 然后求此数列的第 n 项结果。
+想了想思路并不难，无非是对一个数字的所有位数循环再计数就好了，不过写的时候很犯难，竟然还写出了一个无比冗长的 for 循环加 if 面条代码。这让我意识到了自己对于循环的认识有多么不够深刻。
+之所以犯难，其实是不知道怎样把几种逻辑合并在一起，如果粗暴地列举所有分支大概是这样：
+def find_next(num: str): result = &#39;&#39; cur, count = num[0], 1 size = len(num) for i in range(1, size): if num[i] == cur and i == size - 1: # count 加一 # 更新 result elif num[i] == cur: # count 加一 elif i == size - 1: # 更新 result # 更新 cur&amp;count # 更新 result else: # 更新 result # 更新 cur&amp;count # 还有一种情况就是并没有进入 for 循环 # 那么也需要更新 result 直接按照这些分支把代码填满肯定很难看，所以要挑选合并。看起来只有第二个分支不需要更新 result，于是我决定把它单拎出来：如果 num[i]==cur 那么 count 加一；否则就更新 result 以及 cur&amp;count." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://iamgodot.com/posts/look-and-say/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-07T16:59:50&#43;08:00" />
+<meta property="article:modified_time" content="2021-11-07T16:59:50&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Look and Say"/>
+<meta name="twitter:description" content="无意中看到一种叫 look-and-say 的数列，很有意思，有点儿 Fibonacci 的感觉。数列如下：
+1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211, &hellip;
+从第二位开始，每个数字都是对前一个数的计数结果的描述。比如 11 表示前面的 1 有一个 1，而 21 表示前面的 11 有两个 1，1121 表示 21 有一个 2 和一个 1，依次类推，可以无穷循环出新的结果。（除了 22 这个数字，因为会一直重复 22 本身）
+后来查了查才发现原来 Leetcode 也有这道题，不过名字叫做 count-and-say。基本就是给 n 然后求此数列的第 n 项结果。
+想了想思路并不难，无非是对一个数字的所有位数循环再计数就好了，不过写的时候很犯难，竟然还写出了一个无比冗长的 for 循环加 if 面条代码。这让我意识到了自己对于循环的认识有多么不够深刻。
+之所以犯难，其实是不知道怎样把几种逻辑合并在一起，如果粗暴地列举所有分支大概是这样：
+def find_next(num: str): result = &#39;&#39; cur, count = num[0], 1 size = len(num) for i in range(1, size): if num[i] == cur and i == size - 1: # count 加一 # 更新 result elif num[i] == cur: # count 加一 elif i == size - 1: # 更新 result # 更新 cur&amp;count # 更新 result else: # 更新 result # 更新 cur&amp;count # 还有一种情况就是并没有进入 for 循环 # 那么也需要更新 result 直接按照这些分支把代码填满肯定很难看，所以要挑选合并。看起来只有第二个分支不需要更新 result，于是我决定把它单拎出来：如果 num[i]==cur 那么 count 加一；否则就更新 result 以及 cur&amp;count."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://iamgodot.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Look and Say",
+      "item": "https://iamgodot.com/posts/look-and-say/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Look and Say",
+  "name": "Look and Say",
+  "description": "无意中看到一种叫 look-and-say 的数列，很有意思，有点儿 Fibonacci 的感觉。数列如下：\n1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211, \u0026hellip;\n从第二位开始，每个数字都是对前一个数的计数结果的描述。比如 11 表示前面的 1 有一个 1，而 21 表示前面的 11 有两个 1，1121 表示 21 有一个 2 和一个 1，依次类推，可以无穷循环出新的结果。（除了 22 这个数字，因为会一直重复 22 本身）\n后来查了查才发现原来 Leetcode 也有这道题，不过名字叫做 count-and-say。基本就是给 n 然后求此数列的第 n 项结果。\n想了想思路并不难，无非是对一个数字的所有位数循环再计数就好了，不过写的时候很犯难，竟然还写出了一个无比冗长的 for 循环加 if 面条代码。这让我意识到了自己对于循环的认识有多么不够深刻。\n之所以犯难，其实是不知道怎样把几种逻辑合并在一起，如果粗暴地列举所有分支大概是这样：\ndef find_next(num: str): result = \u0026#39;\u0026#39; cur, count = num[0], 1 size = len(num) for i in range(1, size): if num[i] == cur and i == size - 1: # count 加一 # 更新 result elif num[i] == cur: # count 加一 elif i == size - 1: # 更新 result # 更新 cur\u0026amp;count # 更新 result else: # 更新 result # 更新 cur\u0026amp;count # 还有一种情况就是并没有进入 for 循环 # 那么也需要更新 result 直接按照这些分支把代码填满肯定很难看，所以要挑选合并。看起来只有第二个分支不需要更新 result，于是我决定把它单拎出来：如果 num[i]==cur 那么 count 加一；否则就更新 result 以及 cur\u0026amp;count.",
+  "keywords": [
+    "dsa"
+  ],
+  "articleBody": "无意中看到一种叫 look-and-say 的数列，很有意思，有点儿 Fibonacci 的感觉。数列如下：\n1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211, …\n从第二位开始，每个数字都是对前一个数的计数结果的描述。比如 11 表示前面的 1 有一个 1，而 21 表示前面的 11 有两个 1，1121 表示 21 有一个 2 和一个 1，依次类推，可以无穷循环出新的结果。（除了 22 这个数字，因为会一直重复 22 本身）\n后来查了查才发现原来 Leetcode 也有这道题，不过名字叫做 count-and-say。基本就是给 n 然后求此数列的第 n 项结果。\n想了想思路并不难，无非是对一个数字的所有位数循环再计数就好了，不过写的时候很犯难，竟然还写出了一个无比冗长的 for 循环加 if 面条代码。这让我意识到了自己对于循环的认识有多么不够深刻。\n之所以犯难，其实是不知道怎样把几种逻辑合并在一起，如果粗暴地列举所有分支大概是这样：\ndef find_next(num: str): result = '' cur, count = num[0], 1 size = len(num) for i in range(1, size): if num[i] == cur and i == size - 1: # count 加一 # 更新 result elif num[i] == cur: # count 加一 elif i == size - 1: # 更新 result # 更新 cur\u0026count # 更新 result else: # 更新 result # 更新 cur\u0026count # 还有一种情况就是并没有进入 for 循环 # 那么也需要更新 result 直接按照这些分支把代码填满肯定很难看，所以要挑选合并。看起来只有第二个分支不需要更新 result，于是我决定把它单拎出来：如果 num[i]==cur 那么 count 加一；否则就更新 result 以及 cur\u0026count. 那么 i==size-1 的时候怎么办呢，既要保存当前结果又可能需要记录新的结果，一筹莫展。不过后来还是发现了巧妙的写法：\ndef find_next(num: str): result = '' cur, count = num[0], 1 for char in num[1:]: if char == cur: count += 1 continue result += f'{count}{cur}' cur = char count = 1 return f'{result}{count}{cur}' 优点在于结合了 count\u0026cur 放在返回值里面，通过这两个变量做缓存，就不需要单独考虑循环到最后一位和没有进入循环的情况了，于是 for 循环也可以直接遍历元素值而不是下标。\n我正觉得这段写得精彩，却又看到了使用 while 的解法。什么，为什么会是 while 呢，明明容器长度是已知的，要用 for 才对啊。先看代码：\ndef find_next(num: str): result = '' start = cur = 0 size = len(num) while cur \u003c size: while cur \u003c size and num[cur] == num[start]: cur += 1 result += str(cur - start) + num[start] start = cur return result 虽然我觉得 while 循环是比 for 的可读性要差的，但不得不承认这里的嵌套 while 写法更好，关键在于更符合思考的过程。如果是手动来数的话，也是整体一个大循环，然后对重复的数字不断加一，直到有变化，就先记录前面的结果再继续数新的数字。反而在上面巧妙的 for 循环中，是不太容易想到返回时把 result, count, cur 三者组合到一起的。\n而且这里的 while 代码也很简洁。既复用了内部循环的 cur += 1，又节省了单独的 count 变量来计数。\n所以大概可能也许是，虽然已知元素的总数，但是在更符合抽象逻辑的情况下用 while 会更好吧。\n说来自己写循环的时候总会遇到几个惯性 bug：\n下标越界或者下标类型不是 int 遍历的过程中修改更新容器本身 写 while 不注意退出条件导致无限循环 不知道有没有更智能的编辑器（插件）能自动识别循环代码中的 bug 呢 - -.\nReferences\nLook and say - Wikipedia Count and say - Leetcode ",
+  "wordCount" : "267",
+  "inLanguage": "en",
+  "datePublished": "2021-11-07T16:59:50+08:00",
+  "dateModified": "2021-11-07T16:59:50+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://iamgodot.com/posts/look-and-say/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Godot's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://iamgodot.com/icons/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://iamgodot.com" accesskey="h" title="Godot&#39;s Blog (Alt + H)">Godot&#39;s Blog</a>
+            <span class="logo-switches">
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Look and Say
+    </h1>
+    <div class="post-meta"><span title='2021-11-07 16:59:50 +0800 CST'>11-07</span>&nbsp;·&nbsp;2 min
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>无意中看到一种叫 look-and-say 的数列，很有意思，有点儿 Fibonacci 的感觉。数列如下：</p>
+<blockquote>
+<p>1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211, &hellip;</p>
+</blockquote>
+<p>从第二位开始，每个数字都是对前一个数的计数结果的描述。比如 11 表示前面的 1 有一个 1，而 21 表示前面的 11 有两个 1，1121 表示 21 有一个 2 和一个 1，依次类推，可以无穷循环出新的结果。（除了 22 这个数字，因为会一直重复 22 本身）</p>
+<p>后来查了查才发现原来 Leetcode 也有这道题，不过名字叫做 <a href="https://leetcode-cn.com/problems/count-and-say/">count-and-say</a>。基本就是给 n 然后求此数列的第 n 项结果。</p>
+<p>想了想思路并不难，无非是对一个数字的所有位数循环再计数就好了，不过写的时候很犯难，竟然还写出了一个无比冗长的 for 循环加 if 面条代码。这让我意识到了自己对于循环的认识有多么不够深刻。</p>
+<p>之所以犯难，其实是不知道怎样把几种逻辑合并在一起，如果粗暴地列举所有分支大概是这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_next</span>(num: str):
+</span></span><span style="display:flex;"><span>	result <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>	cur, count <span style="color:#f92672">=</span> num[<span style="color:#ae81ff">0</span>], <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> len(num)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, size):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> num[i] <span style="color:#f92672">==</span> cur <span style="color:#f92672">and</span> i <span style="color:#f92672">==</span> size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># count 加一</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 更新 result</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> num[i] <span style="color:#f92672">==</span> cur:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># count 加一</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> i <span style="color:#f92672">==</span> size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 更新 result</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 更新 cur&amp;count</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 更新 result</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 更新 result</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 更新 cur&amp;count</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 还有一种情况就是并没有进入 for 循环</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 那么也需要更新 result</span>
+</span></span></code></pre></div><p>直接按照这些分支把代码填满肯定很难看，所以要挑选合并。看起来只有第二个分支不需要更新 result，于是我决定把它单拎出来：如果 <code>num[i]==cur</code> 那么 count 加一；否则就更新 result 以及 cur&amp;count. 那么 <code>i==size-1</code> 的时候怎么办呢，既要保存当前结果又可能需要记录新的结果，一筹莫展。不过后来还是发现了巧妙的写法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_next</span>(num: str):
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    cur, count <span style="color:#f92672">=</span> num[<span style="color:#ae81ff">0</span>], <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> num[<span style="color:#ae81ff">1</span>:]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> char <span style="color:#f92672">==</span> cur:
+</span></span><span style="display:flex;"><span>            count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">+=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>count<span style="color:#e6db74">}{</span>cur<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>        cur <span style="color:#f92672">=</span> char
+</span></span><span style="display:flex;"><span>        count <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}{</span>count<span style="color:#e6db74">}{</span>cur<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span></code></pre></div><p>优点在于结合了 count&amp;cur 放在返回值里面，通过这两个变量做缓存，就不需要单独考虑循环到最后一位和没有进入循环的情况了，于是 for 循环也可以直接遍历元素值而不是下标。</p>
+<p>我正觉得这段写得精彩，却又看到了使用 while 的解法。什么，为什么会是 while 呢，明明容器长度是已知的，要用 for 才对啊。先看代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_next</span>(num: str):
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    start <span style="color:#f92672">=</span> cur <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> len(num)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> cur <span style="color:#f92672">&lt;</span> size:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> cur <span style="color:#f92672">&lt;</span> size <span style="color:#f92672">and</span> num[cur] <span style="color:#f92672">==</span> num[start]:
+</span></span><span style="display:flex;"><span>            cur <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">+=</span> str(cur <span style="color:#f92672">-</span> start) <span style="color:#f92672">+</span> num[start]
+</span></span><span style="display:flex;"><span>        start <span style="color:#f92672">=</span> cur
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
+</span></span></code></pre></div><p>虽然我觉得 while 循环是比 for 的可读性要差的，但不得不承认这里的嵌套 while 写法更好，关键在于更符合思考的过程。如果是手动来数的话，也是整体一个大循环，然后对重复的数字不断加一，直到有变化，就先记录前面的结果再继续数新的数字。反而在上面巧妙的 for 循环中，是不太容易想到返回时把 result, count, cur 三者组合到一起的。</p>
+<p>而且这里的 while 代码也很简洁。既复用了内部循环的 <code>cur += 1</code>，又节省了单独的 count 变量来计数。</p>
+<p>所以大概可能也许是，虽然已知元素的总数，但是在更符合抽象逻辑的情况下用 while 会更好吧。</p>
+<p>说来自己写循环的时候总会遇到几个惯性 bug：</p>
+<ul>
+<li>下标越界或者下标类型不是 int</li>
+<li>遍历的过程中修改更新容器本身</li>
+<li>写 while 不注意退出条件导致无限循环</li>
+</ul>
+<p>不知道有没有更智能的编辑器（插件）能自动识别循环代码中的 bug 呢 - -.</p>
+<hr>
+<p><em>References</em></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Look-and-say_sequence">Look and say - Wikipedia</a></li>
+<li><a href="https://leetcode-cn.com/problems/count-and-say/">Count and say - Leetcode</a></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://iamgodot.com/tags/dsa/">dsa</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://iamgodot.com/posts/record-terminal/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>Record Terminal as GIF</span>
+  </a>
+  <a class="next" href="https://iamgodot.com/posts/find-median/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Find Median</span>
+  </a>
+</nav>
+
+  </footer>
+<script src="https://giscus.app/client.js"
+        data-repo="iamgodot/godot-blog-comments"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkzOTk0Nzk0MTY="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOF8-SeM4CO3OX"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark_dimmed"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2020-2022 <a href="https://iamgodot.com">Godot&#39;s Blog</a></span>
+    <span>
+        | <a href="http://beian.miit.gov.cn/" target="_blank">京ICP备20005558号-2</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

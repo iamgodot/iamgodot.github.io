@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>python on Godot&#39;s Blog</title>
+    <link>https://iamgodot.com/tags/python/</link>
+    <description>Recent content in python on Godot&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Apr 2022 21:53:29 +0800</lastBuildDate><atom:link href="https://iamgodot.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bottle 框架源码阅读</title>
+      <link>https://iamgodot.com/posts/source-code-of-bottle/</link>
+      <pubDate>Fri, 22 Apr 2022 21:53:29 +0800</pubDate>
+      
+      <guid>https://iamgodot.com/posts/source-code-of-bottle/</guid>
+      <description>写这篇文章最开心的一点是终于可以用这张截图了：
+相比名声在外的 Django/Flask/FastAPI，Bottle 可以说是非常不起眼了，甚至很多人并不知道它的存在。其实在很多方面，这个框架都极其优秀：
+速度：截止到 2022-04-13，Bottle 在一众 Python Web 框架的测评中名列第二，要知道这可是十年以上的老前辈了。 易用性：Bottle 早在 Flask 之前就使用了装饰器来定义路由，此外还有全局可用的 Request/Response 对象。 文档：不仅将框架本身的使用讲得很清楚，还总结了很多 Web 场景下的解决方案。 代码质量：虽然为了 Python 2 做了不少兼容，但是代码很精炼，而且 Pythonic。 其他：Bottle 坚持单模块以及无第三方库依赖；仓库仍然在积极维护中。 换作几年前，我会一开始就使用并将 Bottle 研究透彻，而不是让自己淹没在 Django 浩瀚如烟的文档中。下面开始梳理 Bottle 源码的阅读理解。因为代码量不大，所以就直接看最新的版本了：0.11.1 - 5a6c620。
+Web 框架的基本元素 参考 The Hitchhiker&amp;rsquo;s Guide to Python 的说法，一个 Web 框架要满足的基本功能：
+URL Routing Request and Response Objects Template Engine Development Web Server 从后端的角度来讲更重要的是 1、2、4 三项，其中 1 负责转发请求到对应的视图函数，2 是对 HTTP 协议元素的解析处理，而 4 决定了服务的部署方式和基础性能。
+Bottle 在这几方面都做了很好的实现：路由上提供了通配符匹配和装饰器接口；请求和响应对象作为全局对象存在并保证了线程安全；Server 部署除了 Python 自带的 wsgiref 还支持绝大多数的 WSGI Server。</description>
+    </item>
+    
+    <item>
+      <title>Python 中的 TLS 是如何实现的</title>
+      <link>https://iamgodot.com/posts/sourcecode-of-python-threadlocal/</link>
+      <pubDate>Mon, 11 Apr 2022 16:13:49 +0800</pubDate>
+      
+      <guid>https://iamgodot.com/posts/sourcecode-of-python-threadlocal/</guid>
+      <description>TLS(Thread Local Storage)，或者说 Threadlocal，可以说是一种并发编程的常用模式，既实现了线程之间的资源隔离，又满足了全局变量的使用。
+从 TLS 出发，这篇文章研究了 Python 中的 Threadlocal 是如何实现的，比如自带的 threading.local，再比如 Flask 框架中 Local 对象。
+Why Threadlocal 先思考一下为什么要用 Threadlocal，这就不得不提到线程安全。Race condition 说到底是因为数据共享和非原子操作，这可以体现在函数的两种基本写法：一种是显式地传参（参数对象也可能变化？这也是为什么最好不要传递可变对象），没有共享自然安全；另一种就是全局对象，这么写既简化了函数签名，代码也比较清晰，缺点就是很容易出现线程不安全的问题，所以经常会和锁配合使用。
+而 Threadlocal 就结合了两者的优点，在共享全局变量的同时，保证每个线程操作的都是自己独有的数据对象。
+对比一下 Django 和 Flask 两大框架就会发现，前者总是在视图函数中显式声明 request 参数，而后者的只需要 import 一次就可以到处使用。在 Flask 的文档中，Armin Ronacher 也提及了这一点：
+For example, Flask uses thread-local objects internally so that you don’t have to pass objects around from function to function within a request in order to stay threadsafe.
+不过 Flask 并没有直接使用 Python 内置的 threading.</description>
+    </item>
+    
+    <item>
+      <title>Python Logging 源码分析</title>
+      <link>https://iamgodot.com/posts/sourcecode-of-python-logging/</link>
+      <pubDate>Sat, 09 Apr 2022 09:52:51 +0800</pubDate>
+      
+      <guid>https://iamgodot.com/posts/sourcecode-of-python-logging/</guid>
+      <description>阅读了源码之后，我对 Python Logging 模块的几大疑惑都得到了解答：
+为什么 Logger 和 Handler 都有 setLevel 方法？
+Logging 中会出现 Race condition 吗？（感觉都是很直接的 write 操作）
+正式环境中想看日志又没办法动态调整 logLevel，感觉很鸡肋。
+用起来好像还不如 print 方便。
+会有性能问题吗？
+日常使用 首先要了解下 Logging 的用法。
+1. 配置 基本上有三种方式，代码、文件和字典。先看下如何用代码设置：
+import logging # create logger logger = logging.getLogger(&amp;#39;simple_example&amp;#39;) logger.setLevel(logging.DEBUG) # create console handler and set level to debug ch = logging.StreamHandler() ch.setLevel(logging.DEBUG) # create formatter formatter = logging.Formatter(&amp;#39;%(asctime)s - %(name)s - %(levelname)s - %(message)s&amp;#39;) # add formatter to ch ch.</description>
+    </item>
+    
+    <item>
+      <title>关于 Pager</title>
+      <link>https://iamgodot.com/posts/about-pager/</link>
+      <pubDate>Sat, 02 Apr 2022 14:09:53 +0800</pubDate>
+      
+      <guid>https://iamgodot.com/posts/about-pager/</guid>
+      <description>好久没有更新了，最近研究了下如何用 Python 实现 Pager 的功能，这里指的是 Terminal 中的 Paging 程序，比如 less。
+Why Pager Pager 在大段文字的展示中很常见，比如 Linux 的 man page，而 $PAGER 就是用来指定默认 Paging 程序的环境变量。Python shell 里面的 help() 会默认翻页显示，IPython 的 ? 则更胜一筹，能够判断当前屏幕的可用空间来决定是否 Paging。
+Less 应该算是最流行的 Pager 了，相比于 more，它同时支持前进和后退翻页，而且因为不需要一次性读取整个文件，它的启动速度在打开大型文件时要远远快于 vi。因此，许多 Pager 都是通过启动系统自带的 less 程序来实现。
+Don&amp;rsquo;t Reinvent the Wheel 轮子总是有的，而且还很多，这里说几个比较好用的：
+Pydoc 的 pager Click 的 echo_via_pager IPython 的 page Pydoc 是 Python 自带的，已经稳定存在了很多年，轻巧好用；Click 的实现类似，而且支持传入一个 generator；IPython 的 page 更加强大，可以自动判断当前的屏幕大小，再结合一个 screen_lines 参数来计算最终的可用空间。
+再说说这几个轮子的实现，基本思路都是上面提到的调用系统 Pager。因为要兼容五花八门的操作系统，大致上又分为三种处理方式：
+理想情况下是使用 PIPE。因为打开的系统 Pager 必然是子进程，而 PIPE 通过内存中的缓冲区实现了 IPC，这样既不用一次性读取所有数据，后续的 write 操作效率也高。</description>
+    </item>
+    
+    <item>
+      <title>Python 中的闭包</title>
+      <link>https://iamgodot.com/posts/closure-in-python/</link>
+      <pubDate>Sat, 29 Jan 2022 17:55:18 +0800</pubDate>
+      
+      <guid>https://iamgodot.com/posts/closure-in-python/</guid>
+      <description>def f1(): l = [] def c(): l.append(1) def f2(): a = 1 def c(): print(a) a = 2 类似 f1 和 f2 中的闭包写法，之前总是在用了前者多次之后，再写后一种就报错，感觉很莫名其妙，明明都差不多。研究了下发现，其实这是 Python 闭包的 BugFeature，理解之后反而觉得这样的设计是合理的。
+首先说 Closure，也就是闭包，特指内部的函数及其引用的超出本身作用域的对象，总是在函数嵌套时发生。在 f1 中，c 就是一个闭包函数，同时 l 也算作其中的一部分。因为 c 使用了 l 导致延伸了原有的作用域，所以才有闭包的产生。
+再看 f2，如果我们只对 a 做 read 操作是不会引发问题的，由于 c 中尝试了赋值操作，才导致了 UnboundLocalError. 这是因为 Python 解释器会假定函数中赋值的变量是局部变量，而 c 中本身并没有定义 local 的 a 变量；其次，异常在 print(a) 时就会抛出，不会等到 a = 2 的执行。
+那为什么 f1 没问题呢，是因为列表为可变对象，append 操作只是更新了里面的内容，并不存在赋值。
+def f(): l = [] def c(): l.</description>
+    </item>
+    
+    <item>
+      <title>Python heapq 源码阅读</title>
+      <link>https://iamgodot.com/posts/sourcecode-of-python-heapq/</link>
+      <pubDate>Mon, 29 Nov 2021 23:26:37 +0800</pubDate>
+      
+      <guid>https://iamgodot.com/posts/sourcecode-of-python-heapq/</guid>
+      <description>Heap 作为一种重要的数据结构，有许多应用场景，比如优先级队列，每次出队的都是最大值或者最小值的元素。很多语言都集成了相关实现，比如 Java 的 PriorityQueue，而 Python 提供了 heapq 模块。
+因为 Heap 通常用数组而不是链表存储，所以 Python 里面的 Heap 实质上就是一个列表，而 heapq 提供的几个函数也是以列表对象作为参数的：
+from heapq import heappush, heappop, heappify, heapreplace, heappushpop heap = [] heappush(heap, 1) item = heap[0] # 第一个元素代表堆顶元素 heappop(heap) heapify([3, 2, 1, 5, 6, 4]) # 把普通列表转化为堆结构 [1, 2, 3, 4, 5, 6] heapreplace([3, 4, 5], 1) # 直接将堆顶元素 3 替换为 1，最后堆结构为 [1, 4, 5] heappushpop([3, 4, 5], 1) # 先将 1 插入堆中，再 pop 出堆顶元素，最后堆结构为 [3, 4, 5] 为什么 heapq 提供的是最小堆而不是更常见的最大堆呢？这就得从源码中找答案了。</description>
+    </item>
+    
+    <item>
+      <title>Python OrderedDict 实现 LRU 缓存</title>
+      <link>https://iamgodot.com/posts/sourcecode-of-python-ordereddict/</link>
+      <pubDate>Sun, 28 Nov 2021 17:50:51 +0800</pubDate>
+      
+      <guid>https://iamgodot.com/posts/sourcecode-of-python-ordereddict/</guid>
+      <description>LRUCache 是一种经典的缓存机制，它的基本思路是按照最近使用的时间对元素排序，在清理时优先把搁置最久的删除掉。
+如果不想给每个缓存元素都记录一个时间戳的话，可以应用哈希链表来简单地实现 LRU 算法。也就是对一个哈希表中的所有元素增加指针，从而串起一个双链表，这样既可以快速 get value，又可以通过把最近使用过的元素放到头部来维护顺序，删除的时候从末尾开始就好了。
+手写双链表并不困难，但是借助 OrderedDict 的话，可以写出非常简短的代码：
+from collections import OrderedDict class LRUCache: def __init__(self, capacity): self.capacity = capacity self.hashtable = OrderedDict() def get(self, key: int) -&amp;gt; int: if key in self.hashtable: self.hashtable.move_to_end(key, last=False) return self.hashtable[key] return -1 def put(self, key: int, value: int) -&amp;gt; None: self.hashtable[key] = value self.hashtable.move_to_end(key, last=False) if len(self.hashtable) &amp;gt; self.capacity: self.hashtable.popitem() 其中最神奇的就是 move_to_end 和 popitem 方法（后者默认是弹出最后面的元素）的使用，这也得益于 OD 可以保证 key-value pair 的顺序。那么
+OD 是如何做到的呢？其实还是双链表，下面是它的 Python 实现：</description>
+    </item>
+    
+    <item>
+      <title>Numeric Strings in Python</title>
+      <link>https://iamgodot.com/posts/numeric-strings-in-python/</link>
+      <pubDate>Sun, 21 Nov 2021 17:44:36 +0800</pubDate>
+      
+      <guid>https://iamgodot.com/posts/numeric-strings-in-python/</guid>
+      <description>Python 的字符串自带了三种判断字符是否为数字的方法，但实际用处却相差很多。
+TL;DR 三种方法 isdecimal &amp;lt; isdigit &amp;lt; isnumeric，即包含的范围越来越大 除了 ASCII 字符以外，对于 Unicode 的字符也都覆盖在内 三种方法对于小数点和负号都会返回 False 三种方法对于空字符串都会返回 False 比较简便判断数字字符串的方法：直接使用 float 方法并检测 ValueError Decimal &amp;amp; Digit &amp;amp; Numeric 对于 isdecimal, isdigit 和 isnumeric 三种方法，目的并不是判断字符串是不是一个有效数字，而是针对每一个字符的校验：
+isdecimal: 判断字符串中的字符是否都为 Decimal，也就是在 Unicode 中类别为 Nd 的字符 isdigit: 除了 isdecimal 包含的范围之外，还会判断字符是否都为 Digit，即 Unicode 的 Numeric_Type 为 Digit 或 Decimal isnumeric: 除了 isdigit 包含的范围之外，还会判断字符是否都为 Numeric，即 Numeric_Type 为 Numeric 所以这三种方法覆盖的字符范围，每一个都是前一个的超集。对于超出 ASCII 字符之外的效果，比如：
+&amp;ldquo;０１２３４５６７８９&amp;rdquo; 这种 Full-width 字符串 isdecimal 会判定为 True，后两个方法也一样 &amp;ldquo;⓪①②③④⑤⑥⑦⑧⑨&amp;rdquo; 这种 Circled-digit 字符串 isdecimal 判定 False，但 isdigit 和 isnumeric 为 True &amp;ldquo;一二三四五六七八九十壹貳參肆伍陸柒捌玖拾&amp;rdquo; 这种中文数字字符串只有 isnumeric 才会判定为 True 总之这几种方法有更广泛的用途，根本不是为了简单的 ASCII 数字字符串的判断。即使用来做判断的话，局限性也非常大，因为如果包含小数点和负号，三个方法都会返回 False.</description>
+    </item>
+    
+    <item>
+      <title>Overflow in Python</title>
+      <link>https://iamgodot.com/posts/overflow-in-python/</link>
+      <pubDate>Fri, 12 Nov 2021 17:20:10 +0800</pubDate>
+      
+      <guid>https://iamgodot.com/posts/overflow-in-python/</guid>
+      <description>犹记得在 Java 中，int 占用 4 bytes 所以大小限制在 -2^32 和 2^32 -1 之间，如果考虑到溢出的情况，就要用 long 类型来转换。
+但是在 Python 中似乎从来没有考虑过类似的问题，也不记得 int 是占几个字节，那么是说 Python 的数字永远不会溢出吗？不可能吧。
+答案是对于 int 类型来说，可以认为不会；而 float 类型则需要注意溢出的情况。
+首先说 int 类型，打印 sys.maxsize 可以看到 Python 会根据系统是 32 位还是 64 位来确定一个上限值，这点与 Java 等语言一致。不同的是我们仍然可以使用比这个上限大（得多）的整数，因为 Python 支持的是 Arbitrary-precision arithmetic。也就是说为了突破 CPU 字长带来的运算限制，通过在软件层面模拟计算过程，是可以完成更高位数和精度的运算的。比如在公钥加密的场景下，经常需要对上百位的整数进行运算，这时候就需要在软件层面支持。
+这确实说明我们可以使用任意长度的 int 数字，只要不超出内存限制的话。因为如果给 Python 解释器分配了 2GB 内存，但是 2 * 1024 * 1024 * 1024 * 8 这么多位也不够表达的话，还是会出错的，只是并非 Overflow，而是 MemoryError.
+再说 float. 打印 sys.float_info.max 可以看到 float 的上限值，如果超出之后是会报错的，即 OverflowError.</description>
+    </item>
+    
+    <item>
+      <title>Record Terminal as GIF</title>
+      <link>https://iamgodot.com/posts/record-terminal/</link>
+      <pubDate>Sun, 07 Nov 2021 21:35:44 +0800</pubDate>
+      
+      <guid>https://iamgodot.com/posts/record-terminal/</guid>
+      <description>这几天在做一个 CLI 项目，因为涉及到命令行操作，所以想录制一段 GIF 放在 README 中展示。
+印象里这种工具都是 JS 写的，但搜了搜居然发现有个 Python 的实现：asciinema
+用法很简单，就是安装好之后在命令行执行 asciinema rec 便会启动一个新的 Shell 并开始录制，录制的时候就像正常使用 Terminal 一样即可，完成之后按 Ctrl-D 或者 Exit 退出，asciinema 会把录制好的 cast 文件保存到本地，也可以选择上传到他们的网站：asciinema.org.
+那么 cast 文件是什么，又怎样得到 GIF 呢？其实这是 asciinema 自己定义的一种文件格式：
+A CAST file is a record of a terminal session recorded using asciinema, an open source terminal recording program. It contains a JSON-formatted header and a timestamped record of the text typed and printed during a terminal session.</description>
+    </item>
+    
+  </channel>
+</rss>

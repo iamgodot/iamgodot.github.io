@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Understand Recursion Better | Godot&#39;s Blog</title>
+<meta name="keywords" content="dsa">
+<meta name="description" content="在 Simple Recursion 之后，我一度把递归当作一种算法。但通过比较 Divide and Conquer 和 Dynamic Programming，我才发现之前的理解有点问题。
+一切还是要从 Algorithmic Paradigm 说起：
+An algorithmic paradigm or algorithm design paradigm is a generic model or framework which underlies the design of a class of algorithms. An algorithmic paradigm is an abstraction higher than the notion of an algorithm, just as an algorithm is an abstraction higher than a computer program.
+算法范式，是在算法的层面上抽象出来的一种更泛化的思想，常用的有：
+Brute-force search 暴力解法 Backtracking 回溯算法 Greedy algorithm 贪心算法 Divide and conquer 分治法 Dynamic programming 动态规划 Divide and Conquer 的基本思路是把复杂的问题分解成多个类似的简单问题，解决之后再组合起来得到最终结果。这种算法有很多应用，比如排序中的 Merge Sort，先将数列分解成单个元素，然后再归并，这时子数组都已经排好顺序了，所以过程很快。">
+<meta name="author" content="">
+<link rel="canonical" href="https://iamgodot.com/posts/understand-recursion-better/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7cb1aaa4414c482febc7034a427761d087a2cf358f1be8f7beba5afc947b57d0.css" integrity="sha256-fLGqpEFMSC/rxwNKQndh0IeizzWPG&#43;j3vrpa/JR7V9A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.e85ad0406048e8176e1c7661b25d5c69297ddfe41dc4124cf75ecb99a4f7b3d1.js" integrity="sha256-6FrQQGBI6BduHHZhsl1caSl93&#43;QdxBJM917LmaT3s9E="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://iamgodot.com/icons/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://iamgodot.com/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://iamgodot.com/icons/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://iamgodot.com/icons/apple-touch-icon.png">
+<link rel="mask-icon" href="https://iamgodot.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" media="print" onload="this.media='all'">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="preconnect" href="https://plausible.iamgodot.com">
+    
+        
+        <script defer data-domain="iamgodot.com" src="https://plausible.iamgodot.com/js/plausible.js" ></script>
+
+<!-- If you are using Content-Security-Policy, do not forget to add this code to your CSP : 
+  script-src 'unsafe-inline' https://plausible.iamgodot.com
+  connect-src 'unsafe-inline' https://plausible.iamgodot.com
+  or just add the partial 'plausible_csp.html' to those 2 csp directives in your 'index.headers' file
+-->
+
+
+
+    
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+    <script>
+         
+         
+         
+    </script>
+
+    
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-157042624-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script><meta property="og:title" content="Understand Recursion Better" />
+<meta property="og:description" content="在 Simple Recursion 之后，我一度把递归当作一种算法。但通过比较 Divide and Conquer 和 Dynamic Programming，我才发现之前的理解有点问题。
+一切还是要从 Algorithmic Paradigm 说起：
+An algorithmic paradigm or algorithm design paradigm is a generic model or framework which underlies the design of a class of algorithms. An algorithmic paradigm is an abstraction higher than the notion of an algorithm, just as an algorithm is an abstraction higher than a computer program.
+算法范式，是在算法的层面上抽象出来的一种更泛化的思想，常用的有：
+Brute-force search 暴力解法 Backtracking 回溯算法 Greedy algorithm 贪心算法 Divide and conquer 分治法 Dynamic programming 动态规划 Divide and Conquer 的基本思路是把复杂的问题分解成多个类似的简单问题，解决之后再组合起来得到最终结果。这种算法有很多应用，比如排序中的 Merge Sort，先将数列分解成单个元素，然后再归并，这时子数组都已经排好顺序了，所以过程很快。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://iamgodot.com/posts/understand-recursion-better/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-08T18:18:10&#43;08:00" />
+<meta property="article:modified_time" content="2021-11-08T18:18:10&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Understand Recursion Better"/>
+<meta name="twitter:description" content="在 Simple Recursion 之后，我一度把递归当作一种算法。但通过比较 Divide and Conquer 和 Dynamic Programming，我才发现之前的理解有点问题。
+一切还是要从 Algorithmic Paradigm 说起：
+An algorithmic paradigm or algorithm design paradigm is a generic model or framework which underlies the design of a class of algorithms. An algorithmic paradigm is an abstraction higher than the notion of an algorithm, just as an algorithm is an abstraction higher than a computer program.
+算法范式，是在算法的层面上抽象出来的一种更泛化的思想，常用的有：
+Brute-force search 暴力解法 Backtracking 回溯算法 Greedy algorithm 贪心算法 Divide and conquer 分治法 Dynamic programming 动态规划 Divide and Conquer 的基本思路是把复杂的问题分解成多个类似的简单问题，解决之后再组合起来得到最终结果。这种算法有很多应用，比如排序中的 Merge Sort，先将数列分解成单个元素，然后再归并，这时子数组都已经排好顺序了，所以过程很快。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://iamgodot.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Understand Recursion Better",
+      "item": "https://iamgodot.com/posts/understand-recursion-better/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Understand Recursion Better",
+  "name": "Understand Recursion Better",
+  "description": "在 Simple Recursion 之后，我一度把递归当作一种算法。但通过比较 Divide and Conquer 和 Dynamic Programming，我才发现之前的理解有点问题。\n一切还是要从 Algorithmic Paradigm 说起：\nAn algorithmic paradigm or algorithm design paradigm is a generic model or framework which underlies the design of a class of algorithms. An algorithmic paradigm is an abstraction higher than the notion of an algorithm, just as an algorithm is an abstraction higher than a computer program.\n算法范式，是在算法的层面上抽象出来的一种更泛化的思想，常用的有：\nBrute-force search 暴力解法 Backtracking 回溯算法 Greedy algorithm 贪心算法 Divide and conquer 分治法 Dynamic programming 动态规划 Divide and Conquer 的基本思路是把复杂的问题分解成多个类似的简单问题，解决之后再组合起来得到最终结果。这种算法有很多应用，比如排序中的 Merge Sort，先将数列分解成单个元素，然后再归并，这时子数组都已经排好顺序了，所以过程很快。",
+  "keywords": [
+    "dsa"
+  ],
+  "articleBody": "在 Simple Recursion 之后，我一度把递归当作一种算法。但通过比较 Divide and Conquer 和 Dynamic Programming，我才发现之前的理解有点问题。\n一切还是要从 Algorithmic Paradigm 说起：\nAn algorithmic paradigm or algorithm design paradigm is a generic model or framework which underlies the design of a class of algorithms. An algorithmic paradigm is an abstraction higher than the notion of an algorithm, just as an algorithm is an abstraction higher than a computer program.\n算法范式，是在算法的层面上抽象出来的一种更泛化的思想，常用的有：\nBrute-force search 暴力解法 Backtracking 回溯算法 Greedy algorithm 贪心算法 Divide and conquer 分治法 Dynamic programming 动态规划 Divide and Conquer 的基本思路是把复杂的问题分解成多个类似的简单问题，解决之后再组合起来得到最终结果。这种算法有很多应用，比如排序中的 Merge Sort，先将数列分解成单个元素，然后再归并，这时子数组都已经排好顺序了，所以过程很快。\n对于 DC 来说递归就成为一种很合适的实现方式，因为递归的调用是重复同一套逻辑，而 DC 中的问题和子问题也是相似的。但是这样性能会比较低下，因为很多子问题可能都是重复的，举 Fibonacci 的例子来说：\ndef fib(n): if n \u003c= 0: return 0 if n == 1: return 1 return fib(n-2) + fib(n-1) 由于重复的子问题太多，最后的时间复杂度会高达 O(2^n). 此时就需要利用 Memoization 来优化，也就是缓存中间的计算结果，比如下面这个版本：\nfrom functools import cache @cache def fib(n): if n \u003c= 0: return 0 if n == 1: return 1 return fib(n-2) + fib(n-1) 而这种解法实际上可以归类到另一种范式：动态规划。\nDynamic Programming 也是把问题划分成一个个小的子问题来解决，它包含两个要素：\n问题的最优解可以看成子问题的最优解的组合 子问题存在重复的情况，如 Fibonacci 的例子 如果不存在子问题的重复，而只需要求出各个子问题的最优解再合并的话，就变回 Divide and Conquer 而不算是 Dynamic Programming 了，比如 Merge Sort 和 Quick Sort.\n动态规划一般有两种实现思路：top-down 和 bottom-up. 上面缓存的写法就是 top-down，相当于把 n 从大到小地解决。而 bottom-up 可以用迭代来实现：\ndef fib(n): if n \u003c= 0: return 0 if n == 1: return 1 x, y = 0, 1 for _ in range(1, n): x, y = y, x + y return y 此时可以更好地看出来，递归和算法范式并不是同一层面的概念。\n那么 Dynamic Programming 可以用递归实现 bottom-up 么？答案是肯定的，用尾递归：\ndef fib(n, x=0, y=1): if n \u003c= 0: return 0 if n == 1: return 1 if n == 2: return x + y return fib(n - 1, y, x + y) 为什么这样就是 bottom-up 了呢，注意 x 和 y 的变化，是从 0 和 1 开始变化的，累积到最后 x+y 作为最终结果，所以是自底向上地解决了问题。至于尾递归，知乎上这个答案解释得很好：\n尾递归，比线性递归多一个参数，这个参数是上一次调用函数得到的结果；\n所以，关键点在于，尾递归每次调用都在收集结果，避免了线性递归不收集结果只能依次展开消耗内存的坏处。\n因为尾递归需要参数来保存中间结果，所以函数定义不像普通递归那么简洁，有两种方法可以解决，一种是像上面代码中一样使用参数默认值，还有一种就是柯里化，简单来说就是二次封装，在 Python 中可以用 partial 轻松完成:\nfrom functools import partial f = partial(fib, x=0, y=1) 尾递归的效率很高，因为不需要返回上一级调用，所以不会出现栈溢出的情况。类似 GOTO 关键字，经过优化的汇编代码会直接 JUMP 到下一个调用而不用保留之前的内部信息。\n但是这种优化需要编译器的支持，并不是所有语言都会兼容尾递归的优化，比如 Python 一直就没有 TCO(Tail Call Optimization). 其中一个重要原因就是会影响 Debug 时查看对应的栈信息，具体可以参考 Guido 叔的博客（见 References）。\n同样，尾递归只是手段，可以用它来实现 Dynamic Programming，也可以用其他的方法，比如迭代（比如 Fibonacci 中迭代的复杂度更低，因为只需要 O(1) 的空间）。DP 的关键在于 Memoization 而不是递归，这也说明了方法和原理的关系，前者可以达到目的，但是代替不了后者本身。\nReferences\nAlgorithmic paradigm - Wikipedia Divide and Conquer - Wikipedia Dynamic Programming - Wikipedia Tail Call - Wikipedia 尾调用优化 - 阮一峰 柯里化 - Wikipedia Tail Recursion Elimination - Guido Final Words on Tail Calls - Guido ",
+  "wordCount" : "330",
+  "inLanguage": "en",
+  "datePublished": "2021-11-08T18:18:10+08:00",
+  "dateModified": "2021-11-08T18:18:10+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://iamgodot.com/posts/understand-recursion-better/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Godot's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://iamgodot.com/icons/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://iamgodot.com" accesskey="h" title="Godot&#39;s Blog (Alt + H)">Godot&#39;s Blog</a>
+            <span class="logo-switches">
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Understand Recursion Better
+    </h1>
+    <div class="post-meta"><span title='2021-11-08 18:18:10 +0800 CST'>11-08</span>&nbsp;·&nbsp;2 min
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>在 <a href="/posts/simple-recursion">Simple Recursion</a> 之后，我一度把递归当作一种算法。但通过比较 Divide and Conquer 和 Dynamic Programming，我才发现之前的理解有点问题。</p>
+<p>一切还是要从 Algorithmic Paradigm 说起：</p>
+<blockquote>
+<p>An <strong>algorithmic paradigm</strong> or <strong>algorithm design paradigm</strong> is a generic model or framework which underlies the design of a class of <a href="https://en.wikipedia.org/wiki/Algorithm">algorithms</a>. An algorithmic <a href="https://en.wikipedia.org/wiki/Paradigm">paradigm</a> is an abstraction higher than the notion of an algorithm, just as an algorithm is an abstraction higher than a <a href="https://en.wikipedia.org/wiki/Computer_program">computer program</a>.</p>
+</blockquote>
+<p>算法范式，是在算法的层面上抽象出来的一种更泛化的思想，常用的有：</p>
+<ul>
+<li>Brute-force search 暴力解法</li>
+<li>Backtracking 回溯算法</li>
+<li>Greedy algorithm 贪心算法</li>
+<li>Divide and conquer 分治法</li>
+<li>Dynamic programming 动态规划</li>
+</ul>
+<p>Divide and Conquer 的基本思路是把复杂的问题分解成多个类似的简单问题，解决之后再组合起来得到最终结果。这种算法有很多应用，比如排序中的 Merge Sort，先将数列分解成单个元素，然后再归并，这时子数组都已经排好顺序了，所以过程很快。</p>
+<p>对于 DC 来说递归就成为一种很合适的实现方式，因为递归的调用是重复同一套逻辑，而 DC 中的问题和子问题也是相似的。但是这样性能会比较低下，因为很多子问题可能都是重复的，举 Fibonacci 的例子来说：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fib</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fib(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> fib(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>由于重复的子问题太多，最后的时间复杂度会高达 O(2^n). 此时就需要利用 Memoization 来优化，也就是缓存中间的计算结果，比如下面这个版本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> functools <span style="color:#f92672">import</span> cache
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@cache</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fib</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fib(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> fib(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>而这种解法实际上可以归类到另一种范式：动态规划。</p>
+<p>Dynamic Programming 也是把问题划分成一个个小的子问题来解决，它包含两个要素：</p>
+<ol>
+<li>问题的最优解可以看成子问题的最优解的组合</li>
+<li>子问题存在重复的情况，如 Fibonacci 的例子</li>
+</ol>
+<p>如果不存在子问题的重复，而只需要求出各个子问题的最优解再合并的话，就变回 Divide and Conquer 而不算是 Dynamic Programming 了，比如 Merge Sort 和 Quick Sort.</p>
+<p>动态规划一般有两种实现思路：top-down 和 bottom-up. 上面缓存的写法就是 top-down，相当于把 n 从大到小地解决。而 bottom-up 可以用迭代来实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fib</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n):
+</span></span><span style="display:flex;"><span>        x, y <span style="color:#f92672">=</span> y, x <span style="color:#f92672">+</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> y
+</span></span></code></pre></div><p>此时可以更好地看出来，递归和算法范式并不是同一层面的概念。</p>
+<p>那么 Dynamic Programming 可以用递归实现 bottom-up 么？答案是肯定的，用尾递归：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fib</span>(n, x<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, y<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x <span style="color:#f92672">+</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, y, x <span style="color:#f92672">+</span> y)
+</span></span></code></pre></div><p>为什么这样就是 bottom-up 了呢，注意 x 和 y 的变化，是从 0 和 1 开始变化的，累积到最后 x+y 作为最终结果，所以是自底向上地解决了问题。至于尾递归，知乎上<a href="https://www.zhihu.com/question/20761771/answer/57214778">这个答案</a>解释得很好：</p>
+<blockquote>
+<p>尾递归，比线性递归多一个参数，这个参数是上一次调用函数得到的结果；</p>
+</blockquote>
+<blockquote>
+<p>所以，关键点在于，尾递归每次调用都在收集结果，避免了线性递归不收集结果只能依次展开消耗内存的坏处。</p>
+</blockquote>
+<p>因为尾递归需要参数来保存中间结果，所以函数定义不像普通递归那么简洁，有两种方法可以解决，一种是像上面代码中一样使用参数默认值，还有一种就是<a href="https://en.wikipedia.org/wiki/Currying">柯里化</a>，简单来说就是二次封装，在 Python 中可以用 partial 轻松完成:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> functools <span style="color:#f92672">import</span> partial
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> partial(fib, x<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, y<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>尾递归的效率很高，因为不需要返回上一级调用，所以不会出现栈溢出的情况。类似 GOTO 关键字，经过优化的汇编代码会直接 JUMP 到下一个调用而不用保留之前的内部信息。</p>
+<p>但是这种优化需要编译器的支持，并不是所有语言都会兼容尾递归的优化，比如 Python 一直就没有 TCO(Tail Call Optimization). 其中一个重要原因就是会影响 Debug 时查看对应的栈信息，具体可以参考 Guido 叔的博客（见 References）。</p>
+<p>同样，尾递归只是手段，可以用它来实现 Dynamic Programming，也可以用其他的方法，比如迭代（比如 Fibonacci 中迭代的复杂度更低，因为只需要 O(1) 的空间）。DP 的关键在于 Memoization 而不是递归，这也说明了方法和原理的关系，前者可以达到目的，但是代替不了后者本身。</p>
+<hr>
+<p><em>References</em></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Algorithmic_paradigm">Algorithmic paradigm - Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">Divide and Conquer - Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Dynamic_programming">Dynamic Programming - Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tail_call">Tail Call - Wikipedia</a></li>
+<li><a href="https://www.ruanyifeng.com/blog/2015/04/tail-call.html">尾调用优化 - 阮一峰</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Currying">柯里化 - Wikipedia</a></li>
+<li><a href="http://neopythonic.blogspot.com/2009/04/tail-recursion-elimination.html">Tail Recursion Elimination - Guido</a></li>
+<li><a href="http://neopythonic.blogspot.com/2009/04/final-words-on-tail-calls.html">Final Words on Tail Calls - Guido</a></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://iamgodot.com/tags/dsa/">dsa</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://iamgodot.com/posts/overflow-in-python/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>Overflow in Python</span>
+  </a>
+  <a class="next" href="https://iamgodot.com/posts/record-terminal/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Record Terminal as GIF</span>
+  </a>
+</nav>
+
+  </footer>
+<script src="https://giscus.app/client.js"
+        data-repo="iamgodot/godot-blog-comments"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkzOTk0Nzk0MTY="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOF8-SeM4CO3OX"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark_dimmed"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2020-2022 <a href="https://iamgodot.com">Godot&#39;s Blog</a></span>
+    <span>
+        | <a href="http://beian.miit.gov.cn/" target="_blank">京ICP备20005558号-2</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
