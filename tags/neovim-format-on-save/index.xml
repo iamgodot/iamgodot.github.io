@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Neovim format on save on Godot's Blog</title><link>https://iamgodot.com/tags/neovim-format-on-save/</link><description>Recent content in Neovim format on save on Godot's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 20 Apr 2023 16:05:53 +0800</lastBuildDate><atom:link href="https://iamgodot.com/tags/neovim-format-on-save/index.xml" rel="self" type="application/rss+xml"/><item><title>Formatting in Neovim</title><link>https://iamgodot.com/posts/formatting-in-neovim/</link><pubDate>Thu, 20 Apr 2023 16:05:53 +0800</pubDate><guid>https://iamgodot.com/posts/formatting-in-neovim/</guid><description>With Neovim and null-ls plugin we can make code formatting work like a charm, as I stated in My Neovim Revamp previously. While I was happily enjoying it, I did some tweaking for a little more convenience, such as:
-Format on save.
-Customize formatter.
-Format conditionally in runtime.
-Let&amp;rsquo;s get right into it.
-Format on save This is plain easy if you check out the wiki of null-ls. According to this part, all you need is copy&amp;amp;paste the code into your own config.</description></item></channel></rss>
