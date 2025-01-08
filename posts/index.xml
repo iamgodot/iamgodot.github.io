@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Godot's Blog</title><link>https://blog.iamgodot.com/posts/</link><description>Recent content in Posts on Godot's Blog</description><generator>Hugo -- 0.140.2</generator><language>en-us</language><lastBuildDate>Mon, 26 Aug 2024 15:52:11 -0700</lastBuildDate><atom:link href="https://blog.iamgodot.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>读《平凡的世界》</title><link>https://blog.iamgodot.com/posts/the-ordinary-world/</link><pubDate>Mon, 26 Aug 2024 15:52:11 -0700</pubDate><guid>https://blog.iamgodot.com/posts/the-ordinary-world/</guid><description>&lt;p>一直都惦记着读一读这本书，但也许是觉得这样的大部头不好啃，所以迟迟没有开始，最近突然来了兴致，读起来便一发不可收拾，短短几天翻完了，却又感到意犹未尽。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on 多随笔</title><link>https://blog.iamgodot.com/posts/</link><description>Recent content in Posts on 多随笔</description><generator>Hugo -- 0.140.2</generator><language>en-us</language><lastBuildDate>Mon, 26 Aug 2024 15:52:11 -0700</lastBuildDate><atom:link href="https://blog.iamgodot.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>读《平凡的世界》</title><link>https://blog.iamgodot.com/posts/the-ordinary-world/</link><pubDate>Mon, 26 Aug 2024 15:52:11 -0700</pubDate><guid>https://blog.iamgodot.com/posts/the-ordinary-world/</guid><description>&lt;p>一直都惦记着读一读这本书，但也许是觉得这样的大部头不好啃，所以迟迟没有开始，最近突然来了兴致，读起来便一发不可收拾，短短几天翻完了，却又感到意犹未尽。&lt;/p>
 &lt;p>不知为何，黄土地的故事总是很吸引我，比如《血色浪漫》里钟跃民几人在陕北插队那一段就让我印象深刻。贫瘠的土地，苦难的人们，所有的酸甜苦辣都在一首首的信天游中迸发，荡气回肠，而人与自然间长久的生存斗争又激发出无穷的魅力。这一切在那个动荡的年代背景下，让我难以想象到底发生过多少曲折不易的事情，也恨不得亲身跳进漫天的黄沙中，与老乡们一起为了活下去而煎熬。&lt;/p>
 &lt;blockquote>
 &lt;p>不论在任何时代，只有年轻的血液才会如此沸腾和激荡。每一个人都不同程度有过自己的少年意气，有过自己青春的梦想和冲动。&lt;/p>
@@ -11,42 +11,7 @@
 &lt;p>小说的最后，少平选择回到了铜城，之后也许当了一辈子煤矿工人，但这绝不是一种失败，因为他已经完成自我的救赎。从双水村到原西县，从黄原再到铜城，他见识了外面的世界，也走出了心中的牢笼。我想，每个人都是一样，我们都有属于自己的枷锁，唯有找到它，面对它，打破它，我们才能从内心的恐惧感中解脱，最终坦然地面对死亡。以《刀锋》中的一句话做结吧：&lt;/p>
 &lt;blockquote>
 &lt;p>剃刀边缘无比锋利，欲通过者无不艰辛；是故智者常言，救赎之道难行。&lt;/p>
-&lt;/blockquote></description></item><item><title>说声再见</title><link>https://blog.iamgodot.com/posts/a-new-podcast-app/</link><pubDate>Tue, 07 May 2024 14:08:06 -0700</pubDate><guid>https://blog.iamgodot.com/posts/a-new-podcast-app/</guid><description>&lt;p>上个月就看到 Google Podcasts 准备停运的消息，但服务并没有下线，这让我还抱着一丝侥幸心理，直到前几天再次打开时页面已经变成下图的样子。&lt;/p>
-&lt;p>&lt;img alt="Google podcast is no longer available" loading="lazy" src="https://blog.iamgodot.com/images/google-podcast.png">&lt;/p>
-&lt;p>该走的总要走，好在高质量的播客 App 还有很多，我简单试用了下之前注意到的 &lt;a href="https://antennapod.org/">AntennaPod&lt;/a> 便决定换用它了，亮点很明显：开源、无广告、简洁好用。除了标配的订阅、收藏和队列功能，它提供了个类似 Readwise 的 Home screen:&lt;/p>
-&lt;p>&lt;img loading="lazy" src="https://antennapod.org/assets/images/blog/2023/home-screen-showcase.png">&lt;/p>
-&lt;p>本质上就是提供了一些定制化的推荐与简洁入口，因为平时 Readwise 用得比较多，这给我带来了一份额外的亲切感。&lt;/p>
-&lt;p>当然，AntennaPod 也支持 OPML 格式的数据导入，Google Podcasts 的页面现在还是可以下载之前的订阅源的，或者也可以直接参考&lt;a href="https://antennapod.org/blog/2023/11/google-podcasts-migration">这篇教程&lt;/a>。&lt;/p>
-&lt;p>除了这次迁移，还发现了个很神奇的网站，可以方便地查找播客的文稿：&lt;a href="https://app.podscribe.ai">app.podscribe.ai&lt;/a>. 虽然看起来平平无奇，也不是大厂的产品，但是真的好用，而且免费。在 Reddit 看到关于他们的帖子说目标是汇集所有的播客并提供语音文本，不过用的应该还是第三方的 ASR 服务，所以也不可能一直用爱发电，也许还在寻找合适的盈利方式中吧。&lt;/p>
-&lt;p>其实他们网站既可以直接听也提供了文字稿，感觉甚至不再需要 App 了 🤷。&lt;/p>
-&lt;p>&lt;img alt="app.podscribe.ai" loading="lazy" src="https://blog.iamgodot.com/images/podscribe.png">&lt;/p>
-&lt;p>最后推荐一些自己在听的播客吧：&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;a href="https://www.nytimes.com/column/the-daily">The Daily&lt;/a> 新闻时政，语速比较快，了解时事专用&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://www.nytimes.com/column/modern-love">Modern Love&lt;/a> 感情专栏，年纪大的我现在反而很爱听&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://www.npr.org/lifekit">Life Kit&lt;/a> 各类生活小知识，听起来放松不累&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://eatyourcrust.com/">Eat Your Crust&lt;/a> 很随意的聊天，适合用来熟悉生活化口语&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://www.insideofyoupodcast.com/">Inside of You&lt;/a> 欧美娱乐圈采访类，有感兴趣的明星时是最棒的&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://www.philosophizethis.org/">Philosophize This!&lt;/a> 最近发现的一个哲学播客，感觉很硬核&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://www.thisamericanlife.org">This American Life&lt;/a> 网站做得很棒，自带文本，略长，每集一小时起&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>最后还是要说声再见，不光对 Google Podcasts，也对一个朋友。人生总有聚散，相识也难免别离，重要的永远是学会珍惜生活中的点点滴滴。生活依旧美好，时光待我不薄，再见。&lt;/p></description></item><item><title>Implement Dark Mode With React</title><link>https://blog.iamgodot.com/posts/implement-dark-mode-with-react/</link><pubDate>Fri, 03 May 2024 11:10:08 -0700</pubDate><guid>https://blog.iamgodot.com/posts/implement-dark-mode-with-react/</guid><description>&lt;p>Being able to switch between light and dark mode has always been a fancy feature in my mind when it comes to the UI part of an app. Recently I&amp;rsquo;ve done it myself and found it actually quite straightforward to implement.&lt;/p>
-&lt;h1 id="rationale">Rationale&lt;/h1>
-&lt;p>Aside from any frameworks, let&amp;rsquo;s think about how color mode switch should work. Apparently we need 2 sets of colors defined with CSS, as well as an easy way to change between them for our HTML elements.&lt;/p></description></item><item><title>奶奶</title><link>https://blog.iamgodot.com/posts/grandma/</link><pubDate>Fri, 16 Feb 2024 22:44:08 -0800</pubDate><guid>https://blog.iamgodot.com/posts/grandma/</guid><description>&lt;p>奶奶走了。&lt;/p>
+&lt;/blockquote></description></item><item><title>奶奶</title><link>https://blog.iamgodot.com/posts/grandma/</link><pubDate>Fri, 16 Feb 2024 22:44:08 -0800</pubDate><guid>https://blog.iamgodot.com/posts/grandma/</guid><description>&lt;p>奶奶走了。&lt;/p>
 &lt;p>一切发生得太过突然，远在异国他乡的我迟迟不知道作何反应。也许是事发仓促，也许是相隔太远，也或许是从小没有经历过失去亲人的我，第一次面对，还没有办法意识到这真正意味着什么。&lt;/p>
 &lt;p>同样，我也无法想象现在的老爸是什么感觉。他是个大孝子，每年春节都会回老家过年。这次回去还跟我提到，奶奶现在身体大不如前，看着她一天天老去，心里不是滋味。初一那天给我拍了视频，里面还看到奶奶坐在椅子和别人聊天，第二天便出了事。老人是突然陷入昏迷，后面也没再醒来。我想那会不会就像做梦，希望梦里没有病痛，她只是轻轻地看着自己的儿女孙辈们，挥手告别，然后迎着光来的方向，去和爷爷团聚了。&lt;/p>
 &lt;p>说实话，我对奶奶的记忆不多。但出国之前，我专程去看了她，那一天的场景，不断地浮现在我的脑海里。我们一起吃了午饭，又看电视，说了很多很多话，还合了影。我很庆幸，也很感恩这半天的团聚，回忆起来都是开心的样子，我告诉她未来的打算，她高兴地听，又提醒我该早点成家。这一切是如此地历历在目，让我仍然觉得奶奶还在杭州等着我，而不是已经离开了。&lt;/p>
